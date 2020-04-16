@@ -1,0 +1,31 @@
+version: 2
+
+models:
+
+  - name: mailchimp_campaigns
+    columns:
+      - name: campaign_id
+        tests:
+          - unique
+          - not_null
+
+  - name: mailchimp_lists
+    columns:
+      - name: list_id
+        tests:
+          - unique
+          - not_null
+
+  - name: mailchimp_members
+    columns:
+      - name: member_id
+        tests:
+          - unique
+          - not_null
+
+  - name: mailchimp_campaign_emails
+    columns:
+      - name: email_id
+        tests:
+          - unique
+          - not_null

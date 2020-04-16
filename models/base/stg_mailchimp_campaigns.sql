@@ -6,7 +6,7 @@ with base as (
 ), fields as (
 
     select 
-        id,
+        id as campaign_id,
         create_time,
         list_id,
         reply_to as reply_to_email,

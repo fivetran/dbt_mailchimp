@@ -6,7 +6,7 @@ with base as (
 ), fields as (
 
     select 
-        id,
+        id as member_id,
         email_address,
         email_client,
         email_type,

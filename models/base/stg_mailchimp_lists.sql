@@ -6,7 +6,7 @@ with base as (
 ), fields as (
 
     select 
-        id,
+        id as list_id,
         date_created,
         name,
         list_rating

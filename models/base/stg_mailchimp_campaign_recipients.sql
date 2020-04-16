@@ -16,7 +16,8 @@ with base as (
 
     select 
         *,
-        {{ dbt_utils.surrogate_key(['campaign_id','member_id','list_id']) }} as id
+        {{ dbt_utils.surrogate_key(['campaign_id','member_id','list_id']) }} as id,
+        {{ dbt_utils.surrogate_key(['campaign_id','member_id']) }} as email_id
     from fields
     
 )

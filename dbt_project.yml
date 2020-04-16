@@ -14,5 +14,10 @@ clean-targets:
     - "dbt_modules"
 
 models:
-  mailchimp:
-      materialized: table
+    mailchimp:
+        vars:
+            campaign:
+            campaign_recipient:
+            campaign_recipient_activity:
+            list:
+            member:

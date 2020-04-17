@@ -1,3 +1,5 @@
+{% set values = ['open','click'] %}
+
 with activities as (
 
     select *
@@ -10,15 +12,21 @@ with activities as (
         {{
             dbt_utils.pivot(
                 column='action_type',
-                values=['open','click'],
+                values=values,
                 agg='sum',
                 suffix='s'
             )
         }},
-
-        count(distinct case when action_type = 'open' then member_id end) as unique_opens,
-        count(distinct case when action_type = 'click' then member_id end) as unique_clicks
-        
+        {{
+            dbt_utils.pivot(
+                column='action_type',
+                values=values,
+                agg='count',
+                distinct=True,
+                prefix='unique_',
+                suffix='s'
+            )
+        }}
     from activities
     group by 1
     

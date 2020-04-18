@@ -16,7 +16,8 @@ with members as (
         coalesce(activities.opens,0) as opens,
         coalesce(activities.clicks,0) as clicks,
         coalesce(activities.unique_opens,0) as unique_opens,
-        coalesce(activities.unique_clicks,0) as unique_clicks
+        coalesce(activities.unique_clicks,0) as unique_clicks,
+        coalesce(activities.unsubscribes,0) as unsubscribes
     from members
     left join activities
         on members.member_id = activities.member_id

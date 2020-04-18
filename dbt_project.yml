@@ -21,3 +21,4 @@ models:
             campaign_recipient_activity:
             list:
             member:
+            unsubscribe:

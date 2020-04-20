@@ -8,7 +8,12 @@ with lists as (
     select *
     from {{ ref('activities_by_list') }}
 
-), joined as (
+), members as (
+
+    select *
+    from {{ ref('members_by_list') }}
+
+), metrics as (
 
     select 
         lists.*,
@@ -22,7 +27,17 @@ with lists as (
     left join activities
         on lists.list_id = activities.list_id
 
+), metrics_xf as (
+
+    select 
+        metrics.*,
+        coalesce(members.count_members,0) as count_members,
+        members.most_recent_signup_timestamp
+    from metrics
+    left join members
+        on metrics.list_id = members.list_id
+
 )
 
 select *
-from joined
+from metrics_xf

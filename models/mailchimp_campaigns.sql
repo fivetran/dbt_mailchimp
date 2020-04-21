@@ -6,7 +6,7 @@ with campaigns as (
 ), activities as (
 
     select *
-    from {{ ref('activities_by_campaign') }}
+    from {{ ref('campaign_activities_by_campaign') }}
 
 ), joined as (
 

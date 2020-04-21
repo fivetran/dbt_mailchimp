@@ -6,7 +6,7 @@ with recipients as (
 ), activities as (
 
     select *
-    from {{ ref('activities_by_email') }}
+    from {{ ref('campaign_activities_by_email') }}
 
 ), unsubscribes as (
 

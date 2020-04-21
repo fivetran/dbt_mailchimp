@@ -6,7 +6,7 @@ with lists as (
 ), activities as (
 
     select *
-    from {{ ref('activities_by_list') }}
+    from {{ ref('campaign_activities_by_list') }}
 
 ), members as (
 

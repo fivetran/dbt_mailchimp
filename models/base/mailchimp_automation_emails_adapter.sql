@@ -12,7 +12,7 @@ with base as (
         automation_id,
         create_time as created_timestamp,
         start_time as started_timestamp,
-        send_time as sent_timestamp,
+        send_time as send_timestamp,
 
         -- email details
         from_name,

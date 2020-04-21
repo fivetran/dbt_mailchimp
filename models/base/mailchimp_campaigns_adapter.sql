@@ -2,6 +2,7 @@ with base as (
 
     select *
     from {{ var('campaign') }}
+    where _fivetran_deleted = false
 
 ), fields as (
 

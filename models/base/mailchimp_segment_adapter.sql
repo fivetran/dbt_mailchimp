@@ -1,3 +1,5 @@
+{{ config(enabled=var('using_segments', True)) }}
+
 with base as (
 
     select *

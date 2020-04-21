@@ -2,13 +2,6 @@ version: 2
 
 models:
 
-  - name: mailchimp_campaigns
-    columns:
-      - name: campaign_id
-        tests:
-          - unique
-          - not_null
-
   - name: mailchimp_lists
     columns:
       - name: list_id
@@ -23,9 +16,44 @@ models:
           - unique
           - not_null
 
+  - name: mailchimp_campaigns
+    columns:
+      - name: campaign_id
+        tests:
+          - unique
+          - not_null
+
   - name: mailchimp_campaign_emails
     columns:
       - name: email_id
+        tests:
+          - unique
+          - not_null
+
+  - name: mailchimp_campaign_activities
+    columns:
+      - name: activity_id
+        tests:
+          - unique
+          - not_null
+
+  - name: mailchimp_automations
+    columns:
+      - name: automation_id
+        tests:
+          - unique
+          - not_null
+
+  - name: mailchimp_automation_emails
+    columns:
+      - name: automation_recipient_id
+        tests:
+          - unique
+          - not_null
+
+  - name: mailchimp_automation_activities
+    columns:
+      - name: activity_id
         tests:
           - unique
           - not_null

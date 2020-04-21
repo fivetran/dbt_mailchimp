@@ -25,9 +25,10 @@ with recipients as (
     select
         emails.*,
         recipients.member_id,
-        recipients.list_id
+        recipients.list_id,
+        recipients.automation_recipient_id
     from emails
-    left join recipients
+    inner join recipients
         on emails.automation_email_id = recipients.automation_email_id
 
 ), metrics as (
@@ -40,10 +41,7 @@ with recipients as (
         coalesce(activities.unique_clicks) as unique_clicks,
         activities.was_opened,
         activities.was_clicked,
-        activities.first_open_timestamp,
-        activities.time_to_open_minutes,
-        activities.time_to_open_hours,
-        activities.time_to_open_days
+        activities.first_open_timestamp
     from recipients_xf
     left join activities
         on recipients_xf.automation_email_id = activities.automation_email_id

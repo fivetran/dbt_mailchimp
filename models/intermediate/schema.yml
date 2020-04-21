@@ -30,6 +30,13 @@ models:
           - not_null
           - unique
 
+  - name: automation_activities_by_segment
+    columns:
+      - name: segment_id
+        tests: 
+          - not_null
+          - unique
+
   - name: campaign_activities_by_campaign
     columns:
       - name: campaign_id
@@ -54,6 +61,13 @@ models:
   - name: campaign_activities_by_member
     columns:
       - name: member_id
+        tests: 
+          - not_null
+          - unique
+
+  - name: campaign_activities_by_segment
+    columns:
+      - name: segment_id
         tests: 
           - not_null
           - unique

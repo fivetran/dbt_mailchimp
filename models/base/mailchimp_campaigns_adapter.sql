@@ -8,6 +8,7 @@ with base as (
 
     select 
         id as campaign_id,
+        segment_id,
         create_time as create_timestamp,
         send_time as send_timestamp, 
         list_id,

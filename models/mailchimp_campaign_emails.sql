@@ -13,10 +13,24 @@ with recipients as (
     select *
     from {{ ref('mailchimp_unsubscribes_adapter') }}
 
+), campaigns as (
+
+    select *
+    from {{ ref('mailchimp_campaigns_adapter') }}
+
+), joined as (
+
+    select 
+        recipients.*,
+        campaigns.segment_id
+    from recipients
+    left join campaigns
+        on recipients.campaign_id = campaigns.campaign_id
+
 ), metrics as (
 
     select
-        recipients.*,
+        joined.*,
         coalesce(activities.opens) as opens,
         coalesce(activities.unique_opens) as unique_opens,
         coalesce(activities.clicks) as clicks,
@@ -27,9 +41,9 @@ with recipients as (
         activities.time_to_open_minutes,
         activities.time_to_open_hours,
         activities.time_to_open_days
-    from recipients
+    from joined
     left join activities
-        on recipients.email_id = activities.email_id
+        on joined.email_id = activities.email_id
 
 ), unsubscribes_xf as (
 

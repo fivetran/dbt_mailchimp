@@ -20,16 +20,24 @@ with recipients as (
     select *
     from {{ ref('mailchimp_unsubscribes_adapter') }}
 
+), automations as (
+
+    select *
+    from {{ ref('mailchimp_automations_adapter') }}
+
 ), recipients_xf as (
 
     select
         emails.*,
         recipients.member_id,
         recipients.list_id,
-        recipients.automation_recipient_id
+        recipients.automation_recipient_id,
+        automations.segment_id
     from emails
     inner join recipients
         on emails.automation_email_id = recipients.automation_email_id
+    left join automations
+        on emails.automation_id = automations.automation_id
 
 ), metrics as (
 

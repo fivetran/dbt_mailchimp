@@ -22,8 +22,7 @@ with activities as (
         sum(case when action_type = 'open' then 1 end) as opens,
         sum(case when action_type = 'click' then 1 end) as clicks, 
         count(distinct case when action_type = 'open' then member_id end) as unique_opens, 
-        count(distinct case when action_type = 'click' then member_id end) as unique_clicks,
-        min(case when action_type = 'open' then activity_timestamp end) as first_open_timestamp
+        count(distinct case when action_type = 'click' then member_id end) as unique_clicks
     from activities
     group by 1
 
@@ -51,7 +50,6 @@ with activities as (
         pivoted.clicks,
         pivoted.unique_opens,
         pivoted.unique_clicks,
-        pivoted.first_open_timestamp,
         sends.sends,
         unsubscribes_xf.unsubscribes
     from pivoted

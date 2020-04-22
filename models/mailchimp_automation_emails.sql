@@ -34,8 +34,7 @@ with emails as (
         coalesce(activities.unique_opens, 0) as unique_opens,
         coalesce(activities.clicks, 0) as clicks,
         coalesce(activities.unique_clicks, 0) as unique_clicks,
-        coalesce(activities.unsubscribes, 0) as unsubscribes,
-        activities.first_open_timestamp
+        coalesce(activities.unsubscribes, 0) as unsubscribes
     from joined
     left join activities
         on joined.automation_email_id = activities.automation_email_id

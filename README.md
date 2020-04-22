@@ -10,10 +10,10 @@ The primary outputs of this package are described below. There are several inter
 
 | model                         | description                                                                                                                                                              |
 | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| mailchimp_automation_emails   | Each record represents the send of an automation email, enriched with click, open and unsubscribe metrics. (Enabled if you are using automations.)                       |
+| mailchimp_automation_emails   | Each record represents an automation email (that make up automations), enriched with click, open and unsubscribe metrics. (Enabled if you are using automations.)        |
 | mailchimp_automations         | Each record represents an automation in Mailchimp, enriched with click, open and unsubscribe metrics. (Enabled if you are using automations.)                            |
 | mailchimp_campaign_activities | Each record represents an activity taken in relation to a campaign email, enriched with data about when the campaign was sent and the lag between send and the activity. |
-| mailchimp_campaign_emails     | Each record represents the send of a campaign emails, enriched with click, open and unsubscribe metrics.                                                                 |
+| mailchimp_campaign_recipients | Each record represents the send of a campaign email, enriched with click, open and unsubscribe metrics.                                                                  |
 | mailchimp_campaigns           | Each record represents a campaign in Mailchimp, enriched with click, open and unsubscribe metrics.                                                                       |
 | mailchimp_lists               | Each record represents a list in Mailchimp, enriched with campaign metrics, (optionally) automation metrics and information about members.                               |
 | mailchimp_members             | Each record represents a member in Mailchimp, enriched with campaign metrics and (optionally) automation metrics.                                                        |

@@ -14,7 +14,8 @@ with base as (
         list_id,
         timestamp as activity_timestamp,
         ip as ip_address,
-        url
+        url,
+        bounce_type
     from base
 
 ), unique_key as (

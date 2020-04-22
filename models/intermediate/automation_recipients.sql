@@ -1,9 +1,7 @@
-{{ config(enabled=var('using_automations', True)) }}
-
-with activities as (
+with recipients as (
 
     select *
-    from {{ ref('mailchimp_automation_activities_adapter') }}
+    from {{ ref('mailchimp_automation_recipients_adapter') }}
 
 ), automation_emails as (
 
@@ -18,16 +16,16 @@ with activities as (
 ), joined as (
 
     select 
-        activities.*,
-        automations.automation_id,
-        automations.segment_id
-    from activities
+        recipients.*,
+        automations.segment_id,
+        automations.automation_id
+    from recipients
     left join automation_emails
-        on activities.automation_email_id = automation_emails.automation_email_id
+        on recipients.automation_email_id = automation_emails.automation_email_id
     left join automations
         on automation_emails.automation_id = automations.automation_id
 
 )
 
-select *
+select * 
 from joined

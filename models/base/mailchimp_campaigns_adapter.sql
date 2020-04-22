@@ -21,7 +21,6 @@ with base as (
         auto_tweet,
         clicktale,
         content_type,
-        create_time,
         drag_and_drop,
         fb_comments,
         folder_id,

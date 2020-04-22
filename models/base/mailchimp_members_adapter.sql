@@ -24,8 +24,6 @@ with base as (
         latitude,
         longitude,
         member_rating,
-        merge_fname,
-        merge_lname,
         timezone,
         unique_email_id,
         vip

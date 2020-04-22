@@ -26,14 +26,6 @@ with activities as (
         min(case when action_type = 'open' then activity_timestamp end) as first_open_timestamp
     from activities
     group by 1
-    
-), booleans as (
-
-    select 
-        *,
-        case when opens > 0 then True else False end as was_opened,
-        case when clicks > 0 then True else False end as was_clicked
-    from pivoted
 
 ), sends as (
 
@@ -54,21 +46,19 @@ with activities as (
 ), joined as (
 
     select
-        coalesce(booleans.automation_email_id, sends.automation_email_id, unsubscribes_xf.automation_email_id) as automation_email_id,
-        booleans.opens,
-        booleans.clicks,
-        booleans.unique_opens,
-        booleans.unique_clicks,
-        booleans.first_open_timestamp,
-        booleans.was_opened,
-        booleans.was_clicked,
+        coalesce(pivoted.automation_email_id, sends.automation_email_id, unsubscribes_xf.automation_email_id) as automation_email_id,
+        pivoted.opens,
+        pivoted.clicks,
+        pivoted.unique_opens,
+        pivoted.unique_clicks,
+        pivoted.first_open_timestamp,
         sends.sends,
         unsubscribes_xf.unsubscribes
-    from booleans
+    from pivoted
     full outer join sends
-        on booleans.automation_email_id = sends.automation_email_id
+        on pivoted.automation_email_id = sends.automation_email_id
     full outer join unsubscribes_xf
-        on booleans.automation_email_id = unsubscribes_xf.automation_email_id
+        on pivoted.automation_email_id = unsubscribes_xf.automation_email_id
 
 )
 

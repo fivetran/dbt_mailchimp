@@ -27,14 +27,6 @@ with activities as (
     from activities
     where segment_id is not null
     group by 1
-    
-), booleans as (
-
-    select 
-        *,
-        case when opens > 0 then True else False end as was_opened,
-        case when clicks > 0 then True else False end as was_clicked
-    from pivoted
 
 ), sends as (
 
@@ -57,21 +49,19 @@ with activities as (
 ), joined as (
 
     select
-        coalesce(booleans.segment_id, sends.segment_id, unsubscribes_xf.segment_id) as segment_id,
-        booleans.opens,
-        booleans.clicks,
-        booleans.unique_opens,
-        booleans.unique_clicks,
-        booleans.first_open_timestamp,
-        booleans.was_opened,
-        booleans.was_clicked,
+        coalesce(pivoted.segment_id, sends.segment_id, unsubscribes_xf.segment_id) as segment_id,
+        pivoted.opens,
+        pivoted.clicks,
+        pivoted.unique_opens,
+        pivoted.unique_clicks,
+        pivoted.first_open_timestamp,
         sends.sends,
         unsubscribes_xf.unsubscribes
-    from booleans
+    from pivoted
     full outer join sends
-        on booleans.segment_id = sends.segment_id
+        on pivoted.segment_id = sends.segment_id
     full outer join unsubscribes_xf
-        on booleans.segment_id = unsubscribes_xf.segment_id
+        on pivoted.segment_id = unsubscribes_xf.segment_id
 
 )
 

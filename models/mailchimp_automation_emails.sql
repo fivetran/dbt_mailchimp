@@ -35,8 +35,6 @@ with emails as (
         coalesce(activities.clicks, 0) as clicks,
         coalesce(activities.unique_clicks, 0) as unique_clicks,
         coalesce(activities.unsubscribes, 0) as unsubscribes,
-        activities.was_opened,
-        activities.was_clicked,
         activities.first_open_timestamp
     from joined
     left join activities

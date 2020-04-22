@@ -1,26 +1,28 @@
-with campaigns as (
+{{ config(enabled=var('using_automations', True)) }}
+
+with automations as (
 
     select *
-    from {{ ref('mailchimp_campaigns_adapter')}}
+    from {{ ref('mailchimp_automations_adapter')}}
 
 ), activities as (
 
     select *
-    from {{ ref('campaign_activities_by_campaign') }}
+    from {{ ref('automation_activities_by_automation') }}
 
 ), joined as (
 
     select 
-        campaigns.*,
+        automations.*,
         coalesce(activities.sends,0) as sends,
         coalesce(activities.opens,0) as opens,
         coalesce(activities.clicks,0) as clicks,
         coalesce(activities.unique_opens,0) as unique_opens,
         coalesce(activities.unique_clicks,0) as unique_clicks,
         coalesce(activities.unsubscribes,0) as unsubscribes
-    from campaigns
+    from automations
     left join activities
-        on campaigns.campaign_id = activities.campaign_id
+        on automations.automation_id = activities.automation_id
 
 )
 

@@ -1,33 +1,35 @@
-with members as (
+{{ config(enabled=var('using_segments', True)) }}
+
+with segments as (
 
     select *
-    from {{ ref('mailchimp_members_adapter')}}
+    from {{ ref('mailchimp_segments_adapter')}}
 
 ), campaign_activities as (
 
     select *
-    from {{ ref('campaign_activities_by_member') }}
+    from {{ ref('campaign_activities_by_segment') }}
 
 ), metrics as (
 
     select 
-        members.*,
+        segments.*,
         coalesce(campaign_activities.sends,0) as campaign_sends,
         coalesce(campaign_activities.opens,0) as campaign_opens,
         coalesce(campaign_activities.clicks,0) as campaign_clicks,
         coalesce(campaign_activities.unique_opens,0) as campaign_unique_opens,
         coalesce(campaign_activities.unique_clicks,0) as campaign_unique_clicks,
         coalesce(campaign_activities.unsubscribes,0) as campaign_unsubscribes
-    from members
+    from segments
     left join campaign_activities
-        on members.member_id = campaign_activities.member_id
+        on segments.segment_id = campaign_activities.segment_id
 
 {% if var('using_automations', True) %}
 
 ), automation_activities as (
 
     select *
-    from {{ ref('automation_activities_by_member') }}
+    from {{ ref('automation_activities_by_segment') }}
 
 ), metrics_xf as (
 
@@ -41,7 +43,7 @@ with members as (
         coalesce(automation_activities.unsubscribes,0) as automation_unsubscribes
     from metrics
     left join automation_activities
-        on metrics.member_id = automation_activities.member_id
+        on metrics.segment_id = automation_activities.segment_id
 
 )
 

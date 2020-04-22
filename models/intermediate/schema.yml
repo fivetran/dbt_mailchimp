@@ -1,0 +1,80 @@
+version: 2
+
+models:
+
+  - name: automation_activities_by_automation
+    columns:
+      - name: automation_id
+        tests: 
+          - not_null
+          - unique
+
+  - name: automation_activities_by_email
+    columns:
+      - name: automation_email_id
+        tests: 
+          - not_null
+          - unique
+
+  - name: automation_activities_by_list
+    columns:
+      - name: list_id
+        tests: 
+          - not_null
+          - unique
+
+  - name: automation_activities_by_member
+    columns:
+      - name: member_id
+        tests: 
+          - not_null
+          - unique
+
+  - name: automation_activities_by_segment
+    columns:
+      - name: segment_id
+        tests: 
+          - not_null
+          - unique
+
+  - name: campaign_activities_by_campaign
+    columns:
+      - name: campaign_id
+        tests: 
+          - not_null
+          - unique
+
+  - name: campaign_activities_by_email
+    columns:
+      - name: email_id
+        tests: 
+          - not_null
+          - unique
+
+  - name: campaign_activities_by_list
+    columns:
+      - name: list_id
+        tests: 
+          - not_null
+          - unique
+
+  - name: campaign_activities_by_member
+    columns:
+      - name: member_id
+        tests: 
+          - not_null
+          - unique
+
+  - name: campaign_activities_by_segment
+    columns:
+      - name: segment_id
+        tests: 
+          - not_null
+          - unique
+
+  - name: members_by_list
+    columns:
+      - name: list_id
+        tests: 
+          - not_null
+          - unique

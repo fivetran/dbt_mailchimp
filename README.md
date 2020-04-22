@@ -2,7 +2,7 @@
 
 This package models Mailchimp data from Fivetran's data connector. It uses data in the format described by [this ERD](https://docs.google.com/presentation/d/1i8JjWRgP4bDcL-TYv5flABglA_aOBXxA_OF-j1hsDcM/edit#slide=id.g244d368397_0_1).
 
-The main focus of the package is to transform the 'recipient' and 'activity' tables into analytics ready and use that data to provide aggregate metrics about campaigns, automations, lists, members and segments.
+The main focus of the package is to transform the 'recipient' and 'activity' tables into analytics-ready models and use that data to provide aggregate metrics about campaigns, automations, lists, members and segments.
 
 ### Models
 
@@ -17,9 +17,9 @@ The primary outputs of this package are described below. There are several inter
 | mailchimp_campaigns           | Each record represents a campaign in Mailchimp, enriched with click, open and unsubscribe metrics.                                                                       |
 | mailchimp_lists               | Each record represents a list in Mailchimp, enriched with campaign metrics, (optionally) automation metrics and information about members.                               |
 | mailchimp_members             | Each record represents a member in Mailchimp, enriched with campaign metrics and (optionally) automation metrics.                                                        |
-| mailchimp_segments            | Each record represents a segment in Mailchimp, enriched with campaign metrics and (optionally) automation metrics.                                                       |
+| mailchimp_segments            | Each record represents a segment in Mailchimp, enriched with campaign metrics and (optionally) automation metrics. (Enabled if you are using segments.)                  |
 
-## Upcoming changes with 0.17.00
+## Upcoming changes with dbt version 0.17.0
 
 As a result of functionality being released with version 0.17.0 of dbt, there will be some upcoming changes to this package. The staging/adapter models will move into a seperate package, `mailchimp_source`, that defines the staging models and adds a source for Mailchimp data. The two packages will work together seamlessly. By default, this package will reference models in the source package, unless the config is overridden. 
 
@@ -82,9 +82,9 @@ models:
 Additional contributions to this package are very welcome! Please create issues
 or open PRs against `master`. Check out 
 [this post](https://discourse.getdbt.com/t/contributing-to-a-dbt-package/657) 
-on the best workflow for contributing to a package..
+on the best workflow for contributing to a package.
 
-## Resources:
+### Resources:
 - Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)
 - Check out [Discourse](https://discourse.getdbt.com/) for commonly asked questions and answers
 - Join the [chat](http://slack.getdbt.com/) on Slack for live discussions and support

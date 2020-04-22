@@ -51,13 +51,6 @@ models:
           - unique
           - not_null
 
-  - name: mailchimp_automation_activities
-    columns:
-      - name: activity_id
-        tests:
-          - unique
-          - not_null
-
   - name: mailchimp_segments
     columns:
       - name: segment_id

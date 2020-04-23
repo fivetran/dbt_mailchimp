@@ -1,7 +1,7 @@
 with activities as (
 
     select *
-    from {{ ref('mailchimp_campaign_emails')}}
+    from {{ ref('mailchimp_campaign_recipients')}}
 
 ), pivoted as (
 

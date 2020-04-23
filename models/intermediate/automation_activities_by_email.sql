@@ -5,6 +5,16 @@ with activities as (
     select *
     from {{ ref('mailchimp_automation_activities')}}
 
+), recipients as (
+
+    select *
+    from {{ ref('automation_recipients') }}
+
+), unsubscribes as (
+
+    select *
+    from {{ ref('automation_unsubscribes') }}
+
 ), pivoted as (
 
     select 
@@ -12,20 +22,43 @@ with activities as (
         sum(case when action_type = 'open' then 1 end) as opens,
         sum(case when action_type = 'click' then 1 end) as clicks, 
         count(distinct case when action_type = 'open' then member_id end) as unique_opens, 
-        count(distinct case when action_type = 'click' then member_id end) as unique_clicks,
-        min(case when action_type = 'open' then activity_timestamp end) as first_open_timestamp
+        count(distinct case when action_type = 'click' then member_id end) as unique_clicks
     from activities
     group by 1
-    
-), booleans as (
 
-    select 
-        *,
-        case when opens > 0 then True else False end as was_opened,
-        case when clicks > 0 then True else False end as was_clicked
+), sends as (
+
+    select
+        automation_email_id,
+        count(*) as sends
+    from recipients
+    group by 1
+
+), unsubscribes_xf as (
+
+    select
+        campaign_id as automation_email_id,
+        count(*) as unsubscribes
+    from unsubscribes
+    group by 1
+
+), joined as (
+
+    select
+        coalesce(pivoted.automation_email_id, sends.automation_email_id, unsubscribes_xf.automation_email_id) as automation_email_id,
+        pivoted.opens,
+        pivoted.clicks,
+        pivoted.unique_opens,
+        pivoted.unique_clicks,
+        sends.sends,
+        unsubscribes_xf.unsubscribes
     from pivoted
+    full outer join sends
+        on pivoted.automation_email_id = sends.automation_email_id
+    full outer join unsubscribes_xf
+        on pivoted.automation_email_id = unsubscribes_xf.automation_email_id
 
 )
 
 select *
-from booleans
+from joined

@@ -18,3 +18,5 @@ models:
         materialized: table
         base:
             materialized: ephemeral
+        intermediate:
+            materialized: ephemeral

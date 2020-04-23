@@ -13,20 +13,14 @@ with activities as (
     select 
         activities.*,
         campaigns.send_timestamp,
-        {{ dbt_utils.datediff('campaigns.send_timestamp','activities.activity_timestamp','minute') }} as time_since_send_minutes
+        {{ dbt_utils.datediff('campaigns.send_timestamp','activities.activity_timestamp','minute') }} as time_since_send_minutes,
+        {{ dbt_utils.datediff('campaigns.send_timestamp','activities.activity_timestamp','hour') }} as time_since_send_hours,
+        {{ dbt_utils.datediff('campaigns.send_timestamp','activities.activity_timestamp','day') }} as time_since_send_days
     from activities
     left join campaigns
         on activities.campaign_id = campaigns.campaign_id
 
-), since_send_xf as (
-
-    select
-        *,
-        time_since_send_minutes / 60.0 as time_since_send_hours,
-        time_since_send_minutes / (60.0 * 24.0) as time_since_send_days
-    from since_send
-
 )
 
 select *
-from since_send_xf
+from since_send

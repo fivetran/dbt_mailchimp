@@ -2,72 +2,72 @@ version: 2
 
 models:
 
-  - name: mailchimp_automation_activities_adapter
+  - name: stg_mailchimp_automation_activities
     columns:
       - name: activity_id
         tests: 
           - not_null
           - unique
 
-  - name: mailchimp_automation_emails_adapter
+  - name: stg_mailchimp_automation_emails
     columns:
       - name: automation_email_id
         tests: 
           - not_null
           - unique
 
-  - name: mailchimp_automation_recipients_adapter
+  - name: stg_mailchimp_automation_recipients
     columns:
       - name: automation_recipient_id
         tests: 
           - not_null
           - unique
 
-  - name: mailchimp_automations_adapter
+  - name: stg_mailchimp_automations
     columns:
       - name: automation_id
         tests: 
           - not_null
           - unique
 
-  - name: mailchimp_campaign_activities_adapter
+  - name: stg_mailchimp_campaign_activities
     columns:
       - name: activity_id
         tests: 
           - not_null
           - unique
 
-  - name: mailchimp_campaigns_adapter
+  - name: stg_mailchimp_campaigns
     columns:
       - name: campaign_id
         tests: 
           - not_null
           - unique
 
-  - name: mailchimp_lists_adapter
+  - name: stg_mailchimp_lists
     columns:
       - name: list_id
         tests: 
           - not_null
           - unique
 
-  - name: mailchimp_members_adapter
+  - name: stg_mailchimp_members
     columns:
       - name: member_id
         tests: 
           - not_null
           - unique
 
-  - name: mailchimp_segment_members_adapter
+  - name: stg_mailchimp_segment_members
 
-  - name: mailchimp_segments_adapter
+  - name: stg_mailchimp_segments
     columns:
       - name: segment_id
         tests: 
           - not_null
           - unique
 
-  - name: mailchimp_unsubscribes_adapter
+  - name: stg_mailchimp_unsubscribes
     columns:
       - name: id
         tests: 

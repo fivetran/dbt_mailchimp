@@ -1,7 +1,7 @@
 with lists as (
 
     select *
-    from {{ ref('mailchimp_lists_adapter')}}
+    from {{ ref('stg_mailchimp_lists')}}
 
 ), campaign_activities as (
 

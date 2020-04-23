@@ -1,6 +1,6 @@
 # Mailchimp 
 
-This package models Mailchimp data from Fivetran's data connector. It uses data in the format described by [this ERD](https://docs.google.com/presentation/d/1i8JjWRgP4bDcL-TYv5flABglA_aOBXxA_OF-j1hsDcM/edit#slide=id.g244d368397_0_1).
+This package models Mailchimp data from [Fivetran's connector](https://fivetran.com/docs/applications/mailchimp). It uses data in the format described by [this ERD](https://docs.google.com/presentation/d/1i8JjWRgP4bDcL-TYv5flABglA_aOBXxA_OF-j1hsDcM/edit#slide=id.g244d368397_0_1).
 
 The main focus of the package is to transform the 'recipient' and 'activity' tables into analytics-ready models and use that data to provide aggregate metrics about campaigns, automations, lists, members and segments.
 

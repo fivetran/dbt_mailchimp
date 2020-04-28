@@ -3,7 +3,7 @@
 with base as (
 
     select *
-    from {{ var('segment_member')}}
+    from {{ var('segment_member', 'mailchimp.segment_member') }}
     where _fivetran_deleted = false
 
 ), fields as (

@@ -1,5 +1,9 @@
 name: 'mailchimp'
-version: '1.0.0'
+version: '0.0.1'
+
+profile: 'default'
+
+require-dbt-version: [">=0.16.0", "<0.17.0"]
 
 source-paths: ["models"]
 analysis-paths: ["analysis"]
@@ -17,6 +21,6 @@ models:
     mailchimp:
         materialized: table
         base:
-            materialized: ephemeral
+            materialized: table
         intermediate:
-            materialized: ephemeral
+            materialized: table

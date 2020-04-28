@@ -1,7 +1,7 @@
 with base as (
 
     select *
-    from {{ var('member') }}
+    from {{ var('member', 'mailchimp.member') }}
 
 ), fields as (
 

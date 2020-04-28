@@ -3,7 +3,7 @@
 with base as (
 
     select *
-    from {{ var('automation_recipient_activity')}}
+    from {{ var('automation_recipient_activity', 'mailchimp.automation_recipient_activity')}}
 
 ), fields as (
 

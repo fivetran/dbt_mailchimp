@@ -3,7 +3,7 @@
 with base as (
 
     select *
-    from {{ var('automation_email')}}
+    from {{ var('automation_email', 'mailchimp.automation_email')}}
     where _fivetran_deleted = false
 
 ), fields as (

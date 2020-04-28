@@ -1,7 +1,7 @@
 with base as (
 
     select *
-    from {{ var('list') }}
+    from {{ var('list', 'mailchimp.list') }}
     where _fivetran_deleted = false
 
 ), fields as (

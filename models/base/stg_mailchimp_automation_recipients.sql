@@ -3,7 +3,7 @@
 with base as (
 
     select *
-    from {{ var('automation_recipient')}}
+    from {{ var('automation_recipient', 'mailchimp.automation_recipient')}}
 
 ), fields as (
 
@@ -21,6 +21,5 @@ with base as (
     from fields
 
 )
-
 select *
 from unique_key

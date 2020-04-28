@@ -32,10 +32,10 @@ with recipients as (
 
     select
         joined.*,
-        coalesce(activities.opens) as opens,
-        coalesce(activities.unique_opens) as unique_opens,
-        coalesce(activities.clicks) as clicks,
-        coalesce(activities.unique_clicks) as unique_clicks,
+        coalesce(activities.opens,0) as opens,
+        coalesce(activities.unique_opens,0) as unique_opens,
+        coalesce(activities.clicks,0) as clicks,
+        coalesce(activities.unique_clicks,0) as unique_clicks,
         coalesce(activities.was_opened, False) as was_opened,
         coalesce(activities.was_clicked, False) as was_clicked,
         activities.first_open_timestamp,

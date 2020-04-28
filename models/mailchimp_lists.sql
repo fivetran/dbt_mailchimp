@@ -32,7 +32,7 @@ with lists as (
         coalesce(campaign_activities.clicks,0) as campaign_clicks,
         coalesce(campaign_activities.unique_opens,0) as campaign_unique_opens,
         coalesce(campaign_activities.unique_clicks,0) as campaign_unique_clicks,
-        coalesce(campaign_activities.unsubscribes,0) as campaign_unsubscribes,
+        coalesce(campaign_activities.unsubscribes,0) as campaign_unsubscribes
     from members_xf
     left join campaign_activities
         on members_xf.list_id = campaign_activities.list_id

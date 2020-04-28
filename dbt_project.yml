@@ -5,22 +5,10 @@ profile: 'default'
 
 require-dbt-version: [">=0.16.0", "<0.17.0"]
 
-source-paths: ["models"]
-analysis-paths: ["analysis"]
-test-paths: ["tests"]
-data-paths: ["data"]
-macro-paths: ["macros"]
-snapshot-paths: ["snapshots"]
-
-target-path: "target" 
-clean-targets:         
-    - "target"
-    - "dbt_modules"
-
 models:
     mailchimp:
         materialized: table
         base:
-            materialized: table
+            materialized: ephemeral
         intermediate:
-            materialized: table
+            materialized: ephemeral

@@ -1,3 +1,5 @@
+{{ config(enabled=var('using_automations', True)) }}
+
 with unsubscribes as (
 
     select *

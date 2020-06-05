@@ -11,9 +11,9 @@ integration_tests:
   outputs:
     redshift:
       type: redshift
-      host: "{{ env_var('CI_REDSHIFT_DBT_HOST') }}"
-      user: "{{ env_var('CI_REDSHIFT_DBT_USER') }}"
-      pass: "{{ env_var('CI_REDSHIFT_DBT_PASS') }}"
+      host: " env_var('CI_REDSHIFT_DBT_HOST') "
+      user: " env_var('CI_REDSHIFT_DBT_USER') "
+      pass: " env_var('CI_REDSHIFT_DBT_PASS') "
       dbname: "{{ env_var('CI_REDSHIFT_DBT_DBNAME') }}"
       port: 5439
       schema: mailchip_integration_tests
@@ -33,7 +33,7 @@ integration_tests:
     bigquery:
       type: bigquery
       method: service-account
-      keyfile: "{{ env_var('GCLOUD_SERVICE_KEY_PATH') }}"
+      keyfile: " env_var('GCLOUD_SERVICE_KEY_PATH') "
       project: 'fivetran-dbt-integration-tests'
       schema: mailchip_integration_tests
       threads: 1

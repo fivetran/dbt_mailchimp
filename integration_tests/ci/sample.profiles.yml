@@ -9,16 +9,6 @@ config:
 integration_tests:
   target: redshift
   outputs:
-    redshift:
-      type: redshift
-      host: " env_var('CI_REDSHIFT_DBT_HOST') "
-      user: " env_var('CI_REDSHIFT_DBT_USER') "
-      pass: " env_var('CI_REDSHIFT_DBT_PASS') "
-      dbname: "{{ env_var('CI_REDSHIFT_DBT_DBNAME') }}"
-      port: 5439
-      schema: mailchip_integration_tests
-      threads: 1
-
     snowflake:
       type: snowflake
       account: "{{ env_var('CI_SNOWFLAKE_DBT_ACCOUNT') }}"
@@ -27,13 +17,5 @@ integration_tests:
       role: "{{ env_var('CI_SNOWFLAKE_DBT_ROLE') }}"
       database: "{{ env_var('CI_SNOWFLAKE_DBT_DATABASE') }}"
       warehouse: "{{ env_var('CI_SNOWFLAKE_DBT_WAREHOUSE') }}"
-      schema: mailchip_integration_tests
-      threads: 1
-
-    bigquery:
-      type: bigquery
-      method: service-account
-      keyfile: " env_var('GCLOUD_SERVICE_KEY_PATH') "
-      project: 'fivetran-dbt-integration-tests'
       schema: mailchip_integration_tests
       threads: 1

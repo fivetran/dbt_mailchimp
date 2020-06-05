@@ -1,7 +1,7 @@
 with recipients as (
     
     select *
-    from {{ ref('mailchimp_campaign_recipients_adapter') }}
+    from {{ ref('stg_mailchimp_campaign_recipients') }}
 
 ), activities as (
 
@@ -11,18 +11,19 @@ with recipients as (
 ), unsubscribes as (
 
     select *
-    from {{ ref('mailchimp_unsubscribes_adapter') }}
+    from {{ ref('stg_mailchimp_unsubscribes') }}
 
 ), campaigns as (
 
     select *
-    from {{ ref('mailchimp_campaigns_adapter') }}
+    from {{ ref('stg_mailchimp_campaigns') }}
 
 ), joined as (
 
     select 
         recipients.*,
-        campaigns.segment_id
+        campaigns.segment_id,
+        campaigns.send_timestamp
     from recipients
     left join campaigns
         on recipients.campaign_id = campaigns.campaign_id
@@ -31,10 +32,10 @@ with recipients as (
 
     select
         joined.*,
-        coalesce(activities.opens) as opens,
-        coalesce(activities.unique_opens) as unique_opens,
-        coalesce(activities.clicks) as clicks,
-        coalesce(activities.unique_clicks) as unique_clicks,
+        coalesce(activities.opens,0) as opens,
+        coalesce(activities.unique_opens,0) as unique_opens,
+        coalesce(activities.clicks,0) as clicks,
+        coalesce(activities.unique_clicks,0) as unique_clicks,
         coalesce(activities.was_opened, False) as was_opened,
         coalesce(activities.was_clicked, False) as was_clicked,
         activities.first_open_timestamp,

@@ -3,7 +3,7 @@
 with segments as (
 
     select *
-    from {{ ref('mailchimp_segments_adapter')}}
+    from {{ ref('stg_mailchimp_segments')}}
 
 ), campaign_activities as (
 

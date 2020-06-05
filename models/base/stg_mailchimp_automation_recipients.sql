@@ -10,7 +10,7 @@ with base as (
     select
         member_id,
         automation_email_id,
-        list_id,
+        list_id
     from base
 
 ), unique_key as (

@@ -1,12 +1,12 @@
 with activities as (
 
     select *
-    from {{ ref('mailchimp_campaign_activities_adapter') }}
+    from {{ ref('stg_mailchimp_campaign_activities') }}
 
 ), campaigns as (
 
     select *
-    from {{ ref('mailchimp_campaigns_adapter') }}
+    from {{ ref('stg_mailchimp_campaigns') }}
 
 ), since_send as (
 

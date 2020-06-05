@@ -7,7 +7,7 @@ config:
     use_colors: True
 
 integration_tests:
-  target: redshift
+  target: snowflake
   outputs:
     snowflake:
       type: snowflake

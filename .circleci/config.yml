@@ -1,8 +1,64 @@
+version: 2
 
-version: 2.1
-orbs:
-  welcome: circleci/welcome-orb@0.4.1
-workflows:
-  welcome:
-    jobs:
-      - welcome/run
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.6.2-stretch
+      - image: circleci/postgres:9.6.5-alpine-ram
+
+    steps:
+      - checkout
+
+      # - run:
+      #     run: setup_creds
+      #     command: |
+      #       echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ${HOME}/gcloud-service-key.json
+      # - restore_cache:
+      #     key: deps1-{{ .Branch }}
+
+      - run:
+          name: "Setup dbt"
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install --upgrade pip setuptools
+            pip install dbt
+            mkdir -p ~/.dbt
+            cp integration_tests/ci/sample.profiles.yml ~/.dbt/profiles.yml
+      # - run:
+      #     name: "Run Tests - Redshift"
+      #     command: |
+      #       . venv/bin/activate
+      #       echo `pwd`
+      #       cd integration_tests
+      #       dbt deps
+      #       dbt seed --target redshift
+      #       dbt run --target redshift --full-refresh
+      #       dbt run --target redshift
+      - run:
+          name: "Run Tests - Snowflake"
+          command: |
+            . venv/bin/activate
+            echo `pwd`
+            cd integration_tests
+            dbt deps
+            dbt seed --target snowflake
+            dbt run --target snowflake --full-refresh
+            dbt run --target snowflake
+      # - run:
+      #     name: "Run Tests - BigQuery"
+      #     environment:
+      #         GCLOUD_SERVICE_KEY_PATH: "/home/circleci/gcloud-service-key.json"
+
+      #     command: |
+      #       . venv/bin/activate
+      #       echo `pwd`
+      #       cd integration_tests
+      #       dbt deps
+      #       dbt seed --target bigquery
+      #       dbt run --target bigquery --full-refresh
+      #       dbt run --target bigquery
+      - save_cache:
+          key: deps1-{{ .Branch }}
+          paths:
+            - "venv"

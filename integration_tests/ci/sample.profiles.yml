@@ -15,7 +15,7 @@ integration_tests:
       keyfile: "{{ env_var('GCLOUD_SERVICE_KEY_PATH') }}"
       project: 'dbt-integration-tests'
       schema: segment_integration_tests_snowflake
-      threads: 1
+      threads: 8
     snowflake:
       type: snowflake
       account: "{{ env_var('CI_SNOWFLAKE_DBT_ACCOUNT') }}"
@@ -25,4 +25,4 @@ integration_tests:
       database: "{{ env_var('CI_SNOWFLAKE_DBT_DATABASE') }}"
       warehouse: "{{ env_var('CI_SNOWFLAKE_DBT_WAREHOUSE') }}"
       schema: mailchip_integration_tests
-      threads: 1
+      threads: 8

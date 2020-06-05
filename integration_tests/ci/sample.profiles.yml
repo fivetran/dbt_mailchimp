@@ -13,7 +13,7 @@ integration_tests:
       type: bigquery
       method: service-account
       keyfile: "{{ env_var('GCLOUD_SERVICE_KEY_PATH') }}"
-      project: 'dbt-integration-tests'
+      project: 'dbt-package-testing'
       schema: segment_integration_tests_snowflake
       threads: 8
     snowflake:

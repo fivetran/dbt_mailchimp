@@ -34,7 +34,7 @@ Check [dbt Hub](https://hub.getdbt.com/) for the latest installation instruction
 
 ## Configuration
 
-The [variables](https://docs.getdbt.com/docs/using-variables) needed to configure this package are as follows:
+The following [variables](https://docs.getdbt.com/docs/using-variables) are needed to configure this package:
 
 | variable                      | information                                                                  |                required                |
 | ----------------------------- | ---------------------------------------------------------------------------- | :------------------------------------: |

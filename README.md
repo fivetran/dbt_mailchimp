@@ -21,7 +21,7 @@ The primary outputs of this package are described below. Intermediate models are
 
 ## Upcoming changes with dbt version 0.17.0
 
-As a result of functionality being released with version 0.17.0 of dbt, there will be some upcoming changes to this package. The staging/adapter models will move into a seperate package, `mailchimp_source`, that defines the staging models and adds a source for Mailchimp data. The two packages will work together seamlessly. By default, this package will reference models in the source package, unless the config is overridden. 
+As a result of functionality being released with version 0.17.0 of dbt, there will be some upcoming changes to this package. The staging/adapter models will move into a separate package, `mailchimp_source`, that defines the staging models and adds a source for Mailchimp data. The two packages will work together seamlessly. By default, this package will reference models in the source package, unless the config is overridden. 
 
 There are a few benefits to this approach:
 * If you want to manage your own transformations, you can still benefit from the source definition, documentation, and staging models of the source package.

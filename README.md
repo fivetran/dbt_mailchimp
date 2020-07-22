@@ -4,7 +4,7 @@ This package models Mailchimp data from [Fivetran's connector](https://fivetran.
 
 The main focus of the package is to transform the 'recipient' and 'activity' tables into analytics-ready models and use that data to provide aggregate metrics about campaigns, automations, lists, members, and segments.
 
-### Models
+## Models
 
 The primary outputs of this package are described below. Intermediate models are used to create these output models.
 
@@ -77,14 +77,14 @@ models:
             unsubscribe: "{{ source('mailchimp', 'unsubscribe') }}"
 ```
 
-### Contributions ###
+## Contributions
 
 Additional contributions to this package are very welcome! Please create issues
 or open PRs against `master`. Check out 
 [this post](https://discourse.getdbt.com/t/contributing-to-a-dbt-package/657) 
 on the best workflow for contributing to a package.
 
-### Resources:
+## Resources:
 - Learn more about Fivetran [in the Fivetran docs](https://fivetran.com/docs)
 - Check out [Fivetran's blog](https://fivetran.com/blog)
 - Learn more about dbt [in the dbt docs](https://docs.getdbt.com/docs/introduction)

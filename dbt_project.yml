@@ -1,7 +1,7 @@
 name: 'mailchimp'
 version: '0.0.1'
 
-require-dbt-version: [">=0.16.0", "<0.17.0"]
+require-dbt-version: [">=0.16.0"]
 
 models:
     mailchimp:

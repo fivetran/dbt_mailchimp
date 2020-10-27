@@ -19,62 +19,37 @@ The primary outputs of this package are described below. Intermediate models are
 | mailchimp_members             | Each record represents a member in Mailchimp, enriched with campaign metrics and (optional) automation metrics.                                                        |
 | mailchimp_segments            | Each record represents a segment in Mailchimp, enriched with campaign metrics and (optional) automation metrics. This output is enabled if you are using segments.                  |
 
-## Upcoming changes with dbt version 0.17.0
-
-As a result of functionality being released with version 0.17.0 of dbt, there will be some upcoming changes to this package. The staging/adapter models will move into a separate package, `mailchimp_source`, that defines the staging models and adds a source for Mailchimp data. The two packages will work together seamlessly. By default, this package will reference models in the source package, unless the config is overridden. 
-
-There are a few benefits to this approach:
-* If you want to manage your own transformations, you can still benefit from the source definition, documentation, and staging models of the source package.
-* If you have multiple sets of Mailchimp data in your warehouse, a package defining sources doesn't make sense. You will have to define your own sources and union that data together. At that point, you will still be able to make use of this package to transform your data.
-
-When this change occurs, we will release a new version of this package.
-
 ## Installation Instructions
-Check [dbt Hub](https://hub.getdbt.com/) for the latest installation instructions, or [read the docs](https://docs.getdbt.com/docs/package-management) for more information on installing packages.
+Check [dbt Hub](https://hub.getdbt.com/) for the latest installation instructions, or [read the dbt docs](https://docs.getdbt.com/docs/package-management) for more information on installing packages.
 
 ## Configuration
-
-The following [variables](https://docs.getdbt.com/docs/using-variables) are needed to configure this package:
-
-| variable                      | information                                                                  |                required                |
-| ----------------------------- | ---------------------------------------------------------------------------- | :------------------------------------: |
-| campaign                      | Table, model, or source containing campaign details                           |                  Yes                   |
-| campaign_recipient            | Table, model, or source containing campaign recipient details                 |                  Yes                   |
-| campaign_recipient_activity   | Table, model, or source containing campaign recipient activity details        |                  Yes                   |
-| segment_member                | Table, model, or source containing segment member details                     |                  Yes                   |
-| list                          | Table, model, or source containing list details                               |                  Yes                   |
-| member                        | Table, model, or source containing member details                             |                  Yes                   |
-| unsubscribe                   | Table, model, or source containing unsubscribe details                        |                  Yes                   |
-| automation                    | Table, model, or source containing automation details                         | Yes, if using_automations is not False |
-| automation_email              | Table, model, or source containing automation email details                   | Yes, if using_automations is not False |
-| automation_recipient          | Table, model, or source containing automation recipient details               | Yes, if using_automations is not False |
-| automation_recipient_activity | Table, model, or source containing automation recpient activity details       | Yes, if using_automations is not False |
-| segment                       | Table, model, or source containing segment details                            |  Yes, if using_segments is not False   |
-| using_automations             | Boolean flag to set whether automation models should be used, default = True |                   No                   |
-| using_segments                | Boolean flag to set whether segment models should be used, default = True    |                   No                   |
-
-An example `dbt_project.yml` configuration:
+By default, this package looks for your Mailchimp data in the `mailchimp` schema of your [target database](https://docs.getdbt.com/docs/running-a-dbt-project/using-the-command-line-interface/configure-your-profile). If this is not where your Mailchimp data is, add the following configuration to your `dbt_project.yml` file:
 
 ```yml
 # dbt_project.yml
 
 ...
+config-version: 2
 
-models:
-    mailchimp:
-        vars:
-            automation: "{{ source('mailchimp', 'automation') }}"   # or "{{ ref('mailchimp_automations_unioned'}) }}"
-            automation_email: "{{ source('mailchimp', 'automation_email') }}" 
-            automation_recipient: "{{ source('mailchimp', 'automation_recipient') }}"
-            automation_recipient_activity: "{{ source('mailchimp', 'automation_recipient_activity') }}"
-            campaign: "{{ source('mailchimp', 'campaign') }}"
-            campaign_recipient: "{{ source('mailchimp', 'campaign_recipient') }}"
-            campaign_recipient_activity: "{{ source('mailchimp', 'campaign_recipient_activity') }}"
-            segment: "{{ source('mailchimp', 'segment') }}"
-            segment_member: "{{ source('mailchimp', 'segment_member') }}"
-            list: "{{ source('mailchimp', 'list') }}"
-            member: "{{ source('mailchimp', 'member') }}"
-            unsubscribe: "{{ source('mailchimp', 'unsubscribe') }}"
+vars:
+    mailchimp_schema: your_database_name
+    mailchimp_database: your_schema_name
+```
+
+## Disabling models
+
+It's possible that your Mailchimp connector does not sync every table that this package expects. If your syncs exclude certain tables, it is because you either don't use that functionality in Mailchimp or actively excluded some tables from your syncs. To disable the corresponding functionality in the package, you must add the relevant variables. By default, all variables are assumed to be `true`. Add variables for only the tables you would like to disable:  
+
+```yml
+# dbt_project.yml
+
+...
+config-version: 2
+
+vars:
+  zendesk:
+    using_automations: false #disable if you do not have the automation_email, automation_email, or automation_recipient_activity tables
+    using_segments: false #disable if you do not have the segment table
 ```
 
 ## Contributions
@@ -85,6 +60,7 @@ or open PRs against `master`. Check out
 on the best workflow for contributing to a package.
 
 ## Resources:
+- Provide [feedback](https://www.surveymonkey.com/r/DQ7K7WW) on our existing dbt packages or what you'd like to see next
 - Find all of Fivetran's pre-built dbt packages in our [dbt hub](https://hub.getdbt.com/fivetran/)
 - Learn more about Fivetran [in the Fivetran docs](https://fivetran.com/docs)
 - Check out [Fivetran's blog](https://fivetran.com/blog)

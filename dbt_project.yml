@@ -1,7 +1,9 @@
+config-version: 2
+
 name: 'mailchimp'
 version: '0.0.1'
 
-require-dbt-version: [">=0.16.0", "<0.17.0"]
+require-dbt-version: [">=0.18.0", "<0.19.0"]
 
 models:
     mailchimp:
@@ -10,3 +12,19 @@ models:
             materialized: ephemeral
         intermediate:
             materialized: ephemeral
+
+vars:
+    automation: "{{ source('mailchimp', 'automation') }}"  
+    automation_email: "{{ source('mailchimp', 'automation_email') }}" 
+    automation_recipient: "{{ source('mailchimp', 'automation_recipient') }}"
+    automation_recipient_activity: "{{ source('mailchimp', 'automation_recipient_activity') }}"
+    campaign: "{{ source('mailchimp', 'campaign') }}"
+    campaign_recipient: "{{ source('mailchimp', 'campaign_recipient') }}"
+    campaign_recipient_activity: "{{ source('mailchimp', 'campaign_recipient_activity') }}"
+    segment: "{{ source('mailchimp', 'segment') }}"
+    segment_member: "{{ source('mailchimp', 'segment_member') }}"
+    list: "{{ source('mailchimp', 'list') }}"
+    member: "{{ source('mailchimp', 'member') }}"
+    unsubscribe: "{{ source('mailchimp', 'unsubscribe') }}"
+    using_automations: True
+    using_segments: True

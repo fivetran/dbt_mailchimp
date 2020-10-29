@@ -47,7 +47,7 @@ It's possible that your Mailchimp connector does not sync every table that this 
 config-version: 2
 
 vars:
-  zendesk:
+  mailchimp:
     using_automations: false #disable if you do not have the automation_email, automation_email, or automation_recipient_activity tables
     using_segments: false #disable if you do not have the segment table
 ```

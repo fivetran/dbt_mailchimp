@@ -33,6 +33,7 @@ jobs:
             dbt deps
             dbt seed --target redshift
             dbt run --target redshift --full-refresh
+            dbt test --target redshift
       - run:
           name: "Run Tests - Snowflake"
           command: |
@@ -42,6 +43,7 @@ jobs:
             dbt deps
             dbt seed --target snowflake
             dbt run --target snowflake --full-refresh
+            dbt test --target snowflake
       - run:
           name: "Run Tests - BigQuery"
           environment:
@@ -54,6 +56,7 @@ jobs:
             dbt deps
             dbt seed --target bigquery
             dbt run --target bigquery --full-refresh
+            dbt test --target bigquery
       - save_cache:
           key: deps1-{{ .Branch }}
           paths:

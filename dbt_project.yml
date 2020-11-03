@@ -1,6 +1,8 @@
 name: 'mailchimp'
 version: '0.0.1'
 
+config-version: 2
+
 require-dbt-version: [">=0.16.0"]
 
 models:

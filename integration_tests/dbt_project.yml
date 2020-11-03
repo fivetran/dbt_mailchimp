@@ -1,65 +1,66 @@
 name: 'mailchimp_integration_tests'
 version: '1.0.0'
 
+config-version: 2
+
 profile: 'integration_tests'
 
-models:
-  mailchimp:
-    vars:
-      automation: "{{ ref('automation') }}"
-      automation_email: "{{ ref('automation_email') }}"
-      automation_recipient: "{{ ref('automation_recipient') }}"
-      automation_recipient_activity: "{{ ref('automation_recipient_activity') }}"
-      campaign: "{{ ref('campaign') }}"
-      campaign_recipient: "{{ ref('campaign_recipient') }}"
-      campaign_recipient_activity: "{{ ref('campaign_recipient_activity') }}"
-      segment: "{{ ref('segment') }}"
-      segment_member: "{{ ref('segment_member') }}"
-      list: "{{ ref('list') }}"
-      member: "{{ ref('member') }}"
-      unsubscribe: "{{ ref('unsubscribe') }}"
-      using_automations: True
-      using_segments: True
+vars:
+  mailchimp_source:
+    automation: "{{ ref('automation') }}"
+    automation_email: "{{ ref('automation_email') }}"
+    automation_recipient: "{{ ref('automation_recipient') }}"
+    automation_recipient_activity: "{{ ref('automation_recipient_activity') }}"
+    campaign: "{{ ref('campaign') }}"
+    campaign_recipient: "{{ ref('campaign_recipient') }}"
+    campaign_recipient_activity: "{{ ref('campaign_recipient_activity') }}"
+    segment: "{{ ref('segment') }}"
+    segment_member: "{{ ref('segment_member') }}"
+    list: "{{ ref('list') }}"
+    member: "{{ ref('member') }}"
+    unsubscribe: "{{ ref('unsubscribe') }}"
+    using_automations: True
+    using_segments: True
 
 seeds:
   mailchimp_integration_tests:
-    column_types:
+    +column_types:
       _fivetran_synced: timestamp
     automation:
-      column_types:
+      +column_types:
         create_time: timestamp
         start_time: timestamp
     automation_email:
-      column_types:
+      +column_types:
         create_time: timestamp
         start_time: timestamp
         send_time: timestamp
     automation_recipient_activity:
-      column_types:
+      +column_types:
         timestamp: timestamp
     campaign:
-      column_types:
+      +column_types:
         create_time: timestamp
         send_time: timestamp
     campaign_recipient_activity:
-      column_types:
+      +column_types:
         timestamp: timestamp
     list:
-      column_types:
+      +column_types:
         list_rating: float
         date_created: timestamp
     member:
-      column_types:
+      +column_types:
         dstoff: float
         gmtoff: float
         last_changed: timestamp
         timestamp_opt: timestamp
         timestamp_signup: timestamp
     segment: 
-      column_types: 
+      +column_types: 
         created_at: timestamp
         updated_at: timestamp
     unsubscribe:
-      column_types:
+      +column_types:
         timestamp: timestamp
 

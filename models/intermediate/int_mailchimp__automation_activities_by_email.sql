@@ -3,17 +3,17 @@
 with activities as (
 
     select *
-    from {{ ref('mailchimp_automation_activities')}}
+    from {{ ref('mailchimp__automation_activities')}}
 
 ), recipients as (
 
     select *
-    from {{ ref('automation_recipients') }}
+    from {{ ref('int_mailchimp__automation_recipients') }}
 
 ), unsubscribes as (
 
     select *
-    from {{ ref('automation_unsubscribes') }}
+    from {{ ref('int_mailchimp__automation_unsubscribes') }}
 
 ), pivoted as (
 

@@ -3,7 +3,7 @@
 with activities as (
 
     select *
-    from {{ ref('mailchimp_automation_activities')}}
+    from {{ ref('mailchimp__automation_activities')}}
 
 ), recipients as (
 

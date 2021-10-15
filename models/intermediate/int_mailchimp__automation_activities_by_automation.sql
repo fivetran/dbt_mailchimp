@@ -3,22 +3,22 @@
 with activities as (
 
     select *
-    from {{ ref('mailchimp_automation_activities')}}
+    from {{ ref('mailchimp__automation_activities')}}
 
 ), recipients as (
 
     select *
-    from {{ ref('automation_recipients') }}
+    from {{ ref('int_mailchimp__automation_recipients') }}
 
 ), unsubscribes as (
 
     select *
-    from {{ ref('automation_unsubscribes') }}
+    from {{ ref('int_mailchimp__automation_unsubscribes') }}
 
 ), pivoted as (
 
     select 
-        member_id,
+        automation_id,
         sum(case when action_type = 'open' then 1 end) as opens,
         sum(case when action_type = 'click' then 1 end) as clicks, 
         count(distinct case when action_type = 'open' then member_id end) as unique_opens, 
@@ -29,7 +29,7 @@ with activities as (
 ), sends as (
 
     select
-        member_id,
+        automation_id,
         count(*) as sends
     from recipients
     group by 1
@@ -37,7 +37,7 @@ with activities as (
 ), unsubscribes_xf as (
 
     select
-        member_id,
+        automation_id,
         count(*) as unsubscribes
     from unsubscribes
     group by 1
@@ -45,7 +45,7 @@ with activities as (
 ), joined as (
 
     select
-        coalesce(pivoted.member_id, sends.member_id, unsubscribes_xf.member_id) as member_id,
+        coalesce(pivoted.automation_id, sends.automation_id, unsubscribes_xf.automation_id) as automation_id,
         pivoted.opens,
         pivoted.clicks,
         pivoted.unique_opens,
@@ -54,9 +54,9 @@ with activities as (
         unsubscribes_xf.unsubscribes
     from pivoted
     full outer join sends
-        on pivoted.member_id = sends.member_id
+        on pivoted.automation_id = sends.automation_id
     full outer join unsubscribes_xf
-        on pivoted.member_id = unsubscribes_xf.member_id
+        on pivoted.automation_id = unsubscribes_xf.automation_id
 
 )
 

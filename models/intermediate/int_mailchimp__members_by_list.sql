@@ -1,7 +1,7 @@
 with members as (
 
     select *
-    from {{ ref('mailchimp_members') }}
+    from {{ ref('mailchimp__members') }}
 
 ), by_list as (
 

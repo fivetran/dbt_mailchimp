@@ -729,7 +729,7 @@ models:
         description: The ID of the List the segment is part of.
 
       - name: member_count
-        description: The number of mebmers in the segment.
+        description: The number of members in the segment.
 
       - name: segment_name
         description: The name of the segment.

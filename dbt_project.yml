@@ -1,7 +1,7 @@
 config-version: 2
 
 name: 'mailchimp'
-version: '0.3.0'
+version: '0.4.0'
 
 require-dbt-version: ">=0.20.0"
 
@@ -14,17 +14,17 @@ models:
             materialized: ephemeral
 
 vars:
-    automation: "{{ source('mailchimp', 'automation') }}"  
-    automation_email: "{{ source('mailchimp', 'automation_email') }}" 
-    automation_recipient: "{{ source('mailchimp', 'automation_recipient') }}"
-    automation_recipient_activity: "{{ source('mailchimp', 'automation_recipient_activity') }}"
-    campaign: "{{ source('mailchimp', 'campaign') }}"
-    campaign_recipient: "{{ source('mailchimp', 'campaign_recipient') }}"
-    campaign_recipient_activity: "{{ source('mailchimp', 'campaign_recipient_activity') }}"
-    segment: "{{ source('mailchimp', 'segment') }}"
-    segment_member: "{{ source('mailchimp', 'segment_member') }}"
-    list: "{{ source('mailchimp', 'list') }}"
-    member: "{{ source('mailchimp', 'member') }}"
-    unsubscribe: "{{ source('mailchimp', 'unsubscribe') }}"
+    automation: "{{ ref('stg_mailchimp__automations') }}"
+    automation_email: "{{ ref('stg_mailchimp__automation_emails') }}"
+    automation_recipient: "{{ ref('stg_mailchimp__automation_recipients') }}"
+    automation_recipient_activity: "{{ ref('stg_mailchimp__automation_activities') }}"
+    campaign: "{{ ref('stg_mailchimp__campaigns') }}"
+    campaign_recipient: "{{ ref('stg_mailchimp__campaign_recipients') }}"
+    campaign_recipient_activity: "{{ ref('stg_mailchimp_campaign_activities') }}"
+    segment: "{{ ref('stg_mailchimp__segments') }}"
+    segment_member: "{{ ref('stg_mailchimp__segment_members') }}"
+    list: "{{ ref('stg_mailchimp__lists') }}"
+    member: "{{ ref('stg_mailchimp__members') }}"
+    unsubscribe: "{{ ref('stg_mailchimp__unsubscribes') }}"
     using_automations: True
     using_segments: True

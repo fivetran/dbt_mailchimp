@@ -1,35 +1,48 @@
-{{ config(enabled=var('using_segments', True)) }}
-
-with segments as (
+with lists as (
 
     select *
-    from {{ ref('stg_mailchimp_segments')}}
+    from {{ ref('stg_mailchimp__lists')}}
 
 ), campaign_activities as (
 
     select *
-    from {{ ref('campaign_activities_by_segment') }}
+    from {{ ref('campaign_activities_by_list') }}
+
+), members as (
+
+    select *
+    from {{ ref('members_by_list') }}
+
+), members_xf as (
+
+    select 
+        lists.*,
+        coalesce(members.count_members,0) as count_members,
+        members.most_recent_signup_timestamp
+    from lists
+    left join members
+        on lists.list_id = members.list_id
 
 ), metrics as (
 
     select 
-        segments.*,
+        members_xf.*,
         coalesce(campaign_activities.sends,0) as campaign_sends,
         coalesce(campaign_activities.opens,0) as campaign_opens,
         coalesce(campaign_activities.clicks,0) as campaign_clicks,
         coalesce(campaign_activities.unique_opens,0) as campaign_unique_opens,
         coalesce(campaign_activities.unique_clicks,0) as campaign_unique_clicks,
         coalesce(campaign_activities.unsubscribes,0) as campaign_unsubscribes
-    from segments
+    from members_xf
     left join campaign_activities
-        on segments.segment_id = campaign_activities.segment_id
+        on members_xf.list_id = campaign_activities.list_id
 
 {% if var('using_automations', True) %}
 
 ), automation_activities as (
 
     select *
-    from {{ ref('automation_activities_by_segment') }}
+    from {{ ref('automation_activities_by_list') }}
 
 ), metrics_xf as (
 
@@ -43,7 +56,7 @@ with segments as (
         coalesce(automation_activities.unsubscribes,0) as automation_unsubscribes
     from metrics
     left join automation_activities
-        on metrics.segment_id = automation_activities.segment_id
+        on metrics.list_id = automation_activities.list_id
 
 )
 

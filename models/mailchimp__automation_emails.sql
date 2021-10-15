@@ -13,7 +13,7 @@ with emails as (
 ), automations as (
 
     select *
-    from {{ ref('stg_mailchimp_automations') }}
+    from {{ ref('stg_mailchimp__automations') }}
 
 ), joined as (
 

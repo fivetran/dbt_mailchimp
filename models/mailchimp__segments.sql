@@ -1,48 +1,44 @@
-with lists as (
+{{ config(enabled=var('using_segments', True)) }}
+
+with segments as (
 
     select *
-    from {{ ref('stg_mailchimp_lists')}}
+    from {{ ref('stg_mailchimp__segments')}}
 
 ), campaign_activities as (
 
     select *
-    from {{ ref('campaign_activities_by_list') }}
+    from {{ ref('int_mailchimp__campaign_activities_by_segment') }}
 
-), members as (
+), lists as (
 
     select *
-    from {{ ref('members_by_list') }}
-
-), members_xf as (
-
-    select 
-        lists.*,
-        coalesce(members.count_members,0) as count_members,
-        members.most_recent_signup_timestamp
-    from lists
-    left join members
-        on lists.list_id = members.list_id
+    from {{ ref('stg_mailchimp__lists')}}
 
 ), metrics as (
 
     select 
-        members_xf.*,
+        segments.*,
         coalesce(campaign_activities.sends,0) as campaign_sends,
         coalesce(campaign_activities.opens,0) as campaign_opens,
         coalesce(campaign_activities.clicks,0) as campaign_clicks,
         coalesce(campaign_activities.unique_opens,0) as campaign_unique_opens,
         coalesce(campaign_activities.unique_clicks,0) as campaign_unique_clicks,
-        coalesce(campaign_activities.unsubscribes,0) as campaign_unsubscribes
-    from members_xf
+        coalesce(campaign_activities.unsubscribes,0) as campaign_unsubscribes,
+        lists.name as list_name
+
+    from segments
     left join campaign_activities
-        on members_xf.list_id = campaign_activities.list_id
+        on segments.segment_id = campaign_activities.segment_id
+    left join lists 
+        on segments.list_id = lists.id
 
 {% if var('using_automations', True) %}
 
 ), automation_activities as (
 
     select *
-    from {{ ref('automation_activities_by_list') }}
+    from {{ ref('automation_activities_by_segment') }}
 
 ), metrics_xf as (
 
@@ -56,7 +52,7 @@ with lists as (
         coalesce(automation_activities.unsubscribes,0) as automation_unsubscribes
     from metrics
     left join automation_activities
-        on metrics.list_id = automation_activities.list_id
+        on metrics.segment_id = automation_activities.segment_id
 
 )
 

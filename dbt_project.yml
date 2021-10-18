@@ -7,11 +7,12 @@ require-dbt-version: ">=0.20.0"
 
 models:
     mailchimp:
-        materialized: table
-        base:
-            materialized: ephemeral
+        +schema: mailchimp
+        +materialized: table
         intermediate:
-            materialized: ephemeral
+            +schema: mailchimp_intermediate
+            +materialized: table
+            
 
 vars:
     automation: "{{ ref('stg_mailchimp__automations') }}"

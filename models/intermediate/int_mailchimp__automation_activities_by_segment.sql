@@ -15,6 +15,9 @@ with activities as (
     select *
     from {{ ref('automation_unsubscribes') }}
 
+
+-- aggregate automation opens and clicks by segment
+
 ), pivoted as (
 
     select 

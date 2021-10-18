@@ -21,6 +21,8 @@ with unsubscribes as (
         unsubscribes.*,
         automations.segment_id,
         automations.automation_id
+
+        -- add list id?
     from unsubscribes
     left join automation_emails
         on unsubscribes.campaign_id = automation_emails.automation_email_id

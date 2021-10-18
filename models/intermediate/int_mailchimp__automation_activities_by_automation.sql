@@ -15,6 +15,9 @@ with activities as (
     select *
     from {{ ref('int_mailchimp__automation_unsubscribes') }}
 
+
+-- aggregate automation opens and clicks by automation
+
 ), pivoted as (
 
     select 

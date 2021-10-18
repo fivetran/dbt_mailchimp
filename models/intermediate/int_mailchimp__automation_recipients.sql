@@ -21,6 +21,9 @@ with recipients as (
         recipients.*,
         automations.segment_id,
         automations.automation_id
+
+        -- add list id?
+        
     from recipients
     left join automation_emails
         on recipients.automation_email_id = automation_emails.automation_email_id

@@ -2,7 +2,7 @@ version: 2
 
 models:
 
-  - name: mailchimp_lists
+  - name: mailchimp__lists
     description: Each record represents a list in Mailchimp, enriched with campaign metrics, (optionally) automation metrics and information about members.
     columns:
       - name: list_id
@@ -125,7 +125,7 @@ models:
       - name: automation_unsubscribes
         description: '{{ doc("automation_unsubscribes") }}'
 
-  - name: mailchimp_members
+  - name: mailchimp__members
     description: Each record represents a member in Mailchimp, enriched with campaign metrics and (optionally) automation metrics.
     columns:
       - name: member_id
@@ -232,7 +232,7 @@ models:
       - name: automation_unsubscribes
         description: '{{ doc("automation_unsubscribes") }}'
 
-  - name: mailchimp_campaigns
+  - name: mailchimp__campaigns
     description: Each record represents a campaign in Mailchimp, enriched with click, open and unsubscribe metrics.
     columns:
       - name: campaign_id
@@ -374,7 +374,7 @@ models:
       - name: unsubscribes
         description: '{{ doc("campaign_unsubscribes") }}'
 
-  - name: mailchimp_campaign_recipients
+  - name: mailchimp__campaign_recipients
     description: Each record represents the send of a campaign email, enriched with click, open and unsubscribe metrics.
     columns:
       - name: email_id
@@ -430,7 +430,7 @@ models:
       - name: was_unsubscribed
         description: Whether the user unsubscribed via the sent email.
 
-  - name: mailchimp_campaign_activities
+  - name: mailchimp__campaign_activities
     description: Each record represents an activity taken in relation to a campaign email, enriched with data about when the campaign was sent and the lag between send and the activity.
     columns:
       - name: activity_id
@@ -483,7 +483,7 @@ models:
       - name: time_since_send_days
         description: The time from send to activity in days.
 
-  - name: mailchimp_automations
+  - name: mailchimp__automations
     description: Each record represents an automation in Mailchimp, enriched with click, open and unsubscribe metrics. (Enabled if you are using automations.)
     columns:
       - name: automation_id
@@ -535,7 +535,7 @@ models:
       - name: unsubscribes
         description: '{{ doc("automation_unsubscribes") }}'
 
-  - name: mailchimp_automation_emails
+  - name: mailchimp__automation_emails
     description: Each record represents an automation email (that make up automations), enriched with click, open and unsubscribe metrics. (Enabled if you are using automations.)
     columns:
       - name: automation_email_id
@@ -675,7 +675,7 @@ models:
       - name: unsubscribes
         description: "{{ doc('automation_unsubscribes') }}"
 
-  - name: mailchimp_automation_activities
+  - name: mailchimp__automation_activities
     description: Each record represents an activity taken in relation to a automation email.
     columns:
       - name: activity_id
@@ -716,7 +716,7 @@ models:
       - name: segment_id
         description: The ID for the Segment that relates to the activity.
         
-  - name: mailchimp_segments
+  - name: mailchimp__segments
     description: Each record represents a segment in Mailchimp, enriched with campaign metrics and (optionally) automation metrics. (Enabled if you are using segments.)
     columns:
       - name: segment_id

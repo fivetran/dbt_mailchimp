@@ -27,5 +27,6 @@ vars:
     list: "{{ ref('stg_mailchimp__lists') }}"
     member: "{{ ref('stg_mailchimp__members') }}"
     unsubscribe: "{{ ref('stg_mailchimp__unsubscribes') }}"
-    using_automations: True
-    using_segments: True
+    
+    mailchimp_using_automations: True
+    mailchimp_using_segments: True

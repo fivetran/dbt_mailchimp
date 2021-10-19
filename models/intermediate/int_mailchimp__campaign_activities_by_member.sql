@@ -1,4 +1,4 @@
-with activities as (
+with recipients as (
 
     select *
     from {{ ref('mailchimp__campaign_recipients')}}
@@ -13,7 +13,7 @@ with activities as (
         count(distinct case when was_opened = True then member_id end) as unique_opens,
         count(distinct case when was_clicked = True then member_id end) as unique_clicks,
         count(distinct case when was_unsubscribed = True then member_id end) as unsubscribes
-    from activities
+    from recipients
     group by 1
     
 )

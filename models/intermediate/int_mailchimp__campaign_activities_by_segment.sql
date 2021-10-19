@@ -1,6 +1,6 @@
-{{ config(enabled=var('using_segments', True)) }}
+{{ config(enabled=var('mailchimp_using_segments', True)) }}
 
-with activities as (
+with recipients as (
 
     select *
     from {{ ref('mailchimp__campaign_recipients')}}
@@ -15,7 +15,7 @@ with activities as (
         count(distinct case when was_opened = True then member_id end) as unique_opens,
         count(distinct case when was_clicked = True then member_id end) as unique_clicks,
         count(distinct case when was_unsubscribed = True then member_id end) as unsubscribes
-    from activities
+    from recipients
     where segment_id is not null
     group by 1
     

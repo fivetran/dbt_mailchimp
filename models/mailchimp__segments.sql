@@ -1,9 +1,9 @@
-{{ config(enabled=var('using_segments', True)) }}
+{{ config(enabled=var('mailchimp_using_segments', True)) }}
 
 with segments as (
 
     select *
-    from {{ ref('stg_mailchimp__segments')}}
+    from {{ var('segment')}}
 
 ), campaign_activities as (
 
@@ -13,7 +13,7 @@ with segments as (
 ), lists as (
 
     select *
-    from {{ ref('stg_mailchimp__lists')}}
+    from {{ var('list')}}
 
 ), metrics as (
 
@@ -31,14 +31,14 @@ with segments as (
     left join campaign_activities
         on segments.segment_id = campaign_activities.segment_id
     left join lists 
-        on segments.list_id = lists.id
+        on segments.list_id = lists.list_id
 
-{% if var('using_automations', True) %}
+{% if var('mailchimp_using_automations', True) %}
 
 ), automation_activities as (
 
     select *
-    from {{ ref('automation_activities_by_segment') }}
+    from {{ ref('int_mailchimp__automation_activities_by_segment') }}
 
 ), metrics_xf as (
 

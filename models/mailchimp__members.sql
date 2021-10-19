@@ -1,12 +1,12 @@
 with members as (
 
     select *
-    from {{ ref('stg_mailchimp__members')}}
+    from {{ var('member')}}
 
 ), campaign_activities as (
 
     select *
-    from {{ ref('campaign_activities_by_member') }}
+    from {{ ref('int_mailchimp__campaign_activities_by_member') }}
 
 ), metrics as (
 
@@ -22,12 +22,12 @@ with members as (
     left join campaign_activities
         on members.member_id = campaign_activities.member_id
 
-{% if var('using_automations', True) %}
+{% if var('mailchimp_using_automations', True) %}
 
 ), automation_activities as (
 
     select *
-    from {{ ref('automation_activities_by_member') }}
+    from {{ ref('int_mailchimp__automation_activities_by_member') }}
 
 ), metrics_xf as (
 

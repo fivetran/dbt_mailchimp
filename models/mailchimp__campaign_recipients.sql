@@ -1,22 +1,22 @@
 with recipients as (
     
     select *
-    from {{ ref('stg_mailchimp_campaign_recipients') }}
+    from {{ var('campaign_recipient') }}
 
 ), activities as (
 
     select *
-    from {{ ref('campaign_activities_by_email') }}
+    from {{ ref('int_mailchimp__campaign_activities_by_email') }}
 
 ), unsubscribes as (
 
     select *
-    from {{ ref('stg_mailchimp_unsubscribes') }}
+    from {{ var('unsubscribe') }}
 
 ), campaigns as (
 
     select *
-    from {{ ref('stg_mailchimp__campaigns') }}
+    from {{ var('campaign') }}
 
 ), joined as (
 

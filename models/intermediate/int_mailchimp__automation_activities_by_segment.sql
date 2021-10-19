@@ -1,4 +1,4 @@
-{{ config(enabled=var('using_automations', True)) }}
+{{ config(enabled=var('mailchimp_using_automations', True)) }}
 
 with activities as (
 
@@ -8,12 +8,12 @@ with activities as (
 ), recipients as (
 
     select *
-    from {{ ref('automation_recipients') }}
+    from {{ ref('int_mailchimp__automation_recipients') }}
 
 ), unsubscribes as (
 
     select *
-    from {{ ref('automation_unsubscribes') }}
+    from {{ ref('int_mailchimp__automation_unsubscribes') }}
 
 
 -- aggregate automation opens and clicks by segment

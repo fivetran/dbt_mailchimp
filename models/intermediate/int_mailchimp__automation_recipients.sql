@@ -1,19 +1,19 @@
-{{ config(enabled=var('using_automations', True)) }}
+{{ config(enabled=var('mailchimp_using_automations', True)) }}
 
 with recipients as (
 
     select *
-    from {{ ref('stg_mailchimp__automation_recipients') }}
+    from {{ var('automation_recipient') }}
 
 ), automation_emails as (
 
     select *
-    from {{ ref('stg_mailchimp__automation_emails') }}
+    from {{ var('automation_email') }}
 
 ), automations as (
 
     select *
-    from {{ ref('stg_mailchimp__automations') }}
+    from {{ var('automation') }}
 
 ), joined as (
 
@@ -22,8 +22,6 @@ with recipients as (
         automations.segment_id,
         automations.automation_id
 
-        -- add list id?
-        
     from recipients
     left join automation_emails
         on recipients.automation_email_id = automation_emails.automation_email_id

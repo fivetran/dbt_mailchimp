@@ -1,19 +1,19 @@
-{{ config(enabled=var('using_automations', True)) }}
+{{ config(enabled=var('mailchimp_using_automations', True)) }}
 
 with emails as (
 
     select *
-    from {{ ref('stg_mailchimp_automation_emails') }}
+    from {{ var('automation_email') }}
 
 ), activities as (
 
     select *
-    from {{ ref('automation_activities_by_email') }}
+    from {{ ref('int_mailchimp__automation_activities_by_email') }}
 
 ), automations as (
 
     select *
-    from {{ ref('stg_mailchimp__automations') }}
+    from {{ var('automation') }}
 
 ), joined as (
 

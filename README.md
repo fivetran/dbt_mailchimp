@@ -11,14 +11,14 @@ The primary outputs of this package are described below. Intermediate models are
 
 | model                         | description                                                                                                                                                              |
 | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| mailchimp_automation_emails   | Each record represents an automation email (that make up automations), enriched with click, open, and unsubscribe metrics. This output is enabled if you are using automations.       |
-| mailchimp_automations         | Each record represents an automation in Mailchimp, enriched with click, open, and unsubscribe metrics. This output is enabled if you are using automations.                            |
-| mailchimp_campaign_activities | Each record represents an activity taken in relation to a campaign email, enriched with data about when the campaign was sent and the lag between send and the activity. |
-| mailchimp_campaign_recipients | Each record represents the send of a campaign email, enriched with click, open, and unsubscribe metrics.                                                                  |
-| mailchimp_campaigns           | Each record represents a campaign in Mailchimp, enriched with click, open, and unsubscribe metrics.                                                                       |
-| mailchimp_lists               | Each record represents a list in Mailchimp, enriched with campaign metrics, (optional) automation metrics, and (optional) information about members.                               |
-| mailchimp_members             | Each record represents a member in Mailchimp, enriched with campaign metrics and (optional) automation metrics.                                                        |
-| mailchimp_segments            | Each record represents a segment in Mailchimp, enriched with campaign metrics and (optional) automation metrics. This output is enabled if you are using segments.                  |
+| mailchimp__automation_emails   | Each record represents an automation email (that make up automations), enriched with click, open, and unsubscribe metrics. This output is enabled if you are using automations.       |
+| mailchimp__automations         | Each record represents an automation in Mailchimp, enriched with click, open, and unsubscribe metrics. This output is enabled if you are using automations.                            |
+| mailchimp__campaign_activities | Each record represents an activity taken in relation to a campaign email, enriched with data about when the campaign was sent and the lag between send and the activity. |
+| mailchimp__campaign_recipients | Each record represents the send of a campaign email, enriched with click, open, and unsubscribe metrics.                                                                  |
+| mailchimp__campaigns           | Each record represents a campaign in Mailchimp, enriched with click, open, and unsubscribe metrics.                                                                       |
+| mailchimp__lists               | Each record represents a list in Mailchimp, enriched with campaign metrics, (optional) automation metrics, and (optional) information about members.                               |
+| mailchimp__members             | Each record represents a member in Mailchimp, enriched with campaign metrics and (optional) automation metrics.                                                        |
+| mailchimp__segments            | Each record represents a segment in Mailchimp, enriched with campaign metrics and (optional) automation metrics. This output is enabled if you are using segments.                  |
 
 ## Installation Instructions
 Check [dbt Hub](https://hub.getdbt.com/) for the latest installation instructions, or [read the dbt docs](https://docs.getdbt.com/docs/package-management) for more information on installing packages.
@@ -30,6 +30,9 @@ packages:
   - package: fivetran/mailchimp
     version: [">=0.3.0", "<0.4.0"]
 ```
+
+## Package Maintenance
+The Fivetran team maintaining this package **only** maintains the latest version. We highly recommend you keep your `packages.yml` updated with the [dbt hub latest version](https://hub.getdbt.com/fivetran/mailchimp/latest/). You may refer to the [CHANGELOG](/CHANGELOG.md) and release notes for more information on changes across versions.
 
 ## Configuration
 By default, this package looks for your Mailchimp data in the `mailchimp` schema of your [target database](https://docs.getdbt.com/docs/running-a-dbt-project/using-the-command-line-interface/configure-your-profile). If this is not where your Mailchimp data is, add the following configuration to your `dbt_project.yml` file:
@@ -43,6 +46,23 @@ config-version: 2
 vars:
     mailchimp_schema: your_schema_name
     mailchimp_database: your_database_name
+```
+
+### Changing the Build Schema
+By default this package will build the Mailchimp staging models within a schema titled (<target_schema> + `_stg_mailchimp`), the Zendesk intermediate models within a schema titled (<target_schema> + `_mailchimp_intermediate`), and the Zendesk final models within a schema titled (<target_schema> + `_mailchimp`) in your target database. If this is not where you would like your modeled Zendesk data to be written to, add the following configuration to your `dbt_project.yml` file:
+
+```yml
+# dbt_project.yml
+
+...
+models:
+  mailchimp:
+    +schema: my_new_schema_name # leave blank for just the target_schema
+    intermediate:
+      +schema: my_new_schema_name # leave blank for just the target_schema
+  mailchimp_source:
+    +schema: my_new_schema_name # leave blank for just the target_schema
+
 ```
 
 ## Disabling models

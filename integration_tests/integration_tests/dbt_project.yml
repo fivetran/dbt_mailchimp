@@ -1,0 +1,86 @@
+config-version: 2
+
+name: 'mailchimp_integration_tests'
+version: '0.1.0'
+
+profile: 'integration_tests'
+
+vars:
+  mailchimp_schema: mailchimp_integration_tests
+  mailchimp_source:
+      automation: "{{ ref('automation') }}"
+      automation_email: "{{ ref('automation_email') }}"
+      automation_recipient: "{{ ref('automation_recipient') }}"
+      automation_recipient_activity: "{{ ref('automation_recipient_activity') }}"
+      campaign: "{{ ref('campaign') }}"
+      campaign_recipient: "{{ ref('campaign_recipient') }}"
+      campaign_recipient_activity: "{{ ref('campaign_recipient_activity') }}"
+      segment: "{{ ref('segment') }}"
+      segment_member: "{{ ref('segment_member') }}"
+      list: "{{ ref('list') }}"
+      member: "{{ ref('member') }}"
+      unsubscribe: "{{ ref('unsubscribe') }}"
+      using_automations: True
+      using_segments: True
+
+  mailchimp:
+    automation: "{{ ref('stg_mailchimp__automations') }}"
+    automation_email: "{{ ref('stg_mailchimp__automation_emails') }}"
+    automation_recipient: "{{ ref('stg_mailchimp__automation_recipients') }}"
+    automation_recipient_activity: "{{ ref('stg_mailchimp__automation_activities') }}"
+    campaign: "{{ ref('stg_mailchimp__campaigns') }}"
+    campaign_recipient: "{{ ref('stg_mailchimp__campaign_recipients') }}"
+    campaign_recipient_activity: "{{ ref('stg_mailchimp_campaign_activities') }}"
+    segment: "{{ ref('stg_mailchimp__segments') }}"
+    segment_member: "{{ ref('stg_mailchimp__segment_members') }}"
+    list: "{{ ref('stg_mailchimp__lists') }}"
+    member: "{{ ref('stg_mailchimp__members') }}"
+    unsubscribe: "{{ ref('stg_mailchimp__unsubscribes') }}"
+    
+    mailchimp_using_automations: True
+    mailchimp_using_segments: True
+  
+
+seeds:
+  mailchimp_source_integration_tests:
+    +quote_columns: "{{ true if target.type == 'redshift' else false }}"
+    +column_types:
+      _fivetran_synced: timestamp
+    automation:
+      +column_types:
+        create_time: timestamp
+        start_time: timestamp
+    automation_email:
+      +column_types:
+        create_time: timestamp
+        start_time: timestamp
+        send_time: timestamp
+    automation_recipient_activity:
+      +column_types:
+        timestamp: timestamp
+    campaign:
+      +column_types:
+        create_time: timestamp
+        send_time: timestamp
+    campaign_recipient_activity:
+      +column_types:
+        timestamp: timestamp
+    list:
+      +column_types:
+        list_rating: float
+        date_created: timestamp
+    member:
+      +column_types:
+        dstoff: float
+        gmtoff: float
+        last_changed: timestamp
+        timestamp_opt: timestamp
+        timestamp_signup: timestamp
+    segment: 
+      +column_types: 
+        created_at: timestamp
+        updated_at: timestamp
+    unsubscribe:
+      +column_types:
+        timestamp: timestamp
+

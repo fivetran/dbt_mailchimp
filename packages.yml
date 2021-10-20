@@ -1,3 +1,8 @@
 packages:
-  - package: fivetran/fivetran_utils
-    version: [">=0.2.0", "<0.3.0"]
+  - package: dbt_mailchimp_source 
+    version: [">=0.1.0", "<0.2.0"]
+    # - local: ../dbt_mailchimp_source
+
+    # - git: https://github.com/fivetran/dbt_mailchimp_source.git
+    #   revision: master
+    #   warn-unpinned: false

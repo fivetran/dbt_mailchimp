@@ -1,0 +1,2 @@
+id,_fivetran_deleted,_fivetran_synced,create_time,list_id,segment_id,segment_text,start_time,status,title,trigger_settings
+71ad2ce945,false,2020-04-23 11:40:06.382,2020-04-16 20:34:40,8e423a4179,,,2020-04-17 12:56:37,sending,Welcome Email,"{""workflow_type"":""singleWelcome"",""workflow_title"":""Single Email Welcome"",""runtime"":{""days"":[""sunday"",""monday"",""tuesday"",""wednesday"",""thursday"",""friday"",""saturday""],""hours"":{""type"":""automation""}},""workflow_emails_count"":1}"

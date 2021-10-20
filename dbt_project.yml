@@ -22,7 +22,7 @@ vars:
     campaign: "{{ ref('stg_mailchimp__campaigns') }}"
     campaign_recipient: "{{ ref('stg_mailchimp__campaign_recipients') }}"
     campaign_recipient_activity: "{{ ref('stg_mailchimp_campaign_activities') }}"
-    segment: "{{ ref('stg_mailchimp__segments') }}"
+    mailchimp_segment: "{{ ref('stg_mailchimp__segments') }}"
     segment_member: "{{ ref('stg_mailchimp__segment_members') }}"
     list: "{{ ref('stg_mailchimp__lists') }}"
     member: "{{ ref('stg_mailchimp__members') }}"

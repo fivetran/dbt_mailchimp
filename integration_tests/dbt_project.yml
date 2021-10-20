@@ -15,7 +15,7 @@ vars:
       campaign: "{{ ref('campaign') }}"
       campaign_recipient: "{{ ref('campaign_recipient') }}"
       campaign_recipient_activity: "{{ ref('campaign_recipient_activity') }}"
-      segment: "{{ ref('segment') }}"
+      mailchimp_segment: "{{ ref('segment') }}"
       segment_member: "{{ ref('segment_member') }}"
       list: "{{ ref('list') }}"
       member: "{{ ref('member') }}"
@@ -31,7 +31,7 @@ vars:
     campaign: "{{ ref('stg_mailchimp__campaigns') }}"
     campaign_recipient: "{{ ref('stg_mailchimp__campaign_recipients') }}"
     campaign_recipient_activity: "{{ ref('stg_mailchimp_campaign_activities') }}"
-    segment: "{{ ref('stg_mailchimp__segments') }}"
+    mailchimp_segment: "{{ ref('stg_mailchimp__segments') }}"
     segment_member: "{{ ref('stg_mailchimp__segment_members') }}"
     list: "{{ ref('stg_mailchimp__lists') }}"
     member: "{{ ref('stg_mailchimp__members') }}"
@@ -76,7 +76,7 @@ seeds:
         last_changed: timestamp
         timestamp_opt: timestamp
         timestamp_signup: timestamp
-    segment: 
+    mailchimp_segment: 
       +column_types: 
         created_at: timestamp
         updated_at: timestamp

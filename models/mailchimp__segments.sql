@@ -3,7 +3,7 @@
 with segments as (
 
     select *
-    from {{ var('segment')}}
+    from {{ var('mailchimp_segment')}}
 
 ), campaign_activities as (
 

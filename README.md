@@ -49,7 +49,7 @@ vars:
 ```
 
 ### Changing the Build Schema
-By default this package will build the Mailchimp staging models within a schema titled (<target_schema> + `_stg_mailchimp`), the Zendesk intermediate models within a schema titled (<target_schema> + `_mailchimp_intermediate`), and the Zendesk final models within a schema titled (<target_schema> + `_mailchimp`) in your target database. If this is not where you would like your modeled Zendesk data to be written to, add the following configuration to your `dbt_project.yml` file:
+By default this package will build the Mailchimp staging models within a schema titled (<target_schema> + `_stg_mailchimp`), the Mailchimp intermediate models within a schema titled (<target_schema> + `_mailchimp_intermediate`), and the Mailchimp final models within a schema titled (<target_schema> + `_mailchimp`) in your target database. If this is not where you would like your modeled Mailchimp data to be written to, add the following configuration to your `dbt_project.yml` file:
 
 ```yml
 # dbt_project.yml
@@ -58,8 +58,6 @@ By default this package will build the Mailchimp staging models within a schema 
 models:
   mailchimp:
     +schema: my_new_schema_name # leave blank for just the target_schema
-    intermediate:
-      +schema: my_new_schema_name # leave blank for just the target_schema
   mailchimp_source:
     +schema: my_new_schema_name # leave blank for just the target_schema
 

@@ -10,8 +10,7 @@ models:
         +schema: mailchimp
         +materialized: table
         intermediate:
-            +schema: mailchimp_intermediate
-            +materialized: table
+            materialized: ephemeral 
             
 
 vars:

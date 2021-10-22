@@ -1,5 +1,5 @@
 packages:
-  - package: fivetran/dbt_mailchimp_source 
+  - package: fivetran/mailchimp_source
     version: [">=0.1.0", "<0.2.0"]
 
     

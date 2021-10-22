@@ -22,7 +22,7 @@
 - Added integration testing
 - Created dbt_mailchimp_source package
 - Added list info to segment data (for example, adding `list_name` to `mailchimp__segments`) 
-- Updated variable 'segment' to 'mailchimp_segment' to differentiate between similar variable in dbt-lab's Segment package (refer to (this feature request)[https://github.com/fivetran/dbt_mailchimp/issues/20])
+- Updated variable 'segment' to 'mailchimp_segment' to differentiate between similar variable in dbt-lab's Segment package (refer to [this feature request](https://github.com/fivetran/dbt_mailchimp/issues/20])
 
 ## Under the Hood
 - Added Postgres compatability 

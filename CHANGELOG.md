@@ -11,7 +11,7 @@
         ```yaml
         packages:
           - package: fivetran/dbt_mailchimp_source 
-            version: [">=0.1.0", "<0.2.0"]
+            version: [">=0.2.0", "<0.3.0"]
         ```
 
 ## Bug Fixes

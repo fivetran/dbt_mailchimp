@@ -1,3 +1,8 @@
+# dbt_mailchimp v0.5.0
+
+## 🚨 Breaking Changes
+- Updating mailchimp transforms to reflect breaking change updates from mailchimp source (v0.1.0 -> v0.2.0) package. 
+
 # dbt_mailchimp v0.4.0
 
 ## 🚨 Breaking Changes
@@ -11,7 +16,7 @@
         ```yaml
         packages:
           - package: fivetran/dbt_mailchimp_source 
-            version: [">=0.2.0", "<0.3.0"]
+            version: [">=0.1.0", "<0.2.0"]
         ```
 
 ## Bug Fixes

@@ -1,3 +1,8 @@
+# dbt_mailchimp v0.5.0
+
+## 🚨 Breaking Changes
+- Updating mailchimp transforms to reflect breaking change updates from mailchimp source (v0.1.0 -> v0.2.0) package. 
+
 # dbt_mailchimp v0.4.0
 
 ## 🚨 Breaking Changes

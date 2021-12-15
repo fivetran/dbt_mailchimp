@@ -1,31 +1,30 @@
 config-version: 2
 
 name: 'mailchimp'
-version: '0.5.0'
+version: '0.6.0'
 
-require-dbt-version: ">=0.20.0"
+require-dbt-version: [">=1.0.0", "<2.0.0"]
 
 models:
-    mailchimp:
-        +schema: mailchimp
-        +materialized: table
-        intermediate:
-            materialized: ephemeral 
-            
+  mailchimp:
+    +schema: mailchimp
+    +materialized: table
+    intermediate:
+      materialized: ephemeral
+
 
 vars:
-    automation: "{{ ref('stg_mailchimp__automations') }}"
-    automation_email: "{{ ref('stg_mailchimp__automation_emails') }}"
-    automation_recipient: "{{ ref('stg_mailchimp__automation_recipients') }}"
-    automation_recipient_activity: "{{ ref('stg_mailchimp__automation_activities') }}"
-    campaign: "{{ ref('stg_mailchimp__campaigns') }}"
-    campaign_recipient: "{{ ref('stg_mailchimp__campaign_recipients') }}"
-    campaign_recipient_activity: "{{ ref('stg_mailchimp_campaign_activities') }}"
-    mailchimp_segment: "{{ ref('stg_mailchimp__segments') }}"
-    segment_member: "{{ ref('stg_mailchimp__segment_members') }}"
-    list: "{{ ref('stg_mailchimp__lists') }}"
-    member: "{{ ref('stg_mailchimp__members') }}"
-    unsubscribe: "{{ ref('stg_mailchimp__unsubscribes') }}"
-    
-    mailchimp_using_automations: True
-    mailchimp_using_segments: True
+  automation: "{{ ref('stg_mailchimp__automations') }}"
+  automation_email: "{{ ref('stg_mailchimp__automation_emails') }}"
+  automation_recipient: "{{ ref('stg_mailchimp__automation_recipients') }}"
+  automation_recipient_activity: "{{ ref('stg_mailchimp__automation_activities') }}"
+  campaign: "{{ ref('stg_mailchimp__campaigns') }}"
+  campaign_recipient: "{{ ref('stg_mailchimp__campaign_recipients') }}"
+  campaign_recipient_activity: "{{ ref('stg_mailchimp_campaign_activities') }}"
+  mailchimp_segment: "{{ ref('stg_mailchimp__segments') }}"
+  segment_member: "{{ ref('stg_mailchimp__segment_members') }}"
+  list: "{{ ref('stg_mailchimp__lists') }}"
+  member: "{{ ref('stg_mailchimp__members') }}"
+  unsubscribe: "{{ ref('stg_mailchimp__unsubscribes') }}"
+  mailchimp_using_automations: true
+  mailchimp_using_segments: true

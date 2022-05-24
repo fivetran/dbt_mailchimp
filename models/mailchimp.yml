@@ -128,11 +128,14 @@ models:
   - name: mailchimp__members
     description: Each record represents a member in Mailchimp, enriched with campaign metrics and (optionally) automation metrics.
     columns:
-      - name: member_id
-        description: The ID of the member.
+      - name: list_member_id
+        description: The ID of each record, from combining member id and list id. 
         tests:
           - unique
           - not_null
+
+      - name: member_id
+        description: The ID of the member.
 
       - name: email_address
         description: Email address for a subscriber.

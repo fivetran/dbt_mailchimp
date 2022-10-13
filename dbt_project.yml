@@ -1,18 +1,13 @@
 config-version: 2
-
 name: 'mailchimp'
-version: '0.6.0'
-
-require-dbt-version: [">=1.0.0", "<2.0.0"]
-
+version: '0.7.0'
+require-dbt-version: [">=1.2.0", "<2.0.0"]
 models:
   mailchimp:
     +schema: mailchimp
     +materialized: table
     intermediate:
       materialized: ephemeral
-
-
 vars:
   automation: "{{ ref('stg_mailchimp__automations') }}"
   automation_email: "{{ ref('stg_mailchimp__automation_emails') }}"

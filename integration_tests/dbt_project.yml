@@ -3,20 +3,20 @@ name: 'mailchimp_integration_tests'
 version: '0.7.0'
 profile: 'integration_tests'
 vars:
-    mailchimp_source:
-      mailchimp_schema: mailchimp_integration_tests
-      mailchimp_automation_identifier: "automation"
-      mailchimp_automation_email_identifier: "automation_email"
-      mailchimp_automation_recipient_identifier: "automation_recipient"
-      mailchimp_automation_recipient_activity_identifier: "automation_recipient_activity"
-      mailchimp_campaign_identifier: "campaign"
-      mailchimp_campaign_recipient_identifier: "campaign_recipient"
-      mailchimp_campaign_recipient_activity_identifier: "campaign_recipient_activity"
-      mailchimp_mailchimp_segment_identifier: "segment"
-      mailchimp_segment_member_identifier: "segment_member"
-      mailchimp_list_identifier: "list"
-      mailchimp_member_identifier: "member"
-      mailchimp_unsubscribe_identifier: "unsubscribe"
+  mailchimp_source:
+    mailchimp_schema: mailchimp_integration_tests
+    mailchimp_automation_identifier: "automation"
+    mailchimp_automation_email_identifier: "automation_email"
+    mailchimp_automation_recipient_identifier: "automation_recipient"
+    mailchimp_automation_recipient_activity_identifier: "automation_recipient_activity"
+    mailchimp_campaign_identifier: "campaign"
+    mailchimp_campaign_recipient_identifier: "campaign_recipient"
+    mailchimp_campaign_recipient_activity_identifier: "campaign_recipient_activity"
+    mailchimp_mailchimp_segment_identifier: "segment"
+    mailchimp_segment_member_identifier: "segment_member"
+    mailchimp_list_identifier: "list"
+    mailchimp_member_identifier: "member"
+    mailchimp_unsubscribe_identifier: "unsubscribe"
     using_automations: true
     using_segments: true
   mailchimp:

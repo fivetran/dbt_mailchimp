@@ -1,4 +1,6 @@
-{{ config(enabled=var('mailchimp_using_automations', True)) }}
+{% macro agg_automation_activities(by) %}
+
+{% set id_col = by ~ "_id" %}
 
 with activities as (
 
@@ -16,39 +18,42 @@ with activities as (
     from {{ ref('int_mailchimp__automation_unsubscribes') }}
 
 
--- aggregate automation opens and clicks by member
+-- aggregate automation opens and clicks by {{ by }}
 
 ), pivoted as (
 
     select 
-        member_id,
+        {{ id_col }},
         sum(case when action_type = 'open' then 1 end) as opens,
         sum(case when action_type = 'click' then 1 end) as clicks, 
-        count(distinct case when action_type = 'open' then member_id end) as unique_opens, 
-        count(distinct case when action_type = 'click' then member_id end) as unique_clicks
+        count(distinct case when action_type = 'open' then {{ id_col }} end) as unique_opens, 
+        count(distinct case when action_type = 'click' then {{ id_col }} end) as unique_clicks
     from activities
+    where {{ id_col }} is not null
     group by 1
 
 ), sends as (
 
     select
-        member_id,
+        {{ id_col }},
         count(*) as sends
     from recipients
+    where {{ id_col }} is not null
     group by 1
 
 ), unsubscribes_xf as (
 
     select
-        member_id,
+        {{ id_col }},
         count(*) as unsubscribes
     from unsubscribes
+    where {{ id_col }} is not null
     group by 1
 
 ), joined as (
 
     select
-        coalesce(pivoted.member_id, sends.member_id, unsubscribes_xf.member_id) as member_id,
+        coalesce(pivoted.{{ id_col }}, sends.{{ id_col }}, unsubscribes_xf.{{ id_col }}) as {{ id_col }},
         pivoted.opens,
         pivoted.clicks,
         pivoted.unique_opens,
@@ -57,11 +62,13 @@ with activities as (
         unsubscribes_xf.unsubscribes
     from pivoted
     full outer join sends
-        on pivoted.member_id = sends.member_id
+        on pivoted.{{ id_col }} = sends.{{ id_col }}
     full outer join unsubscribes_xf
-        on pivoted.member_id = unsubscribes_xf.member_id
+        on pivoted.{{ id_col }} = unsubscribes_xf.{{ id_col }}
 
 )
 
 select *
 from joined
+    
+{% endmacro %}

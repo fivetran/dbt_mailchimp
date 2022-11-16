@@ -26,8 +26,7 @@ with members as (
 
 ), automation_activities as (
 
-    select *
-    from {{ ref('int_mailchimp__automation_activities_by_member') }}
+    {{ agg_automation_activities('member') }}
 
 ), metrics_xf as (
 

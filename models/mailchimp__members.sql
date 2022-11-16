@@ -5,8 +5,7 @@ with members as (
 
 ), campaign_activities as (
 
-    select *
-    from {{ ref('int_mailchimp__campaign_activities_by_member') }}
+    {{ agg_campaign_activities('member') }}
 
 ), metrics as (
 

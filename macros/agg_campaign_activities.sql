@@ -1,3 +1,7 @@
+{% macro agg_campaign_activities(by) %}
+
+{% set id_col = by ~ "_id" %}
+
 with recipients as (
 
     select *
@@ -6,7 +10,7 @@ with recipients as (
 ), pivoted as (
 
     select 
-        list_id,
+        {{ id_col }},
         count(*) as sends,
         sum(opens) as opens,
         sum(clicks) as clicks,
@@ -14,9 +18,12 @@ with recipients as (
         count(distinct case when was_clicked = True then member_id end) as unique_clicks,
         count(distinct case when was_unsubscribed = True then member_id end) as unsubscribes
     from recipients
+    where {{ id_col }} is not null
     group by 1
     
 )
 
 select *
 from pivoted
+    
+{% endmacro %}

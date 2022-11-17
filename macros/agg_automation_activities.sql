@@ -1,6 +1,9 @@
 {% macro agg_automation_activities(by) %}
 
-{% set id_col = by ~ "_id" %}
+{% set id_cols = [] %}
+{% for col in by %}
+    {% do id_cols.append(col ~ "_id" ) %}
+{% endfor %}
 
 with activities as (
 
@@ -23,48 +26,78 @@ with activities as (
 ), pivoted as (
 
     select 
+        {% for id_col in id_cols %}
         {{ id_col }},
+        {% endfor %}
         sum(case when action_type = 'open' then 1 end) as opens,
         sum(case when action_type = 'click' then 1 end) as clicks, 
-        count(distinct case when action_type = 'open' then {{ id_col }} end) as unique_opens, 
-        count(distinct case when action_type = 'click' then {{ id_col }} end) as unique_clicks
+        count(distinct case when action_type = 'open' then member_id end) as unique_opens, 
+        count(distinct case when action_type = 'click' then member_id end) as unique_clicks
     from activities
-    where {{ id_col }} is not null
-    group by 1
+    where
+    {% for id_col in id_cols %}
+        {% if not loop.first %}and {% endif %}{{ id_col }} is not null
+    {% endfor %}
+    group by 
+        {% for id_col in id_cols %}
+        {% if not loop.first %}, {% endif %}{{ id_col }}
+        {% endfor %}
 
 ), sends as (
 
     select
+        {% for id_col in id_cols %}
         {{ id_col }},
+        {% endfor %}
         count(*) as sends
     from recipients
-    where {{ id_col }} is not null
-    group by 1
+    where
+    {% for id_col in id_cols %}
+        {% if not loop.first %}and {% endif %}{{ id_col }} is not null
+    {% endfor %}
+    group by 
+        {% for id_col in id_cols %}
+        {% if not loop.first %}, {% endif %}{{ id_col }}
+        {% endfor %}
 
 ), unsubscribes_xf as (
 
     select
+        {% for id_col in id_cols %}
         {{ id_col }},
+        {% endfor %}
         count(*) as unsubscribes
     from unsubscribes
-    where {{ id_col }} is not null
-    group by 1
+    where 
+    {% for id_col in id_cols %}
+        {% if not loop.first %}and {% endif %}{{ id_col }} is not null
+    {% endfor %}
+    group by 
+        {% for id_col in id_cols %}
+        {% if not loop.first %}, {% endif %}{{ id_col }}
+        {% endfor %}
 
 ), joined as (
 
     select
-        coalesce(pivoted.{{ id_col }}, sends.{{ id_col }}, unsubscribes_xf.{{ id_col }}) as {{ id_col }},
+        {% for id_col in id_cols %}
+        sends.{{ id_col }},
+        {% endfor %}
         pivoted.opens,
         pivoted.clicks,
         pivoted.unique_opens,
         pivoted.unique_clicks,
         sends.sends,
         unsubscribes_xf.unsubscribes
-    from pivoted
-    full outer join sends
-        on pivoted.{{ id_col }} = sends.{{ id_col }}
-    full outer join unsubscribes_xf
-        on pivoted.{{ id_col }} = unsubscribes_xf.{{ id_col }}
+    from sends
+    left join pivoted on
+        {% for id_col in id_cols %}
+        {% if not loop.first %}and {% endif %}sends.{{ id_col }} = pivoted.{{ id_col }}
+        {% endfor %}
+    full outer join unsubscribes_xf on
+        {% for id_col in id_cols %}
+        {% if not loop.first %}and {% endif %}sends.{{ id_col }} = unsubscribes_xf.{{ id_col }}
+        {% endfor %}
 
 )
 

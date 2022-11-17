@@ -7,7 +7,7 @@ with segments as (
 
 ), campaign_activities as (
 
-    {{ agg_campaign_activities('segment') }}
+    {{ agg_campaign_activities(['segment']) }}
 
 ), lists as (
 
@@ -36,7 +36,7 @@ with segments as (
 
 ), automation_activities as (
 
-    {{ agg_automation_activities('segment') }}
+    {{ agg_automation_activities(['segment']) }}
 
 ), metrics_xf as (
 

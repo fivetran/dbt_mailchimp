@@ -5,7 +5,7 @@ with lists as (
 
 ), campaign_activities as (
 
-    {{ agg_campaign_activities('list') }}
+    {{ agg_campaign_activities(['list']) }}
 
 ), members as (
 
@@ -40,7 +40,7 @@ with lists as (
 
 ), automation_activities as (
 
-    {{ agg_automation_activities('list') }}
+    {{ agg_automation_activities(['list']) }}
 
 ), metrics_xf as (
 

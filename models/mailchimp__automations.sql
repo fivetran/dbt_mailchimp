@@ -7,7 +7,7 @@ with automations as (
 
 ), automation_activities as (
 
-    {{ agg_automation_activities('automation') }}
+    {{ agg_automation_activities(['automation']) }}
 
 ), joined as (
 

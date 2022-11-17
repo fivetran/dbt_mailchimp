@@ -5,7 +5,7 @@ with campaigns as (
 
 ), activities as (
 
-    {{ agg_campaign_activities('campaign') }}
+    {{ agg_campaign_activities(['campaign']) }}
 
 ), joined as (
 

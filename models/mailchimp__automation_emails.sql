@@ -7,7 +7,7 @@ with emails as (
 
 ), automation_activities as (
 
-    {{ agg_automation_activities('automation_email') }}
+    {{ agg_automation_activities(['automation_email']) }}
 
 ), automations as (
 

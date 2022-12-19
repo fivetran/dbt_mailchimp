@@ -69,7 +69,7 @@ seeds:
         last_changed: timestamp
         timestamp_opt: timestamp
         timestamp_signup: timestamp
-    mailchimp_segment:
+    segment:
       +column_types:
         created_at: timestamp
         updated_at: timestamp

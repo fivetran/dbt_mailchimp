@@ -1,28 +1,24 @@
 config-version: 2
-
 name: 'mailchimp_integration_tests'
-version: '0.5.0'
-
+version: '0.7.0'
 profile: 'integration_tests'
-
 vars:
-  mailchimp_schema: mailchimp_integration_tests
   mailchimp_source:
-      automation: "{{ ref('automation') }}"
-      automation_email: "{{ ref('automation_email') }}"
-      automation_recipient: "{{ ref('automation_recipient') }}"
-      automation_recipient_activity: "{{ ref('automation_recipient_activity') }}"
-      campaign: "{{ ref('campaign') }}"
-      campaign_recipient: "{{ ref('campaign_recipient') }}"
-      campaign_recipient_activity: "{{ ref('campaign_recipient_activity') }}"
-      mailchimp_segment: "{{ ref('segment') }}"
-      segment_member: "{{ ref('segment_member') }}"
-      list: "{{ ref('list') }}"
-      member: "{{ ref('member') }}"
-      unsubscribe: "{{ ref('unsubscribe') }}"
-      using_automations: True
-      using_segments: True
-
+    mailchimp_schema: mailchimp_integration_tests
+    mailchimp_automation_identifier: "automation"
+    mailchimp_automation_email_identifier: "automation_email"
+    mailchimp_automation_recipient_identifier: "automation_recipient"
+    mailchimp_automation_recipient_activity_identifier: "automation_recipient_activity"
+    mailchimp_campaign_identifier: "campaign"
+    mailchimp_campaign_recipient_identifier: "campaign_recipient"
+    mailchimp_campaign_recipient_activity_identifier: "campaign_recipient_activity"
+    mailchimp_mailchimp_segment_identifier: "segment"
+    mailchimp_segment_member_identifier: "segment_member"
+    mailchimp_list_identifier: "list"
+    mailchimp_member_identifier: "member"
+    mailchimp_unsubscribe_identifier: "unsubscribe"
+    using_automations: true
+    using_segments: true
   mailchimp:
     automation: "{{ ref('stg_mailchimp__automations') }}"
     automation_email: "{{ ref('stg_mailchimp__automation_emails') }}"
@@ -36,11 +32,8 @@ vars:
     list: "{{ ref('stg_mailchimp__lists') }}"
     member: "{{ ref('stg_mailchimp__members') }}"
     unsubscribe: "{{ ref('stg_mailchimp__unsubscribes') }}"
-    
-    mailchimp_using_automations: True
-    mailchimp_using_segments: True
-  
-
+    mailchimp_using_automations: true
+    mailchimp_using_segments: true
 seeds:
   mailchimp_integration_tests:
     +quote_columns: "{{ true if target.type == 'redshift' else false }}"
@@ -76,11 +69,10 @@ seeds:
         last_changed: timestamp
         timestamp_opt: timestamp
         timestamp_signup: timestamp
-    mailchimp_segment: 
-      +column_types: 
+    segment:
+      +column_types:
         created_at: timestamp
         updated_at: timestamp
     unsubscribe:
       +column_types:
         timestamp: timestamp
-

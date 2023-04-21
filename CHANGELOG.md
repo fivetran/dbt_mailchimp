@@ -1,3 +1,9 @@
+# dbt_mailchimp v0.UPDATE.UPDATE
+
+ ## Under the Hood:
+
+- Incorporated the new `fivetran_utils.drop_schemas_automation` macro into the end of each Buildkite integration test job.
+- Updated the pull request [templates](/.github).
 # dbt_mailchimp v0.7.0
 [PR #30](https://github.com/fivetran/dbt_mailchimp/pull/30) includes the following breaking changes:
 ## 🚨 Breaking Changes 🚨:

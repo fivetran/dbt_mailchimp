@@ -1,4 +1,4 @@
-# dbt_mailchimp v0.7.1
+# dbt_mailchimp v0.8.0
 ## 🎉 Feature Update
 - Databricks compatibility! ([#37](https://github.com/fivetran/dbt_mailchimp/pull/37))
 - Small updates to documentation. ([#37](https://github.com/fivetran/dbt_mailchimp/pull/37))

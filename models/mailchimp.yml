@@ -378,6 +378,7 @@ models:
     description: Each record represents the send of a campaign email, enriched with click, open and unsubscribe metrics.
     columns:
       - name: email_id
+        description: The ID of the email sent. Surrogate key generated in dbt from 'campaign_id' and 'member_id'.
         tests:
           - unique
           - not_null
@@ -414,6 +415,9 @@ models:
 
       - name: was_clicked
         description: Whether the email sent was clicked.
+
+      - name: send_timestamp
+        description: The date and time a campaign was sent.
 
       - name: first_open_timestamp
         description: The timestamp of the first open for an email.
@@ -469,7 +473,7 @@ models:
         description: The ID of the combination the member was part of for a campaign. 
 
       - name: email_id
-        description: The ID of the email sent. (Created in dbt, not Mailchimp.)
+        description: The ID of the email sent. Surrogate key generated in dbt from 'campaign_id' and 'member_id'.
 
       - name: send_timestamp
         description: The time the campaign was sent.
@@ -499,6 +503,7 @@ models:
         description: The ID of the Segment an automation was sent to.
 
       - name: segment_text
+        description: Description of the segment. Formatted as a string marked up with HTML.
 
       - name: started_timestamp
         description: The date and time the Automation was started.

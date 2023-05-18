@@ -5,24 +5,23 @@ with automations as (
     select *
     from {{ var('automation')}}
 
-), activities as (
+), automation_activities as (
 
-    select *
-    from {{ ref('int_mailchimp__automation_activities_by_automation') }}
+    {{ agg_automation_activities(['automation']) }}
 
 ), joined as (
 
     select 
         automations.*,
-        coalesce(activities.sends,0) as sends,
-        coalesce(activities.opens,0) as opens,
-        coalesce(activities.clicks,0) as clicks,
-        coalesce(activities.unique_opens,0) as unique_opens,
-        coalesce(activities.unique_clicks,0) as unique_clicks,
-        coalesce(activities.unsubscribes,0) as unsubscribes
+        coalesce(automation_activities.sends,0) as sends,
+        coalesce(automation_activities.opens,0) as opens,
+        coalesce(automation_activities.clicks,0) as clicks,
+        coalesce(automation_activities.unique_opens,0) as unique_opens,
+        coalesce(automation_activities.unique_clicks,0) as unique_clicks,
+        coalesce(automation_activities.unsubscribes,0) as unsubscribes
     from automations
-    left join activities
-        on automations.automation_id = activities.automation_id
+    left join automation_activities
+        on automations.automation_id = automation_activities.automation_id
 
 )
 

@@ -20,8 +20,8 @@ with unsubscribes as (
     select 
         unsubscribes.*,
         automations.segment_id,
-        automations.automation_id
-
+        automations.automation_id,
+        automation_emails.automation_email_id
     from unsubscribes
     left join automation_emails
         on unsubscribes.campaign_id = automation_emails.automation_email_id

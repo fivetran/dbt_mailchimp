@@ -7,8 +7,7 @@ with segments as (
 
 ), campaign_activities as (
 
-    select *
-    from {{ ref('int_mailchimp__campaign_activities_by_segment') }}
+    {{ agg_campaign_activities(['segment']) }}
 
 ), lists as (
 
@@ -37,8 +36,7 @@ with segments as (
 
 ), automation_activities as (
 
-    select *
-    from {{ ref('int_mailchimp__automation_activities_by_segment') }}
+    {{ agg_automation_activities(['segment']) }}
 
 ), metrics_xf as (
 

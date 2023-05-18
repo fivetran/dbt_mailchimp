@@ -5,8 +5,7 @@ with campaigns as (
 
 ), activities as (
 
-    select *
-    from {{ ref('int_mailchimp__campaign_activities_by_campaign') }}
+    {{ agg_campaign_activities(['campaign']) }}
 
 ), joined as (
 

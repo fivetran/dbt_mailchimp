@@ -50,9 +50,10 @@ with recipients as (
 
     select 
         member_id,
+        list_id,
         campaign_id
     from unsubscribes
-    group by 1,2
+    group by 1,2,3
 
 ), metrics_xf as (
 
@@ -63,6 +64,7 @@ with recipients as (
     left join unsubscribes_xf
         on metrics.member_id = unsubscribes_xf.member_id
         and metrics.campaign_id = unsubscribes_xf.campaign_id
+        and metrics.list_id = unsubscribes_xf.list_id
 
 )
 

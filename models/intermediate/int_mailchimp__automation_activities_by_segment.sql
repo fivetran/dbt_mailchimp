@@ -51,17 +51,17 @@ with activities as (
 ), joined as (
 
     select
-        coalesce(pivoted.segment_id, sends.segment_id, unsubscribes_xf.segment_id) as segment_id,
+        coalesce(sends.segment_id, pivoted.segment_id, unsubscribes_xf.segment_id) as segment_id,
         pivoted.opens,
         pivoted.clicks,
         pivoted.unique_opens,
         pivoted.unique_clicks,
         sends.sends,
         unsubscribes_xf.unsubscribes
-    from pivoted
-    full outer join sends
+    from sends
+    left join pivoted
         on pivoted.segment_id = sends.segment_id
-    full outer join unsubscribes_xf
+    left join unsubscribes_xf
         on pivoted.segment_id = unsubscribes_xf.segment_id
 
 )

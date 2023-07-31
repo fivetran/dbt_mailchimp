@@ -48,15 +48,15 @@ with activities as (
 ), joined as (
 
     select
-        coalesce(pivoted.automation_id, sends.automation_id, unsubscribes_xf.automation_id) as automation_id,
+        coalesce(sends.automation_id, pivoted.automation_id, unsubscribes_xf.automation_id) as automation_id,
         pivoted.opens,
         pivoted.clicks,
         pivoted.unique_opens,
         pivoted.unique_clicks,
         sends.sends,
         unsubscribes_xf.unsubscribes
-    from pivoted
-    full outer join sends
+    from sends
+    left join pivoted
         on pivoted.automation_id = sends.automation_id
     full outer join unsubscribes_xf
         on pivoted.automation_id = unsubscribes_xf.automation_id

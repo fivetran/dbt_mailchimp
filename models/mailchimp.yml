@@ -127,11 +127,15 @@ models:
 
   - name: mailchimp__members
     description: Each record represents a member in Mailchimp, enriched with campaign metrics and (optionally) automation metrics.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - member_id
+            - list_id
     columns:
       - name: member_id
         description: The ID of the member.
         tests:
-          - unique
           - not_null
 
       - name: email_address

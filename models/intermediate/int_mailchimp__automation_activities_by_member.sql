@@ -54,7 +54,7 @@ with activities as (
 ), joined as (
 
     select
-        coalesce(pivoted.member_id, sends.member_id, unsubscribes_xf.member_id) as member_id,
+        coalesce(sends.member_id, pivoted.member_id, unsubscribes_xf.member_id) as member_id,
         pivoted.list_id,
         pivoted.automation_email_id,
         pivoted.opens,
@@ -66,8 +66,10 @@ with activities as (
     from sends
     left join pivoted
         on pivoted.member_id = sends.member_id
+        and pivoted.list_id = sends.list_id
     left join unsubscribes_xf
         on unsubscribes_xf.member_id = sends.member_id
+        and unsubscribes_xf.list_id = sends.list_id
 
 )
 

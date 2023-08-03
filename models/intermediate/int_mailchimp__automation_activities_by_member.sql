@@ -23,40 +23,36 @@ with activities as (
     select 
         member_id,
         list_id,
-        automation_email_id,
         sum(case when action_type = 'open' then 1 end) as opens,
         sum(case when action_type = 'click' then 1 end) as clicks, 
         count(distinct case when action_type = 'open' then member_id end) as unique_opens, 
         count(distinct case when action_type = 'click' then member_id end) as unique_clicks
     from activities
-    group by 1,2,3
+    group by 1,2
 
 ), sends as (
 
     select
         member_id,
         list_id,
-        automation_email_id,
         count(*) as sends
     from recipients
-    group by 1,2,3
+    group by 1,2
 
 ), unsubscribes_xf as (
 
     select
         member_id,
         list_id,
-        campaign_id,
         count(*) as unsubscribes
     from unsubscribes
-    group by 1,2,3
+    group by 1,2
 
 ), joined as (
 
     select
         coalesce(sends.member_id, pivoted.member_id, unsubscribes_xf.member_id) as member_id,
         pivoted.list_id,
-        pivoted.automation_email_id,
         pivoted.opens,
         pivoted.clicks,
         pivoted.unique_opens,

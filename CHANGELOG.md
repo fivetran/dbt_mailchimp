@@ -1,3 +1,11 @@
+# dbt_mailchimp v0.9.0
+[PR #40](https://github.com/fivetran/dbt_mailchimp/pull/40) includes the following updates:
+## Bugfix
+- Adds `list_id` as a dimension in `mailchimp__members`, in addition to the existing `member_id`. This is addressing the issue of duplicates in the model, for case where a member may belong to several `list_id`'s.
+
+## Under the Hood
+- Swaps the order of CTE's joined in the `int_mailchimp__automation_activities_by_*` models to first use a CTE where fields will be known to exist.
+
 # dbt_mailchimp v0.8.0
 ## 🎉 Feature Update
 - Databricks compatibility! ([#37](https://github.com/fivetran/dbt_mailchimp/pull/37))

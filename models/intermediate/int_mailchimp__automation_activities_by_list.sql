@@ -58,7 +58,7 @@ with activities as (
     from sends
     left join pivoted
         on pivoted.list_id = sends.list_id
-    full outer join unsubscribes_xf
+    left join unsubscribes_xf
         on pivoted.list_id = unsubscribes_xf.list_id
 
 )

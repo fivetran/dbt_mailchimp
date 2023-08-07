@@ -58,7 +58,7 @@ with activities as (
     from sends
     left join pivoted
         on pivoted.automation_id = sends.automation_id
-    full outer join unsubscribes_xf
+    left join unsubscribes_xf
         on pivoted.automation_id = unsubscribes_xf.automation_id
 
 )

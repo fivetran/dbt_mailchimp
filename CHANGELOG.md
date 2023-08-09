@@ -5,6 +5,7 @@
 
 ## Under the Hood
 - Swaps the order of CTE's joined in the `int_mailchimp__automation_activities_by_*` models to first use a CTE where fields will be known to exist.
+- Updates the seed data used in integration testing to include a new record for an existing `member_id` with a new `list_id`.
 
 ## Note
 - While this is not a breaking change, the updates are fairly complex (we switched around a few joins and the order of fields in a few coalesce statements, so you may see updated records if, for example, the records were showing up as null before). 

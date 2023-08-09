@@ -21,6 +21,7 @@ with members as (
     from members
     left join campaign_activities
         on members.member_id = campaign_activities.member_id
+        and members.list_id = campaign_activities.list_id
 
 {% if var('mailchimp_using_automations', True) %}
 
@@ -42,6 +43,7 @@ with members as (
     from metrics
     left join automation_activities
         on metrics.member_id = automation_activities.member_id
+        and metrics.list_id = automation_activities.list_id
 
 )
 

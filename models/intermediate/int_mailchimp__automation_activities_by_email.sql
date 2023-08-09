@@ -48,17 +48,17 @@ with activities as (
 ), joined as (
 
     select
-        coalesce(pivoted.automation_email_id, sends.automation_email_id, unsubscribes_xf.automation_email_id) as automation_email_id,
+        coalesce(sends.automation_email_id, pivoted.automation_email_id, unsubscribes_xf.automation_email_id) as automation_email_id,
         pivoted.opens,
         pivoted.clicks,
         pivoted.unique_opens,
         pivoted.unique_clicks,
         sends.sends,
         unsubscribes_xf.unsubscribes
-    from pivoted
-    full outer join sends
+    from sends
+    left join pivoted
         on pivoted.automation_email_id = sends.automation_email_id
-    full outer join unsubscribes_xf
+    left join unsubscribes_xf
         on pivoted.automation_email_id = unsubscribes_xf.automation_email_id
 
 )

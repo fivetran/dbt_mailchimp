@@ -15,6 +15,8 @@
 # 📣 What does this dbt package do?
 - Produces modeled tables that leverage Mailchimp data from [Fivetran's connector](https://fivetran.com/docs/applications/mailchimp) in the format described by [this ERD](https://fivetran.com/docs/applications/mailchimp#schemainformation) and builds off the output of our [Mailchimp source package](https://github.com/fivetran/dbt_mailchimp_source).
 - Transforms the 'recipient' and 'activity' tables into analytics-ready models and use that data to provide aggregate metrics about campaigns, automations, lists, members, and segments.
+
+<!--section="mailchimp_transformation_model-->
 - Generates a comprehensive data dictionary of your source and modeled Mailchimp data through the [dbt docs site](https://fivetran.github.io/dbt_mailchimp/#!/overview).
 The following table provides a detailed list of all models materialized within this package by default. 
 > TIP: See more details about these models in the package's [dbt docs site](https://fivetran.github.io/dbt_mailchimp/#!/overview?g_v=1).
@@ -30,6 +32,8 @@ The following table provides a detailed list of all models materialized within t
 | [mailchimp__lists](https://fivetran.github.io/dbt_mailchimp/#!/model/model.mailchimp.mailchimp__lists)             | Each record represents a list in Mailchimp, enriched with campaign metrics, (optional) automation metrics, and (optional) information about members.                               |
 | [mailchimp__members](https://fivetran.github.io/dbt_mailchimp/#!/model/model.mailchimp.mailchimp__members)           | Each record represents a member in Mailchimp, enriched with campaign metrics and (optional) automation metrics.                                                        |
 | [mailchimp__segments](https://fivetran.github.io/dbt_mailchimp/#!/model/model.mailchimp.mailchimp__segments)          | Each record represents a segment in Mailchimp, enriched with campaign metrics and (optional) automation metrics. This output is enabled if you are using segments.                  |
+
+<!--section-end-->
 
 # 🎯 How do I use the dbt package?
 

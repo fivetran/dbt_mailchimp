@@ -1,0 +1,20 @@
+database_key: mailchimp_database
+schema_key: mailchimp_schema
+
+dbt_versions: ">=1.3.0 <2.0.0"
+
+table_variables:
+  mailchimp_using_automations:
+    - automation
+    - automation_email
+    - automation_recipient
+    - automation_recipient_activity
+  mailchimp_using_segments:
+    - segment_member
+    - segment
+
+destination_configurations:
+  databricks:
+    dispatch:
+      - macro_namespace: dbt_utils
+        search_order: [ 'spark_utils', 'dbt_utils' ]

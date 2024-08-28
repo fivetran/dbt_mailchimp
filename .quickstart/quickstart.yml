@@ -18,3 +18,15 @@ destination_configurations:
     dispatch:
       - macro_namespace: dbt_utils
         search_order: [ 'spark_utils', 'dbt_utils' ]
+
+public_models: [
+  "mailchimp__automation_activities",
+  "mailchimp__lists",
+  "mailchimp__members",
+  "mailchimp__campaigns",
+  "mailchimp__campaign_activities",
+  "mailchimp__campaign_recipients",
+  "mailchimp__automations",
+  "mailchimp__automation_emails",
+  "mailchimp__segments"
+]

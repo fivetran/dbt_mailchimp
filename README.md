@@ -12,13 +12,13 @@
 
 # Mailchimp Transformation dbt Package ([Docs](https://fivetran.github.io/dbt_mailchimp/))
 
-# 📣 What does this dbt package do?
+## What does this dbt package do?
 - Produces modeled tables that leverage Mailchimp data from [Fivetran's connector](https://fivetran.com/docs/applications/mailchimp) in the format described by [this ERD](https://fivetran.com/docs/applications/mailchimp#schemainformation) and builds off the output of our [Mailchimp source package](https://github.com/fivetran/dbt_mailchimp_source).
 - Transforms the 'recipient' and 'activity' tables into analytics-ready models and use that data to provide aggregate metrics about campaigns, automations, lists, members, and segments.
 
 <!--section="mailchimp_transformation_model-->
 - Generates a comprehensive data dictionary of your source and modeled Mailchimp data through the [dbt docs site](https://fivetran.github.io/dbt_mailchimp/#!/overview).
-The following table provides a detailed list of all models materialized within this package by default. 
+The following table provides a detailed list of all models materialized within this package by default.
 > TIP: See more details about these models in the package's [dbt docs site](https://fivetran.github.io/dbt_mailchimp/#!/overview?g_v=1).
 
 | **Model**                | **Description**                                                                                                                                |
@@ -35,15 +35,15 @@ The following table provides a detailed list of all models materialized within t
 
 <!--section-end-->
 
-# 🎯 How do I use the dbt package?
+## How do I use the dbt package?
 
-## Step 1: Prerequisites
+### Step 1: Prerequisites
 To use this dbt package, you must have the following:
 
 - At least one Fivetran Mailchimp connector syncing data into your destination.
 - A **BigQuery**, **Snowflake**, **Redshift**, **PostgreSQL**, or **Databricks** destination.
 
-## Step 2: Install the package
+### Step 2: Install the package
 Include the following mailchimp package version in your `packages.yml` file:
 > TIP: Check [dbt Hub](https://hub.getdbt.com/) for the latest installation instructions or [read the dbt docs](https://docs.getdbt.com/docs/package-management) for more information on installing packages.
 ```yaml
@@ -51,9 +51,9 @@ packages:
   - package: fivetran/mailchimp
     version: [">=0.9.0", "<0.10.0"] # we recommend using ranges to capture non-breaking changes automatically
 ```
-Do **NOT** include the `mailchimp_source` package in this file. The transformation package itself has a dependency on it and will install the source package as well. 
+Do **NOT** include the `mailchimp_source` package in this file. The transformation package itself has a dependency on it and will install the source package as well.
 
-### Databricks dispatch configuration
+#### Databricks dispatch configuration
 If you are using a Databricks destination with this package, you must add the following (or a variation of the following) dispatch configuration within your `dbt_project.yml`. This is required in order for the package to accurately search for macros within the `dbt-labs/spark_utils` then the `dbt-labs/dbt_utils` packages respectively.
 ```yml
 dispatch:
@@ -74,8 +74,8 @@ Your Mailchimp connector might not sync every table that this package expects. I
 
 ```yml
 vars:
-  mailchimp_using_automations: false # disable if you do not have the automation_email, automation_email, or automation_recipient_activity tables
-  mailchimp_using_segments: false # disable if you do not have the segment table
+mailchimp_using_automations: false # disable if you do not have the automation_email, automation_email, or automation_recipient_activity tables
+mailchimp_using_segments: false # disable if you do not have the segment table
 ```
 
 ## (Optional) Step 5: Additional configurations
@@ -87,9 +87,9 @@ By default this package will build the Mailchimp staging models within a schema 
 
 ```yml
 models:
-  mailchimp:
+mailchimp:
     +schema: my_new_schema_name # leave blank for just the target_schema
-  mailchimp_source:
+mailchimp_source:
     +schema: my_new_schema_name # leave blank for just the target_schema
 
 ```
@@ -113,7 +113,7 @@ Fivetran offers the ability for you to orchestrate your dbt project through [Fiv
 </details>
 
 # 🔍 Does this package have dependencies?
-This dbt package is dependent on the following dbt packages. Please be aware that these dependencies are installed by default within this package. For more information on the following packages, refer to the [dbt hub](https://hub.getdbt.com/) site.
+This dbt package is dependent on the following dbt packages. These dependencies are installed by default within this package. For more information on the following packages, refer to the [dbt hub](https://hub.getdbt.com/) site.
 > IMPORTANT: If you have any of these dependent packages in your own `packages.yml` file, we highly recommend that you remove them from your root `packages.yml` to avoid package version conflicts.
     
 ```yml
@@ -138,6 +138,5 @@ A small team of analytics engineers at Fivetran develops these dbt packages. How
 We highly encourage and welcome contributions to this package. Check out [this dbt Discourse article](https://discourse.getdbt.com/t/contributing-to-a-dbt-package/657) on the best workflow for contributing to a package!
 
 # 🏪 Are there any resources available?
-- If you have questions or want to reach out for help, please refer to the [GitHub Issue](https://github.com/fivetran/dbt_mailchimp/issues/new/choose) section to find the right avenue of support for you.
+- If you have questions or want to reach out for help, see the [GitHub Issue](https://github.com/fivetran/dbt_mailchimp/issues/new/choose) section to find the right avenue of support for you.
 - If you would like to provide feedback to the dbt package team at Fivetran or would like to request a new dbt package, fill out our [Feedback Form](https://www.surveymonkey.com/r/DQ7K7WW).
-- Have questions or want to just say hi? Book a time during our office hours [on Calendly](https://calendly.com/fivetran-solutions-team/fivetran-solutions-team-office-hours) or email us at solutions@fivetran.com.

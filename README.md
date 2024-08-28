@@ -18,10 +18,10 @@
 
 <!--section="mailchimp_transformation_model-->
 - Generates a comprehensive data dictionary of your source and modeled Mailchimp data through the [dbt docs site](https://fivetran.github.io/dbt_mailchimp/#!/overview).
-The following table provides a detailed list of all models materialized within this package by default.
-> TIP: See more details about these models in the package's [dbt docs site](https://fivetran.github.io/dbt_mailchimp/#!/overview?g_v=1).
+The following table provides a detailed list of all tables materialized within this package by default.
+> TIP: See more details about these tables in the package's [dbt docs site](https://fivetran.github.io/dbt_mailchimp/#!/overview?g_v=1).
 
-| **Model**                | **Description**                                                                                                                                |
+| **Table**                | **Description**                                                                                                                                |
 | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | [mailchimp__automations_activities](https://fivetran.github.io/dbt_mailchimp/#!/model/model.mailchimp.mailchimp__automations_activities)       | Each record represents an activity taken in relation to a automation email. |
 | [mailchimp__automation_emails](https://fivetran.github.io/dbt_mailchimp/#!/model/model.mailchimp.mailchimp__automation_emails)   | Each record represents an automation email (that make up automations), enriched with click, open, and unsubscribe metrics. This output is enabled if you are using automations.       |
@@ -74,8 +74,8 @@ Your Mailchimp connector might not sync every table that this package expects. I
 
 ```yml
 vars:
-mailchimp_using_automations: false # disable if you do not have the automation_email, automation_email, or automation_recipient_activity tables
-mailchimp_using_segments: false # disable if you do not have the segment table
+  mailchimp_using_automations: false # disable if you do not have the automation_email, automation_email, or automation_recipient_activity tables
+  mailchimp_using_segments: false # disable if you do not have the segment table
 ```
 
 ## (Optional) Step 5: Additional configurations
@@ -87,9 +87,9 @@ By default this package will build the Mailchimp staging models within a schema 
 
 ```yml
 models:
-mailchimp:
+  mailchimp:
     +schema: my_new_schema_name # leave blank for just the target_schema
-mailchimp_source:
+  mailchimp_source:
     +schema: my_new_schema_name # leave blank for just the target_schema
 
 ```

@@ -60,7 +60,7 @@ with activities as (
         pivoted.clicks,
         pivoted.unique_opens,
         pivoted.unique_clicks,
-        sends.sends,
+        sends.sends
         {{ ', unsubscribes_xf.unsubscribes' if var('mailchimp_using_unsubscribes', True) }}
     from sends
     left join pivoted

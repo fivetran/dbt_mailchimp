@@ -19,6 +19,7 @@ with segments as (
 
     select 
         segments.*,
+        lists.name as list_name,
         coalesce(campaign_activities.sends,0) as campaign_sends,
         coalesce(campaign_activities.opens,0) as campaign_opens,
         coalesce(campaign_activities.clicks,0) as campaign_clicks,
@@ -28,8 +29,6 @@ with segments as (
         {% if var('mailchimp_using_unsubscribes', True) %}
         , coalesce(campaign_activities.unsubscribes,0) as campaign_unsubscribes
         {% endif %}
-        lists.name as list_name
-
     from segments
     left join campaign_activities
         on segments.segment_id = campaign_activities.segment_id
@@ -51,8 +50,11 @@ with segments as (
         coalesce(automation_activities.opens,0) as automation_opens,
         coalesce(automation_activities.clicks,0) as automation_clicks,
         coalesce(automation_activities.unique_opens,0) as automation_unique_opens,
-        coalesce(automation_activities.unique_clicks,0) as automation_unique_clicks,
-        coalesce(automation_activities.unsubscribes,0) as automation_unsubscribes
+        coalesce(automation_activities.unique_clicks,0) as automation_unique_clicks
+
+        {% if var('mailchimp_using_unsubscribes', True) %}
+        , coalesce(automation_activities.unsubscribes,0) as automation_unsubscribes
+        {% endif %}
     from metrics
     left join automation_activities
         on metrics.segment_id = automation_activities.segment_id

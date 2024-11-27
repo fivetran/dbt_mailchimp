@@ -26,7 +26,7 @@ with segments as (
         coalesce(campaign_activities.unique_clicks,0) as campaign_unique_clicks
 
         {% if var('mailchimp_using_unsubscribes', True) %}
-        , coalesce(campaign_activities.unsubscribes,0) as campaign_unsubscribes,
+        , coalesce(campaign_activities.unsubscribes,0) as campaign_unsubscribes
         {% endif %}
         lists.name as list_name
 

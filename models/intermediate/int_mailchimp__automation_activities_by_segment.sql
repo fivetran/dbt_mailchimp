@@ -10,11 +10,21 @@ with activities as (
     select *
     from {{ ref('int_mailchimp__automation_recipients') }}
 
+{% if var('mailchimp_using_unsubscribes', True) %}
 ), unsubscribes as (
 
     select *
     from {{ ref('int_mailchimp__automation_unsubscribes') }}
 
+), unsubscribes_xf as (
+
+    select
+        segment_id,
+        count(*) as unsubscribes
+    from unsubscribes
+    where segment_id is not null
+    group by 1
+{% endif %}
 
 -- aggregate automation opens and clicks by segment
 
@@ -39,31 +49,27 @@ with activities as (
     where segment_id is not null
     group by 1
 
-), unsubscribes_xf as (
-
-    select
-        segment_id,
-        count(*) as unsubscribes
-    from unsubscribes
-    where segment_id is not null
-    group by 1
-
 ), joined as (
 
     select
-        coalesce(sends.segment_id, pivoted.segment_id, unsubscribes_xf.segment_id) as segment_id,
+        coalesce(sends.segment_id
+            , pivoted.segment_id
+            {{ ', unsubscribes_xf.segment_id' if var('mailchimp_using_unsubscribes', True) }}
+            ) as segment_id,
         pivoted.opens,
         pivoted.clicks,
         pivoted.unique_opens,
         pivoted.unique_clicks,
         sends.sends,
-        unsubscribes_xf.unsubscribes
+        {{ ', unsubscribes_xf.unsubscribes' if var('mailchimp_using_unsubscribes', True) }}
     from sends
     left join pivoted
         on pivoted.segment_id = sends.segment_id
+    
+    {% if var('mailchimp_using_unsubscribes', True) %}
     left join unsubscribes_xf
         on pivoted.segment_id = unsubscribes_xf.segment_id
-
+    {% endif %}
 )
 
 select *

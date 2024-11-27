@@ -1,4 +1,4 @@
-{{ config(enabled=var('mailchimp_using_automations', True)) }}
+{{ config(enabled=var('mailchimp_using_automations', True) and var('mailchimp_using_unsubscribes', True)) }}
 
 with unsubscribes as (
 

@@ -52,8 +52,11 @@ with lists as (
         coalesce(automation_activities.opens,0) as automation_opens,
         coalesce(automation_activities.clicks,0) as automation_clicks,
         coalesce(automation_activities.unique_opens,0) as automation_unique_opens,
-        coalesce(automation_activities.unique_clicks,0) as automation_unique_clicks,
-        coalesce(automation_activities.unsubscribes,0) as automation_unsubscribes
+        coalesce(automation_activities.unique_clicks,0) as automation_unique_clicks
+        
+        {% if var('mailchimp_using_unsubscribes', True) %}
+        , coalesce(automation_activities.unsubscribes,0) as automation_unsubscribes
+        {% endif %}
     from metrics
     left join automation_activities
         on metrics.list_id = automation_activities.list_id

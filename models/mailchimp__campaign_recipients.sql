@@ -8,10 +8,21 @@ with recipients as (
     select *
     from {{ ref('int_mailchimp__campaign_activities_by_email') }}
 
+{% if var('mailchimp_using_unsubscribes', True) %}
 ), unsubscribes as (
 
     select *
     from {{ var('unsubscribe') }}
+
+), unsubscribes_xf as (
+
+    select 
+        member_id,
+        list_id,
+        campaign_id
+    from unsubscribes
+    group by 1,2,3
+{% endif %}
 
 ), campaigns as (
 
@@ -46,26 +57,22 @@ with recipients as (
     left join activities
         on joined.email_id = activities.email_id
 
-), unsubscribes_xf as (
-
-    select 
-        member_id,
-        list_id,
-        campaign_id
-    from unsubscribes
-    group by 1,2,3
-
 ), metrics_xf as (
 
     select 
-        metrics.*,
-        case when unsubscribes_xf.member_id is not null then True else False end as was_unsubscribed
+        metrics.*
+        
+        {% if var('mailchimp_using_unsubscribes', True) %}
+        , case when unsubscribes_xf.member_id is not null then True else False end as was_unsubscribed
+        {% endif %}
     from metrics
+
+    {% if var('mailchimp_using_unsubscribes', True) %}
     left join unsubscribes_xf
         on metrics.member_id = unsubscribes_xf.member_id
         and metrics.campaign_id = unsubscribes_xf.campaign_id
         and metrics.list_id = unsubscribes_xf.list_id
-
+    {% endif %}
 )
 
 select * 

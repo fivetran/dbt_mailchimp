@@ -19,7 +19,7 @@ dbt deps
 dbt seed --target "$db" --full-refresh
 dbt run --target "$db" --full-refresh
 dbt test --target "$db"
-dbt run --vars '{mailchimp_using_automations: false, mailchimp_using_segments: false}' --target "$db" --full-refresh
+dbt run --vars '{mailchimp_using_automations: false, mailchimp_using_segments: false, mailchimp_using_unsubscribes: false}' --target "$db" --full-refresh
 dbt test --target "$db"
 
 dbt run-operation fivetran_utils.drop_schemas_automation --target "$db"

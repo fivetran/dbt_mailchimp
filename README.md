@@ -49,7 +49,7 @@ Include the following mailchimp package version in your `packages.yml` file:
 ```yaml
 packages:
   - package: fivetran/mailchimp
-    version: [">=0.9.0", "<0.10.0"] # we recommend using ranges to capture non-breaking changes automatically
+    version: [">=0.10.0", "<0.11.0"] # we recommend using ranges to capture non-breaking changes automatically
 ```
 Do **NOT** include the `mailchimp_source` package in this file. The transformation package itself has a dependency on it and will install the source package as well.
 
@@ -76,11 +76,11 @@ Your Mailchimp connector might not sync every table that this package expects. I
 vars:
   mailchimp_using_automations: false # disable if you do not have the automation_email, automation_email, or automation_recipient_activity tables
   mailchimp_using_segments: false # disable if you do not have the segment table
+  mailchimp_using_unsubscribes: false #disable if you do not have the unsubscribe table
 ```
 
 ## (Optional) Step 5: Additional configurations
-
-<details><summary>Expand for configurations</summary>
+<details open><summary>Expand/collapse configurations</summary>
 
 ### Changing the Build Schema
 By default this package will build the Mailchimp staging models within a schema titled (<target_schema> + `_stg_mailchimp`) and the Mailchimp final models within a schema titled (<target_schema> + `_mailchimp`) in your target database. If this is not where you would like your modeled Mailchimp data to be written to, add the following configuration to your `dbt_project.yml` file:
@@ -125,7 +125,7 @@ packages:
       version: [">=1.0.0", "<2.0.0"]
 
     - package: fivetran/mailchip_source
-      version: [">=0.5.0", "<0.6.0"]
+      version: [">=0.6.0", "<0.7.0"]
 ```
 
 # 🙌 How is this package maintained and can I contribute?

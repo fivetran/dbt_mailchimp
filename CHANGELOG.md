@@ -13,6 +13,10 @@
     - `mailchimp__members`
     - `mailchimp__segments`
 
+## Under the Hood (Maintainers only)
+- Added `mailchimp_using_unsubscribes` to `quickstart.yml`.
+- Added consistency tests for all end models.ß
+
 # dbt_mailchimp v0.9.0
 [PR #40](https://github.com/fivetran/dbt_mailchimp/pull/40) includes the following updates:
 ## Bugfix

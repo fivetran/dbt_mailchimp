@@ -1,3 +1,22 @@
+# dbt_mailchimp v0.10.0
+[PR #46](https://github.com/fivetran/dbt_mailchimp/pull/46) includes the following updates:
+
+## Breaking Changes
+- Added the ability to disable the `unsubscribe` source by setting the `mailchimp_using_unsubscribes` variable in your `dbt_project.yml`. 
+  - For details on configuring this variable, refer to the [README](https://github.com/fivetran/dbt_mailchimp/blob/main/README.md#step-4-disable-models-for-non-existent-sources).
+  - Disabling the `unsubscribe` source will disable any `*unsubscribe*` fields in the following models and their upstream dependencies:
+    - `mailchimp__automation_emails`
+    - `mailchimp__automations`
+    - `mailchimp__campaign_recipients`
+    - `mailchimp__campaigns`
+    - `mailchimp__lists`
+    - `mailchimp__members`
+    - `mailchimp__segments`
+
+## Under the Hood (Maintainers only)
+- Added `mailchimp_using_unsubscribes` to `quickstart.yml`.
+- Added consistency tests for all end models.ß
+
 # dbt_mailchimp v0.9.0
 [PR #40](https://github.com/fivetran/dbt_mailchimp/pull/40) includes the following updates:
 ## Bugfix

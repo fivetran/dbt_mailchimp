@@ -12,6 +12,8 @@ table_variables:
   mailchimp_using_segments:
     - segment_member
     - segment
+  mailchimp_using_unsubscribes:
+    - unsubscribe
 
 destination_configurations:
   databricks:

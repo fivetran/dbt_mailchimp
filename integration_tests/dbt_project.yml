@@ -1,7 +1,11 @@
 config-version: 2
 name: 'mailchimp_integration_tests'
-version: '0.9.0'
+version: '0.10.0'
 profile: 'integration_tests'
+
+models:
+  +schema: "mailchiump_{{ var('directed_schema','dev') }}"
+
 vars:
   mailchimp_source:
     mailchimp_schema: mailchimp_integration_tests_2
@@ -17,8 +21,6 @@ vars:
     mailchimp_list_identifier: "list"
     mailchimp_member_identifier: "member"
     mailchimp_unsubscribe_identifier: "unsubscribe"
-    using_automations: true
-    using_segments: true
   mailchimp:
     automation: "{{ ref('stg_mailchimp__automations') }}"
     automation_email: "{{ ref('stg_mailchimp__automation_emails') }}"

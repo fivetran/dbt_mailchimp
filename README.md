@@ -33,6 +33,8 @@ The following table provides a detailed list of all tables materialized within t
 | [mailchimp__members](https://fivetran.github.io/dbt_mailchimp/#!/model/model.mailchimp.mailchimp__members)           | Each record represents a member in Mailchimp, enriched with campaign metrics and (optional) automation metrics.                                                        |
 | [mailchimp__segments](https://fivetran.github.io/dbt_mailchimp/#!/model/model.mailchimp.mailchimp__segments)          | Each record represents a segment in Mailchimp, enriched with campaign metrics and (optional) automation metrics. This output is enabled if you are using segments.                  |
 
+### Materialized Models
+Each Quickstart transformation job run materializes 33 models if all components of this data model are enabled. This count includes all staging, intermediate, and final models materialized as `view`, `table`, or `incremental`.
 <!--section-end-->
 
 ## How do I use the dbt package?
@@ -40,7 +42,7 @@ The following table provides a detailed list of all tables materialized within t
 ### Step 1: Prerequisites
 To use this dbt package, you must have the following:
 
-- At least one Fivetran Mailchimp connector syncing data into your destination.
+- At least one Fivetran Mailchimp connection syncing data into your destination.
 - A **BigQuery**, **Snowflake**, **Redshift**, **PostgreSQL**, or **Databricks** destination.
 
 ### Step 2: Install the package
@@ -70,7 +72,7 @@ vars:
 ```
 
 ## Step 4: Disable models for non-existent sources
-Your Mailchimp connector might not sync every table that this package expects. If your syncs exclude certain tables, it is because you either don't use that functionality in Mailchimp or have actively excluded some tables from your syncs. To disable the corresponding functionality in the package, you must set the relevant config variables to `false`. By default, all variables are set to `true`. Alter variables for only the tables you want to disable: 
+Your Mailchimp connection might not sync every table that this package expects. If your syncs exclude certain tables, it is because you either don't use that functionality in Mailchimp or have actively excluded some tables from your syncs. To disable the corresponding functionality in the package, you must set the relevant config variables to `false`. By default, all variables are set to `true`. Alter variables for only the tables you want to disable: 
 
 ```yml
 vars:

@@ -1,3 +1,9 @@
+# dbt_mailchimp version.version
+
+## Documentation
+- Added Quickstart model counts to README. ([#47](https://github.com/fivetran/dbt_mailchimp/pull/47))
+- Corrected references to connectors and connections in the README. ([#47](https://github.com/fivetran/dbt_mailchimp/pull/47))
+
 # dbt_mailchimp v0.10.0
 [PR #46](https://github.com/fivetran/dbt_mailchimp/pull/46) includes the following updates:
 

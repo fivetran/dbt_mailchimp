@@ -1,4 +1,6 @@
-<p align="center">
+# Mailchimp Transformation dbt Package ([Docs](https://fivetran.github.io/dbt_mailchimp/))
+
+<p align="left">
     <a alt="License"
         href="https://github.com/fivetran/dbt_mailchimp/blob/main/LICENSE">
         <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" /></a>
@@ -9,8 +11,6 @@
     <a alt="PRs">
         <img src="https://img.shields.io/badge/Contributions-welcome-blueviolet" /></a>
 </p>
-
-# Mailchimp Transformation dbt Package ([Docs](https://fivetran.github.io/dbt_mailchimp/))
 
 ## What does this dbt package do?
 - Produces modeled tables that leverage Mailchimp data from [Fivetran's connector](https://fivetran.com/docs/applications/mailchimp) in the format described by [this ERD](https://fivetran.com/docs/applications/mailchimp#schemainformation) and builds off the output of our [Mailchimp source package](https://github.com/fivetran/dbt_mailchimp_source).

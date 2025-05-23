@@ -7,7 +7,7 @@ models:
     +schema: mailchimp
     +materialized: table
     intermediate:
-      materialized: ephemeral
+      +materialized: ephemeral
 vars:
   automation: "{{ ref('stg_mailchimp__automations') }}"
   automation_email: "{{ ref('stg_mailchimp__automation_emails') }}"

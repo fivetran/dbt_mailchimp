@@ -1,8 +1,15 @@
-# dbt_mailchimp version.version
+# dbt_mailchimp v0.10.1
 
 ## Documentation
 - Added Quickstart model counts to README. ([#47](https://github.com/fivetran/dbt_mailchimp/pull/47))
 - Corrected references to connectors and connections in the README. ([#47](https://github.com/fivetran/dbt_mailchimp/pull/47))
+
+## Under the Hood
+- Prepends `materialized` configs in the package's `dbt_project.yml` file with `+` to improve compatibility with the newer versions of dbt-core starting with v1.10.0. ([PR #48](https://github.com/fivetran/dbt_mailchimp/pull/48))
+- Updates the package maintainer pull request template. ([PR #49](https://github.com/fivetran/dbt_mailchimp/pull/49))
+
+## Contributors
+- [@b-per](https://github.com/b-per) ([PR #48](https://github.com/fivetran/dbt_mailchimp/pull/48))
 
 # dbt_mailchimp v0.10.0
 [PR #46](https://github.com/fivetran/dbt_mailchimp/pull/46) includes the following updates:

@@ -1,10 +1,10 @@
 config-version: 2
 name: 'mailchimp_integration_tests'
-version: '0.10.0'
+version: '0.10.1'
 profile: 'integration_tests'
 
 models:
-  +schema: "mailchiump_{{ var('directed_schema','dev') }}"
+  +schema: "mailchimp_{{ var('directed_schema','dev') }}"
 
 vars:
   mailchimp_source:

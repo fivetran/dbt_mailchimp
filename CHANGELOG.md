@@ -5,7 +5,6 @@ This release includes the following updates.
 - Fixed materialization configuration in `dbt_project.yml` to ensure tmp models are materialized as views rather than tables. ([#25](https://github.com/fivetran/dbt_mailchimp_source/pull/25)) 
 
 ## Under the Hood
-- Moved the freshness property in `src_mailchimp.yml` into the config to resolve deprecated dbt functionality errors. ([#25](https://github.com/fivetran/dbt_mailchimp_source/pull/25))
 - Updated the package maintainer pull request template. ([#50](https://github.com/fivetran/dbt_mailchimp/pull/50)) 
  
 # dbt_mailchimp v0.10.1

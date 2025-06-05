@@ -1,6 +1,6 @@
 config-version: 2
 name: 'mailchimp_integration_tests'
-version: '0.10.1'
+version: '0.11.0'
 profile: 'integration_tests'
 
 models:
@@ -8,7 +8,7 @@ models:
 
 vars:
   mailchimp_source:
-    mailchimp_schema: mailchimp_integration_tests_2
+    mailchimp_schema: zz_dbt_avinash_seed
     mailchimp_automation_identifier: "automation"
     mailchimp_automation_email_identifier: "automation_email"
     mailchimp_automation_recipient_identifier: "automation_recipient"

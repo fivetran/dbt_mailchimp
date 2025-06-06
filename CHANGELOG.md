@@ -4,6 +4,10 @@
 ## Breaking changes (via [v0.7.0 release of `dbt_mailchimp_source`](https://github.com/fivetran/dbt_mailchimp_source/releases/tag/v0.7.0), `--full-refresh` required)
 - Fixed materialization configuration in `dbt_project.yml` to ensure tmp models are materialized as views rather than tables. ([#25](https://github.com/fivetran/dbt_mailchimp_source/pull/25))
 
+## Under the Hood
+- Updated the triggers for the `auto-release` workflow.
+- Added the `generate-docs` workflow.
+
 # dbt_mailchimp v0.10.1
 
 ## Documentation

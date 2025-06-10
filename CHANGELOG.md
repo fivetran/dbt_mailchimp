@@ -1,8 +1,12 @@
 # dbt_mailchimp v0.11.0 
 [PR #51](https://github.com/fivetran/dbt_mailchimp/pull/51) includes the following updates.
 
-## Breaking changes (via [v0.7.0 release of `dbt_mailchimp_source`](https://github.com/fivetran/dbt_mailchimp_source/releases/tag/v0.7.0), `--full-refresh` required)
-- Fixed materialization configuration in `dbt_project.yml` to ensure tmp models are materialized as views rather than tables. ([#25](https://github.com/fivetran/dbt_mailchimp_source/pull/25))
+## Schema Changes
+
+**1 total change • 1 possible breaking change**
+| **Model/Column** | **Change type** | **Old materialization** | **New materialization** | **Notes** |
+| ---------------- | --------------- | ------------ | ------------ | --------- |
+| [*_tmp](https://github.com/fivetran/dbt_mailchimp_source/tree/main/models/tmp) Models | New Materialization | Table  | View | Fixed the materialization config in the `dbt_project.yml` to ensure staging `*_tmp` models are materialized as views rather than tables. **This is a breaking change and will require a `dbt run --full-refresh`.** ([Source #25](https://github.com/fivetran/dbt_mailchimp_source/pull/25)) |
 
 ## Under the Hood
 - Updated the triggers for the `auto-release` workflow.

@@ -17,6 +17,7 @@ echo `pwd`
 cd integration_tests
 dbt deps
 dbt seed --target "$db" --full-refresh
+dbt source freshness --target "$db" || echo "...Only verifying freshness runs…"
 dbt run --target "$db" --full-refresh
 dbt test --target "$db"
 dbt run --vars '{mailchimp_using_automations: false, mailchimp_using_segments: false, mailchimp_using_unsubscribes: false}' --target "$db" --full-refresh

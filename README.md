@@ -51,7 +51,7 @@ Include the following mailchimp package version in your `packages.yml` file:
 ```yaml
 packages:
   - package: fivetran/mailchimp
-    version: [">=0.11.0", "<0.12.0"] # we recommend using ranges to capture non-breaking changes automatically
+    version: [">=0.12.0", "<0.13.0"] # we recommend using ranges to capture non-breaking changes automatically
 ```
 Do **NOT** include the `mailchimp_source` package in this file. The transformation package itself has a dependency on it and will install the source package as well.
 
@@ -126,8 +126,8 @@ packages:
     - package: dbt-labs/dbt_utils
       version: [">=1.0.0", "<2.0.0"]
 
-    - package: fivetran/mailchip_source
-      version: [">=0.7.0", "<0.8.0"]
+    - package: fivetran/mailchimp_source
+      version: [">=0.8.0", "<0.9.0"]
 ```
 
 # 🙌 How is this package maintained and can I contribute?

@@ -1,4 +1,4 @@
-# Mailchimp Transformation dbt Package ([Docs](https://fivetran.github.io/dbt_mailchimp/))
+# Mailchimp dbt Package ([Docs](https://fivetran.github.io/dbt_mailchimp/))
 
 <p align="left">
     <a alt="License"

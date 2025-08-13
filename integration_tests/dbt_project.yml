@@ -21,21 +21,6 @@ vars:
     mailchimp_list_identifier: "list"
     mailchimp_member_identifier: "member"
     mailchimp_unsubscribe_identifier: "unsubscribe"
-  mailchimp:
-    automation: "{{ source('mailchimp', 'automations') }}"
-    automation_email: "{{ source('mailchimp', 'automation_emails') }}"
-    automation_recipient: "{{ source('mailchimp', 'automation_recipients') }}"
-    automation_recipient_activity: "{{ source('mailchimp', 'automation_activities') }}"
-    campaign: "{{ source('mailchimp', 'campaigns') }}"
-    campaign_recipient: "{{ source('mailchimp', 'campaign_recipients') }}"
-    campaign_recipient_activity: "{{ ref('stg_mailchimp_campaign_activities') }}"
-    mailchimp_segment: "{{ source('mailchimp', 'segments') }}"
-    segment_member: "{{ source('mailchimp', 'segment_members') }}"
-    list: "{{ source('mailchimp', 'lists') }}"
-    member: "{{ source('mailchimp', 'members') }}"
-    unsubscribe: "{{ source('mailchimp', 'unsubscribes') }}"
-    mailchimp_using_automations: true
-    mailchimp_using_segments: true
 seeds:
   +docs:
     show: False
@@ -87,5 +72,4 @@ dispatch:
 
 flags:
   send_anonymous_usage_stats: False
-
   use_colors: True

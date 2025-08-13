@@ -9,8 +9,10 @@ models:
     intermediate:
       +materialized: ephemeral
     staging:
-      +schema: mailchimp_source
-      +materialized: view
+      +materialized: table
+      +schema: stg_mailchimp
+      tmp:
+        +materialized: view
 vars:
   automation: "{{ source('mailchimp', 'automations') }}"
   automation_email: "{{ source('mailchimp', 'automation_emails') }}"
@@ -24,5 +26,4 @@ vars:
   list: "{{ source('mailchimp', 'lists') }}"
   member: "{{ source('mailchimp', 'members') }}"
   unsubscribe: "{{ source('mailchimp', 'unsubscribes') }}"
-  mailchimp_using_automations: true
-  mailchimp_using_segments: true
+  mailchimp__members_pass_through_columns: []

@@ -96,9 +96,12 @@ models:
       +schema: my_new_schema_name # Leave +schema: blank to use the default target_schema.
       staging:
         +schema: my_new_schema_name # Leave +schema: blank to use the default target_schema.
+```
+
+### Change the source table references
 If an individual source table has a different name than the package expects, add the table name as it appears in your destination to the respective variable:
 
-> IMPORTANT: See this project's [`dbt_project.yml`](https://github.com/fivetran/dbt_mailchimp_source/blob/main/dbt_project.yml) variable declarations to see the expected names.
+> IMPORTANT: See this project's [`dbt_project.yml`](https://github.com/fivetran/dbt_mailchimp/blob/main/dbt_project.yml) variable declarations to see the expected names.
 
 ```yml
 vars:
@@ -124,7 +127,6 @@ packages:
 
     - package: dbt-labs/dbt_utils
       version: [">=1.0.0", "<2.0.0"]
-
 ```
 
 # 🙌 How is this package maintained and can I contribute?

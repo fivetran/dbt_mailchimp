@@ -16,7 +16,7 @@
 </p>
 
 ## What does this dbt package do?
-- Produces modeled tables that leverage Mailchimp data from [Fivetran's connector](https://fivetran.com/docs/applications/mailchimp) in the format described by [this ERD](https://fivetran.com/docs/applications/mailchimp#schemainformation) and builds off the output of our [Mailchimp source package](https://github.com/fivetran/dbt_mailchimp_source).
+- Produces modeled tables that leverage Mailchimp data from [Fivetran's connector](https://fivetran.com/docs/applications/mailchimp) in the format described by [this ERD](https://fivetran.com/docs/applications/mailchimp#schemainformation).
 - Transforms the 'recipient' and 'activity' tables into analytics-ready models and use that data to provide aggregate metrics about campaigns, automations, lists, members, and segments.
 
 <!--section="mailchimp_transformation_model-->
@@ -54,9 +54,9 @@ Include the following mailchimp package version in your `packages.yml` file:
 ```yaml
 packages:
   - package: fivetran/mailchimp
-    version: [">=0.12.0", "<0.13.0"] # we recommend using ranges to capture non-breaking changes automatically
+    version: [">=1.0.0", "<1.1.0"] # we recommend using ranges to capture non-breaking changes automatically
 ```
-Do **NOT** include the `mailchimp_source` package in this file. The transformation package itself has a dependency on it and will install the source package as well.
+> All required sources and staging models are now bundled into this transformation package. Do not include `fivetran/mailchimp_source` in your `packages.yml` since this package has been deprecated.
 
 #### Databricks dispatch configuration
 If you are using a Databricks destination with this package, you must add the following (or a variation of the following) dispatch configuration within your `dbt_project.yml`. This is required in order for the package to accurately search for macros within the `dbt-labs/spark_utils` then the `dbt-labs/dbt_utils` packages respectively.
@@ -92,14 +92,10 @@ By default this package will build the Mailchimp staging models within a schema 
 
 ```yml
 models:
-  mailchimp:
-    +schema: my_new_schema_name # leave blank for just the target_schema
-  mailchimp_source:
-    +schema: my_new_schema_name # leave blank for just the target_schema
-
-```
-
-### Change the source table references
+    mailchimp:
+      +schema: my_new_schema_name # Leave +schema: blank to use the default target_schema.
+      staging:
+        +schema: my_new_schema_name # Leave +schema: blank to use the default target_schema.
 If an individual source table has a different name than the package expects, add the table name as it appears in your destination to the respective variable:
 
 > IMPORTANT: See this project's [`dbt_project.yml`](https://github.com/fivetran/dbt_mailchimp_source/blob/main/dbt_project.yml) variable declarations to see the expected names.
@@ -129,8 +125,6 @@ packages:
     - package: dbt-labs/dbt_utils
       version: [">=1.0.0", "<2.0.0"]
 
-    - package: fivetran/mailchimp_source
-      version: [">=0.8.0", "<0.9.0"]
 ```
 
 # 🙌 How is this package maintained and can I contribute?

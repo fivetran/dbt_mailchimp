@@ -1,13 +1,13 @@
 config-version: 2
 name: 'mailchimp_integration_tests'
-version: '0.12.0'
+version: '1.0.0'
 profile: 'integration_tests'
 
 models:
   +schema: "mailchimp_{{ var('directed_schema','dev') }}"
 
 vars:
-  mailchimp_source:
+  mailchimp:
     mailchimp_schema: mailchimp_integration_tests_2
     mailchimp_automation_identifier: "automation"
     mailchimp_automation_email_identifier: "automation_email"
@@ -22,18 +22,18 @@ vars:
     mailchimp_member_identifier: "member"
     mailchimp_unsubscribe_identifier: "unsubscribe"
   mailchimp:
-    automation: "{{ ref('stg_mailchimp__automations') }}"
-    automation_email: "{{ ref('stg_mailchimp__automation_emails') }}"
-    automation_recipient: "{{ ref('stg_mailchimp__automation_recipients') }}"
-    automation_recipient_activity: "{{ ref('stg_mailchimp__automation_activities') }}"
-    campaign: "{{ ref('stg_mailchimp__campaigns') }}"
-    campaign_recipient: "{{ ref('stg_mailchimp__campaign_recipients') }}"
+    automation: "{{ source('mailchimp', 'automations') }}"
+    automation_email: "{{ source('mailchimp', 'automation_emails') }}"
+    automation_recipient: "{{ source('mailchimp', 'automation_recipients') }}"
+    automation_recipient_activity: "{{ source('mailchimp', 'automation_activities') }}"
+    campaign: "{{ source('mailchimp', 'campaigns') }}"
+    campaign_recipient: "{{ source('mailchimp', 'campaign_recipients') }}"
     campaign_recipient_activity: "{{ ref('stg_mailchimp_campaign_activities') }}"
-    mailchimp_segment: "{{ ref('stg_mailchimp__segments') }}"
-    segment_member: "{{ ref('stg_mailchimp__segment_members') }}"
-    list: "{{ ref('stg_mailchimp__lists') }}"
-    member: "{{ ref('stg_mailchimp__members') }}"
-    unsubscribe: "{{ ref('stg_mailchimp__unsubscribes') }}"
+    mailchimp_segment: "{{ source('mailchimp', 'segments') }}"
+    segment_member: "{{ source('mailchimp', 'segment_members') }}"
+    list: "{{ source('mailchimp', 'lists') }}"
+    member: "{{ source('mailchimp', 'members') }}"
+    unsubscribe: "{{ source('mailchimp', 'unsubscribes') }}"
     mailchimp_using_automations: true
     mailchimp_using_segments: true
 seeds:

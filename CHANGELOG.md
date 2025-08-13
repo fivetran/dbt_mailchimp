@@ -17,7 +17,10 @@
 - Temporarily removed unsupported tests to avoid errors and ensure smoother upgrades across different dbt-core versions. These tests will be reintroduced once a safe migration path is available.
   - Removed all `dbt_utils.unique_combination_of_columns` tests.
   - Removed all `accepted_values` tests.
-  - Moved `loaded_at_field: _fivetran_synced` under the `config:` block in `src_mailchimp.yml`.
+
+## Under the Hood
+- Updated conditions in `.github/workflows/auto-release.yml`.
+- Added `.github/workflows/generate-docs.yml`.
 
 # dbt_mailchimp v0.12.0
 

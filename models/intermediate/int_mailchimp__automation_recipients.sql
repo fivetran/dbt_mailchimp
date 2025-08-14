@@ -3,17 +3,17 @@
 with recipients as (
 
     select *
-    from {{ var('automation_recipient') }}
+    from {{ ref('stg_mailchimp__automation_recipient') }}
 
 ), automation_emails as (
 
     select *
-    from {{ var('automation_email') }}
+    from {{ ref('stg_mailchimp__automation_email') }}
 
 ), automations as (
 
     select *
-    from {{ var('automation') }}
+    from {{ ref('stg_mailchimp__automation') }}
 
 ), joined as (
 

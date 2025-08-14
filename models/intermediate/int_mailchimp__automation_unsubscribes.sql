@@ -3,17 +3,17 @@
 with unsubscribes as (
 
     select *
-    from {{ var('unsubscribe') }}
+    from {{ ref('stg_mailchimp__unsubscribe') }}
 
 ), automation_emails as (
 
     select *
-    from {{ var('automation_email') }}
+    from {{ ref('stg_mailchimp__automation_email') }}
 
 ), automations as (
 
     select *
-    from {{ var('automation') }}
+    from {{ ref('stg_mailchimp__automation') }}
 
 ), joined as (
 

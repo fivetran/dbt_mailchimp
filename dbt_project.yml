@@ -16,7 +16,7 @@ models:
         +materialized: view
 
 vars:
-  
+  mailchimp:
     automation: "{{ source('mailchimp','automation') }}"
     automation_email: "{{ source('mailchimp','automation_email') }}"
     automation_recipient: "{{ source('mailchimp','automation_recipient') }}"

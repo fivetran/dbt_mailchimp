@@ -21,6 +21,7 @@ vars:
     mailchimp_list_identifier: "list"
     mailchimp_member_identifier: "member"
     mailchimp_unsubscribe_identifier: "unsubscribe"
+
 seeds:
   +docs:
     show: False

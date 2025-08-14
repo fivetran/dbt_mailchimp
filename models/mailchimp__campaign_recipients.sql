@@ -1,7 +1,7 @@
 with recipients as (
     
     select *
-    from {{ var('campaign_recipient') }}
+    from {{ ref('stg_mailchimp__campaign_recipients') }}
 
 ), activities as (
 
@@ -12,7 +12,7 @@ with recipients as (
 ), unsubscribes as (
 
     select *
-    from {{ var('unsubscribe') }}
+    from {{ ref('stg_mailchimp__unsubscribes') }}
 
 ), unsubscribes_xf as (
 
@@ -27,7 +27,7 @@ with recipients as (
 ), campaigns as (
 
     select *
-    from {{ var('campaign') }}
+    from {{ ref('stg_mailchimp__campaign') }}
 
 ), joined as (
 

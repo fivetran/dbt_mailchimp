@@ -6,7 +6,7 @@ with activities as (
 ), campaigns as (
 
     select *
-    from {{ var('campaign') }}
+    from {{ ref('stg_mailchimp__campaigns') }}
 
 ), since_send as (
 

@@ -27,7 +27,7 @@ with recipients as (
 ), campaigns as (
 
     select *
-    from {{ ref('stg_mailchimp__campaign') }}
+    from {{ ref('stg_mailchimp__campaigns') }}
 
 ), joined as (
 

@@ -3,7 +3,7 @@
 with automations as (
 
     select *
-    from {{ var('automation')}}
+    from {{ ref('stg_mailchimp__automations')}}
 
 ), activities as (
 

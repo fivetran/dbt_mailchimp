@@ -1,7 +1,7 @@
 with members as (
 
     select *
-    from {{ var('member')}}
+    from {{ ref('stg_mailchimp__members')}}
 
 ), campaign_activities as (
 

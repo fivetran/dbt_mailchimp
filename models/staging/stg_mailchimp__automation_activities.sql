@@ -9,21 +9,23 @@ with base as (
 
 fields as (
 
-    select 
+    select
         {{
             fivetran_utils.fill_staging_columns(
                 source_columns=adapter.get_columns_in_relation(ref('stg_mailchimp__automation_activities_tmp')),
                 staging_columns=get_automation_recipient_activity_columns()
             )
         }}
-        
+        {{ mailchimp.apply_source_relation() }}
+
     from base
 
 ), 
 
 final as (
 
-    select 
+    select
+        source_relation,
         action as action_type,
         automation_email_id,
         member_id,
@@ -38,9 +40,9 @@ final as (
 
 unique_key as (
 
-    select 
-        *, 
-        {{ dbt_utils.generate_surrogate_key(['action_type', 'automation_email_id', 'member_id', 'activity_timestamp']) }} as activity_id
+    select
+        *,
+        {{ dbt_utils.generate_surrogate_key(['source_relation', 'action_type', 'automation_email_id', 'member_id', 'activity_timestamp']) }} as activity_id
     from final
 )
 

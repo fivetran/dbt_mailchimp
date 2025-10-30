@@ -16,13 +16,15 @@ fields as (
                 staging_columns=get_automation_columns()
             )
         }}
-        
+        {{ mailchimp.apply_source_relation() }}
+
     from base
 ),
 
 final as (
 
     select
+        source_relation,
         id as automation_id,
         list_id,
         segment_id, 

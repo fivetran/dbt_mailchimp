@@ -17,7 +17,7 @@ with segments as (
 
 ), metrics as (
 
-    select 
+    select
         segments.*,
         lists.name as list_name,
         coalesce(campaign_activities.sends,0) as campaign_sends,
@@ -32,8 +32,10 @@ with segments as (
     from segments
     left join campaign_activities
         on segments.segment_id = campaign_activities.segment_id
-    left join lists 
+        and segments.source_relation = campaign_activities.source_relation
+    left join lists
         on segments.list_id = lists.list_id
+        and segments.source_relation = lists.source_relation
 
 {% if var('mailchimp_using_automations', True) %}
 
@@ -44,7 +46,7 @@ with segments as (
 
 ), metrics_xf as (
 
-    select 
+    select
         metrics.*,
         coalesce(automation_activities.sends,0) as automation_sends,
         coalesce(automation_activities.opens,0) as automation_opens,
@@ -58,6 +60,7 @@ with segments as (
     from metrics
     left join automation_activities
         on metrics.segment_id = automation_activities.segment_id
+        and metrics.source_relation = automation_activities.source_relation
 
 )
 

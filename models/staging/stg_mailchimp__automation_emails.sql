@@ -9,21 +9,23 @@ with base as (
 
 fields as (
 
-    select 
+    select
         {{
             fivetran_utils.fill_staging_columns(
                 source_columns=adapter.get_columns_in_relation(ref('stg_mailchimp__automation_emails_tmp')),
                 staging_columns=get_automation_email_columns()
             )
         }}
-        
-    from base         
+        {{ mailchimp.apply_source_relation() }}
+
+    from base
 
 ), 
 
 final as (
 
     select
+        source_relation,
         -- IDs and standard timestamp
         id as automation_email_id,
         automation_id,

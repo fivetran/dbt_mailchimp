@@ -15,28 +15,30 @@ fields as (
                 staging_columns=get_campaign_recipient_columns()
             )
         }}
-        
+        {{ mailchimp.apply_source_relation() }}
+
     from base
 ),
 
 final as (
 
-    select 
+    select
+        source_relation,
         campaign_id,
         member_id,
         combination_id,
         list_id
     from fields
 
-), 
+),
 
 unique_key as (
 
-    select 
+    select
         *,
-        {{ dbt_utils.generate_surrogate_key(['campaign_id','member_id']) }} as email_id
+        {{ dbt_utils.generate_surrogate_key(['source_relation','campaign_id','member_id']) }} as email_id
     from final
-    
+
 )
 
 select *

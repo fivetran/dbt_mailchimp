@@ -5,6 +5,7 @@ sources:
     database: "{% if target.type != 'spark' %}{{ var('mailchimp_database', target.database) }}{% endif %}"
     loader: fivetran
     config:
+      enabled: "{{ var('mailchimp_sources', []) == [] }}"
       loaded_at_field: _fivetran_synced
       freshness:
         warn_after: {count: 72, period: hour}
@@ -15,7 +16,7 @@ sources:
         identifier: "{{ var('mailchimp_automation_identifier', 'automation')}}"
         description: Each record represents an automation in Mailchimp.
         config:
-          enabled: "{{ var('mailchimp_using_automations', true) }}"
+          enabled: "{{ var('mailchimp_using_automations', true) and var('mailchimp_sources', []) == [] }}"
         columns:
           - name: id
             description: The ID of the automation in Mailchimp.
@@ -46,7 +47,7 @@ sources:
         identifier: "{{ var('mailchimp_automation_email_identifier', 'automation_email')}}"
         description: Each record represents an automation email (that make up automations).
         config:
-          enabled: "{{ var('mailchimp_using_automations', true) }}"
+          enabled: "{{ var('mailchimp_using_automations', true) and var('mailchimp_sources', []) == [] }}"
         columns:
           - name: id
             description: The ID of the email.
@@ -131,7 +132,7 @@ sources:
         identifier: "{{ var('mailchimp_automation_recipient_identifier', 'automation_recipient')}}"
         description: Each record represents info about the recipient of each automation.
         config:
-          enabled: "{{ var('mailchimp_using_automations', true) }}"
+          enabled: "{{ var('mailchimp_using_automations', true) and var('mailchimp_sources', []) == [] }}"
         columns:
           - name: member_id
             description: The ID of the member the automation was sent to.
@@ -146,7 +147,7 @@ sources:
         identifier: "{{ var('mailchimp_automation_recipient_activity_identifier', 'automation_recipient_activity')}}"
         description: Each record represents an activity taken in relation to a automation email.
         config:
-          enabled: "{{ var('mailchimp_using_automations', true) }}"
+          enabled: "{{ var('mailchimp_using_automations', true) and var('mailchimp_sources', []) == [] }}"
         columns:
           - name: action
             description: >
@@ -305,7 +306,7 @@ sources:
         identifier: "{{ var('mailchimp_segment_identifier', 'segment')}}"
         description: Each record represents a segment in Mailchimp.
         config:
-          enabled: "{{ var('mailchimp_using_segments', true) }}"
+          enabled: "{{ var('mailchimp_using_segments', true) and var('mailchimp_sources', []) == [] }}"
         columns:
           - name: id
             description: The ID for the Segment from Mailchimp
@@ -328,9 +329,9 @@ sources:
 
       - name: segment_member
         identifier: "{{ var('mailchimp_segment_member_identifier', 'segment_member')}}"
-        description: Each record represents a member and their segment data. 
+        description: Each record represents a member and their segment data.
         config:
-          enabled: "{{ var('mailchimp_using_segments', true) }}"
+          enabled: "{{ var('mailchimp_using_segments', true) and var('mailchimp_sources', []) == [] }}"
         columns:
           - name: segment_id
             description: The ID for the Segment from Mailchimp.
@@ -461,7 +462,7 @@ sources:
         identifier: "{{ var('mailchimp_unsubscribe_identifier', 'unsubscribe')}}"
         description: Each record represents a member who unsubscribed.
         config:
-          enabled: "{{ var('mailchimp_using_unsubscribes', true) }}"
+          enabled: "{{ var('mailchimp_using_unsubscribes', true) and var('mailchimp_sources', []) == [] }}"
         columns:
           - name: campaign_id
             description: The unique id for the campaign.

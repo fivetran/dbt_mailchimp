@@ -5,6 +5,9 @@ models:
   - name: stg_mailchimp__automation_activities
     description: Each record represents an activity taken in relation to a automation email.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
       - name: activity_id
         description: The ID of the activity/event.
         tests: 
@@ -40,6 +43,9 @@ models:
   - name: stg_mailchimp__automation_emails
     description: Each record represents an automation email (that make up automations).
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
       - name: automation_email_id
         description: The ID of the automation email. 
         tests:
@@ -157,8 +163,11 @@ models:
   - name: stg_mailchimp__automation_recipients
     description: Each record represents info about the recipient of each automation.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
       - name: automation_recipient_id
-        description: Surrogate key that uses member_id and automation_email_id 
+        description: Surrogate key hashed on source_relation, member_id and automation_email_id 
         tests: 
           - not_null
           - unique
@@ -175,6 +184,9 @@ models:
   - name: stg_mailchimp__automations
     description: Each record represents an automation in Mailchimp.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
       - name: automation_id
         description: The ID of the automation in Mailchimp.
         tests:
@@ -210,8 +222,11 @@ models:
   - name: stg_mailchimp__campaign_recipients
     description: Each record represents the send of a campaign email.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
       - name: email_id
-        description: The surrogate key that uses table campaign_id and member_id. 
+        description: Surrogate key hashed on source_relation, campaign_id and member_id. 
         tests:
           - unique
           - not_null
@@ -231,6 +246,9 @@ models:
   - name: stg_mailchimp__campaign_activities
     description: Each record represents an activity taken in relation to a campaign email.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
       - name: activity_id
         description: The ID of the activity/event.
         tests:
@@ -271,6 +289,9 @@ models:
   - name: stg_mailchimp__campaigns
     description: Each record represents a campaign in Mailchimp.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
       - name: campaign_id
         description: The ID of the campaign in Mailchimp.
         tests:
@@ -395,6 +416,9 @@ models:
   - name: stg_mailchimp__lists
     description: Each record represents a list in Mailchimp.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
       - name: list_id
         description: The unique ID of a list.
         tests:
@@ -476,6 +500,9 @@ models:
   - name: stg_mailchimp__members
     description: Each record represents a member in Mailchimp.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
       - name: member_id
         description: The ID of the member.
         tests:
@@ -544,8 +571,11 @@ models:
         description: VIP status for subscriber.
 
   - name: stg_mailchimp__segment_members
-    description: Each record represents a member and their segment data. 
+    description: Each record represents a member and their segment data.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
       - name: segment_id
         description: The ID for the Segment from Mailchimp.
 
@@ -558,6 +588,9 @@ models:
   - name: stg_mailchimp__segments
     description: Each record represents a segment in Mailchimp.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
       - name: segment_id
         description: The ID for the Segment from Mailchimp
         tests:
@@ -585,8 +618,11 @@ models:
   - name: stg_mailchimp__unsubscribes
     description: Each record represents a member who unsubscribed.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
       - name: unsubscribe_id
-        description: The surrogate key that uses table member_id, list_id, and unsubscribe_timestamp
+        description: Surrogate key hashed on source_relation, member_id, list_id, and unsubscribe_timestamp
         tests: 
           - not_null
           - unique

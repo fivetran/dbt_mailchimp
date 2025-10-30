@@ -15,17 +15,18 @@ with lists as (
 
 ), members_xf as (
 
-    select 
+    select
         lists.*,
         coalesce(members.count_members,0) as count_members,
         members.most_recent_signup_timestamp
     from lists
     left join members
         on lists.list_id = members.list_id
+        and lists.source_relation = members.source_relation
 
 ), metrics as (
 
-    select 
+    select
         members_xf.*,
         coalesce(campaign_activities.sends,0) as campaign_sends,
         coalesce(campaign_activities.opens,0) as campaign_opens,
@@ -39,6 +40,7 @@ with lists as (
     from members_xf
     left join campaign_activities
         on members_xf.list_id = campaign_activities.list_id
+        and members_xf.source_relation = campaign_activities.source_relation
 
 {% if var('mailchimp_using_automations', True) %}
 
@@ -49,20 +51,21 @@ with lists as (
 
 ), metrics_xf as (
 
-    select 
+    select
         metrics.*,
         coalesce(automation_activities.sends,0) as automation_sends,
         coalesce(automation_activities.opens,0) as automation_opens,
         coalesce(automation_activities.clicks,0) as automation_clicks,
         coalesce(automation_activities.unique_opens,0) as automation_unique_opens,
         coalesce(automation_activities.unique_clicks,0) as automation_unique_clicks
-        
+
         {% if var('mailchimp_using_unsubscribes', True) %}
         , coalesce(automation_activities.unsubscribes,0) as automation_unsubscribes
         {% endif %}
     from metrics
     left join automation_activities
         on metrics.list_id = automation_activities.list_id
+        and metrics.source_relation = automation_activities.source_relation
 
 )
 

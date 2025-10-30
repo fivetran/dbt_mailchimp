@@ -10,7 +10,7 @@ with activities as (
 
 ), since_send as (
 
-    select 
+    select
         activities.*,
         campaigns.send_timestamp,
         {{ dbt.datediff('campaigns.send_timestamp','activities.activity_timestamp','minute') }} as time_since_send_minutes,
@@ -19,6 +19,7 @@ with activities as (
     from activities
     left join campaigns
         on activities.campaign_id = campaigns.campaign_id
+        and activities.source_relation = campaigns.source_relation
 
 )
 

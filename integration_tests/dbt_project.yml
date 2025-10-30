@@ -8,7 +8,7 @@ models:
 
 vars:
   mailchimp:
-    mailchimp_schema: zz_dbt_catherine #mailchimp_integration_tests_2
+    mailchimp_schema: mailchimp_integration_tests_2
     mailchimp_automation_identifier: "automation"
     mailchimp_automation_email_identifier: "automation_email"
     mailchimp_automation_recipient_identifier: "automation_recipient"

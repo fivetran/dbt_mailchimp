@@ -1,6 +1,6 @@
 {%- macro partition_by_source_relation(has_other_partitions='yes', alias=None) -%}
 
-{{ adapter.dispatch('partition_by_source_relation', 'mailchimp') () }}
+{{ adapter.dispatch('partition_by_source_relation', 'mailchimp') (has_other_partitions, alias) }}
 
 {%- endmacro %}
 

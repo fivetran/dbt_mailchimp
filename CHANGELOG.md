@@ -1,11 +1,17 @@
 # dbt_mailchimp v1.1.0
 
 ## Schema/Data Change
-**1 total change • 0 possible breaking changes**
+**7 total changes • 0 possible breaking changes**
 
 | Data Model(s) | Change type | Old | New | Notes |
 | ------------- | ----------- | ----| --- | ----- |
 | All models | New column | | `source_relation` | Identifies the source connection when using multiple Mailchimp connections |
+| `stg_mailchimp__automation_activities` | Updated surrogate key | `activity_id` = `action_type` + `automation_email_id` + `member_id` + `activity_timestamp` | `activity_id` = `source_relation` + `action_type` + `automation_email_id` + `member_id` + `activity_timestamp` | Updated to include `source_relation` |
+| `stg_mailchimp__automation_recipients` | Updated surrogate key | `automation_recipient_id` = `member_id` + `automation_email_id` | `automation_recipient_id` = `source_relation` + `member_id` + `automation_email_id` | Updated to include `source_relation` |
+| `stg_mailchimp__campaign_activities` | Updated surrogate key | `activity_id` = `action_type` + `campaign_id` + `member_id` + `activity_timestamp` | `activity_id` = `source_relation` + `action_type` + `campaign_id` + `member_id` + `activity_timestamp` | Updated to include `source_relation` |
+| `stg_mailchimp__campaign_activities` | Updated surrogate key | `email_id` = `campaign_id` + `member_id` | `email_id` = `source_relation` + `campaign_id` + `member_id` | Updated to include `source_relation` |
+| `stg_mailchimp__campaign_recipients` | Updated surrogate key | `email_id` = `campaign_id` + `member_id` | `email_id` = `source_relation` + `campaign_id` + `member_id` | Updated to include `source_relation` |
+| `stg_mailchimp__unsubscribes` | Updated surrogate key | `unsubscribe_id` = `member_id` + `list_id` + `unsubscribe_timestamp` | `unsubscribe_id` = `source_relation` + `member_id` + `list_id` + `unsubscribe_timestamp` | Updated to include `source_relation` |
 
 ## Feature Update
 - **Union Data Functionality**: This release supports running the package on multiple Mailchimp source connections. See the [README](https://github.com/fivetran/dbt_mailchimp/tree/main?tab=readme-ov-file#step-3-define-database-and-schema-variables) for details on how to leverage this feature.

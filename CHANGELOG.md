@@ -1,4 +1,5 @@
 # dbt_mailchimp v1.1.0
+[PR #57](https://github.com/fivetran/dbt_mailchimp/pull/57) includes the following updates:
 
 ## Schema/Data Change
 **7 total changes • 0 possible breaking changes**
@@ -17,7 +18,7 @@
 - **Union Data Functionality**: This release supports running the package on multiple Mailchimp source connections. See the [README](https://github.com/fivetran/dbt_mailchimp/tree/main?tab=readme-ov-file#step-3-define-database-and-schema-variables) for details on how to leverage this feature.
 
 ## Tests Update
-- Removes uniqueness tests for primary keys but keeps them for surrogate keys. The new unioning feature requires combination-of-column tests to consider the new `source_relation` column in addition to the existing primary key, but this is not supported across dbt versions.
+- Removes uniqueness tests for primary keys. The new unioning feature requires combination-of-column tests to consider the new `source_relation` column in addition to the existing primary key, but this is not supported across dbt versions.
   - Note that surrogate keys are unaffected and retain their uniqueness tests.  
 - Primary key tests will be reintroduced once a version-agnostic solution is available.
 

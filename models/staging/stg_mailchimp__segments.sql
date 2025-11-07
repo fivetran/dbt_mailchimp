@@ -17,7 +17,8 @@ fields as (
                 staging_columns=get_segment_columns()
             )
         }}
-        
+        {{ mailchimp.apply_source_relation() }}
+
     from base
 
 ), 
@@ -25,6 +26,7 @@ fields as (
 final as (
 
     select
+        source_relation,
         id as segment_id,
         list_id,
         member_count,

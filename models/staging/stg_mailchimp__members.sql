@@ -15,13 +15,15 @@ fields as (
                 staging_columns=get_member_columns()
             )
         }}
-        
+        {{ mailchimp.apply_source_relation() }}
+
     from base
 ),
 
 final as (
 
-    select 
+    select
+        source_relation,
         id as member_id,
         email_address,
         email_client,

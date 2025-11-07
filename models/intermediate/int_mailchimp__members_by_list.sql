@@ -5,12 +5,13 @@ with members as (
 
 ), by_list as (
 
-    select 
+    select
+        source_relation,
         list_id,
         count(*) as count_members,
         max(signup_timestamp) as most_recent_signup_timestamp
-    from members 
-    group by 1
+    from members
+    group by 1,2
 
 )
 

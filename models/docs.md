@@ -1,3 +1,5 @@
+{% docs source_relation %} Identifies the record's source. {% enddocs %}
+
 {% docs campaign_sends -%}
 The number of sent emails from campaigns.
 {%- enddocs %}

@@ -17,14 +17,16 @@ fields as (
                 staging_columns=get_unsubscribe_columns()
             )
         }}
-        
+        {{ mailchimp.apply_source_relation() }}
+
     from base
 
 ), 
 
 final as (
 
-    select 
+    select
+        source_relation,
         campaign_id,
         member_id,
         list_id,
@@ -32,13 +34,13 @@ final as (
         timestamp as unsubscribe_timestamp
     from fields
 
-), 
+),
 
 unique_key as (
 
-    select 
-        *, 
-        {{ dbt_utils.generate_surrogate_key([ 'member_id', 'list_id', 'unsubscribe_timestamp']) }} as unsubscribe_id
+    select
+        *,
+        {{ dbt_utils.generate_surrogate_key(['source_relation', 'member_id', 'list_id', 'unsubscribe_timestamp']) }} as unsubscribe_id
     from final
 
 )

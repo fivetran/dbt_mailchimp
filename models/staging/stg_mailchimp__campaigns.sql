@@ -15,13 +15,15 @@ fields as (
                 staging_columns=get_campaign_columns()
             )
         }}
-        
+        {{ mailchimp.apply_source_relation() }}
+
     from base
 ),
 
 final as (
 
-    select 
+    select
+        source_relation,
         id as campaign_id,
         segment_id,
         create_time as create_timestamp,

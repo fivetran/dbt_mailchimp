@@ -5,7 +5,8 @@ with recipients as (
 
 ), pivoted as (
 
-    select 
+    select
+        source_relation,
         member_id,
         list_id,
         count(*) as sends,
@@ -13,13 +14,13 @@ with recipients as (
         sum(clicks) as clicks,
         count(distinct case when was_opened = True then member_id end) as unique_opens,
         count(distinct case when was_clicked = True then member_id end) as unique_clicks
-        
+
         {% if var('mailchimp_using_unsubscribes', True) %}
         , count(distinct case when was_unsubscribed = True then member_id end) as unsubscribes
         {% endif %}
     from recipients
-    group by 1,2
-    
+    group by 1,2,3
+
 )
 
 select *

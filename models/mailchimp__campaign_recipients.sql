@@ -16,12 +16,13 @@ with recipients as (
 
 ), unsubscribes_xf as (
 
-    select 
+    select
+        source_relation,
         member_id,
         list_id,
         campaign_id
     from unsubscribes
-    group by 1,2,3
+    group by 1,2,3,4
 {% endif %}
 
 ), campaigns as (
@@ -31,13 +32,14 @@ with recipients as (
 
 ), joined as (
 
-    select 
+    select
         recipients.*,
         campaigns.segment_id,
         campaigns.send_timestamp
     from recipients
     left join campaigns
         on recipients.campaign_id = campaigns.campaign_id
+        and recipients.source_relation = campaigns.source_relation
 
 ), metrics as (
 
@@ -56,6 +58,7 @@ with recipients as (
     from joined
     left join activities
         on joined.email_id = activities.email_id
+        and joined.source_relation = activities.source_relation
 
 ), metrics_xf as (
 
@@ -72,6 +75,7 @@ with recipients as (
         on metrics.member_id = unsubscribes_xf.member_id
         and metrics.campaign_id = unsubscribes_xf.campaign_id
         and metrics.list_id = unsubscribes_xf.list_id
+        and metrics.source_relation = unsubscribes_xf.source_relation
     {% endif %}
 )
 

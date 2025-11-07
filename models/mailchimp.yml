@@ -561,6 +561,7 @@ models:
       - name: automation_email_id
         tests:
           - not_null
+        description: The ID for the automation email that relates to the activity.
 
       - name: automation_id
         description: The ID of the automation an email relates to.

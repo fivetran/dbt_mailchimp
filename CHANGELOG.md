@@ -1,4 +1,5 @@
 # dbt_mailchimp v1.1.0
+[PR #57](https://github.com/fivetran/dbt_mailchimp/pull/57) includes the following updates:
 
 ## Schema/Data Change
 **7 total changes • 0 possible breaking changes**

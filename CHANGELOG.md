@@ -1,3 +1,10 @@
+# dbt_mailchimp v1.2.0
+
+[PR #58](https://github.com/fivetran/dbt_mailchimp/pull/58) includes the following updates:
+
+## Features
+  - Increases the required dbt version upper limit to v3.0.0
+
 # dbt_mailchimp v1.1.0
 [PR #57](https://github.com/fivetran/dbt_mailchimp/pull/57) includes the following updates:
 

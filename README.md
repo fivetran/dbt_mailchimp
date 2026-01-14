@@ -1,4 +1,5 @@
-# Mailchimp dbt Package ([Docs](https://fivetran.github.io/dbt_mailchimp/))
+<!--section="mailchimp_transformation_model"-->
+# Mailchimp dbt Package
 
 <p align="left">
     <a alt="License"
@@ -15,46 +16,71 @@
         <img src="https://img.shields.io/badge/Fivetran_Quickstart_Compatible%3F-yes-green.svg" /></a>
 </p>
 
+This dbt package transforms data from Fivetran's Mailchimp connector into analytics-ready tables.
+
+## Resources
+
+- Number of materialized models¹: 33
+- Connector documentation
+  - [Mailchimp connector documentation](https://fivetran.com/docs/connectors/applications/mailchimp)
+  - [Mailchimp ERD](https://fivetran.com/docs/connectors/applications/mailchimp#schemainformation)
+- dbt package documentation
+  - [GitHub repository](https://github.com/fivetran/dbt_mailchimp)
+  - [dbt Docs](https://fivetran.github.io/dbt_mailchimp/#!/overview)
+  - [DAG](https://fivetran.github.io/dbt_mailchimp/#!/overview?g_v=1)
+  - [Changelog](https://github.com/fivetran/dbt_mailchimp/blob/main/CHANGELOG.md)
+
 ## What does this dbt package do?
-- Produces modeled tables that leverage Mailchimp data from [Fivetran's connector](https://fivetran.com/docs/applications/mailchimp) in the format described by [this ERD](https://fivetran.com/docs/applications/mailchimp#schemainformation).
-- Transforms the 'recipient' and 'activity' tables into analytics-ready models and use that data to provide aggregate metrics about campaigns, automations, lists, members, and segments.
+This package enables you to transform recipient and activity tables into analytics-ready models and provide aggregate metrics about campaigns, automations, lists, members, and segments. It creates enriched models with metrics focused on email performance, member engagement, and campaign effectiveness.
 
-<!--section="mailchimp_transformation_model-->
-- Generates a comprehensive data dictionary of your source and modeled Mailchimp data through the [dbt docs site](https://fivetran.github.io/dbt_mailchimp/#!/overview).
-The following table provides a detailed list of all tables materialized within this package by default.
-> TIP: See more details about these tables in the package's [dbt docs site](https://fivetran.github.io/dbt_mailchimp/#!/overview?g_v=1).
+### Output schema
+Final output tables are generated in the following target schema:
 
-| **Table**                | **Description**                                                                                                                                |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| [mailchimp__automations_activities](https://fivetran.github.io/dbt_mailchimp/#!/model/model.mailchimp.mailchimp__automations_activities)       | Each record represents an activity taken in relation to a automation email. |
-| [mailchimp__automation_emails](https://fivetran.github.io/dbt_mailchimp/#!/model/model.mailchimp.mailchimp__automation_emails)   | Each record represents an automation email (that make up automations), enriched with click, open, and unsubscribe metrics. This output is enabled if you are using automations.       |
-| [mailchimp__automations](https://fivetran.github.io/dbt_mailchimp/#!/model/model.mailchimp.mailchimp__automations)        | Each record represents an automation in Mailchimp, enriched with click, open, and unsubscribe metrics. This output is enabled if you are using automations.                            |
-| [mailchimp__campaign_activities](https://fivetran.github.io/dbt_mailchimp/#!/model/model.mailchimp.mailchimp__campaign_activities) | Each record represents an activity taken in relation to a campaign email, enriched with data about when the campaign was sent and the lag between send and the activity. |
-| [mailchimp__campaign_recipients](https://fivetran.github.io/dbt_mailchimp/#!/model/model.mailchimp.mailchimp__campaign_recipients) | Each record represents the send of a campaign email, enriched with click, open, and unsubscribe metrics.                                                                  |
-| [mailchimp__campaigns](https://fivetran.github.io/dbt_mailchimp/#!/model/model.mailchimp.mailchimp__campaigns)          | Each record represents a campaign in Mailchimp, enriched with click, open, and unsubscribe metrics.                                                                       |
-| [mailchimp__lists](https://fivetran.github.io/dbt_mailchimp/#!/model/model.mailchimp.mailchimp__lists)             | Each record represents a list in Mailchimp, enriched with campaign metrics, (optional) automation metrics, and (optional) information about members.                               |
-| [mailchimp__members](https://fivetran.github.io/dbt_mailchimp/#!/model/model.mailchimp.mailchimp__members)           | Each record represents a member in Mailchimp, enriched with campaign metrics and (optional) automation metrics.                                                        |
-| [mailchimp__segments](https://fivetran.github.io/dbt_mailchimp/#!/model/model.mailchimp.mailchimp__segments)          | Each record represents a segment in Mailchimp, enriched with campaign metrics and (optional) automation metrics. This output is enabled if you are using segments.                  |
+```
+<your_database>.<connector/schema_name>_mailchimp
+```
 
-### Materialized Models
-Each Quickstart transformation job run materializes 33 models if all components of this data model are enabled. This count includes all staging, intermediate, and final models materialized as `view`, `table`, or `incremental`.
-<!--section-end-->
+### Final output tables
 
-## How do I use the dbt package?
+By default, this package materializes the following final tables:
 
-### Step 1: Prerequisites
+| Table | Description |
+| :---- | :---- |
+| [mailchimp__automations_activities](https://fivetran.github.io/dbt_mailchimp/#!/model/model.mailchimp.mailchimp__automations_activities) | Tracks individual user activities (opens, clicks, bounces) for automation emails with timestamp, IP, URL, and bounce type details to analyze automation engagement patterns and troubleshoot delivery issues. <br></br>**Example Analytics Questions:**<ul><li>What is the distribution of action_type (open, click, bounce) across automation emails and members?</li><li>How do bounce_type patterns (hard vs soft) vary by list_id and automation_id?</li><li>What are the most frequently clicked URLs in automation emails by segment_id?</li></ul>|
+| [mailchimp__automation_emails](https://fivetran.github.io/dbt_mailchimp/#!/model/model.mailchimp.mailchimp__automation_emails) | Provides detailed automation email profiles with timing (created, started, sent), delay settings, tracking configurations, subject lines, status, and engagement metrics (sends, opens, clicks, unsubscribes) to optimize automation workflows and email performance. <br></br>**Example Analytics Questions:**<ul><li>Which automation emails have the highest unique_opens and unique_clicks relative to sends?</li><li>How do delay_amount and delay_type settings correlate with open rates and unsubscribe counts?</li><li>What is the distribution of automation emails by status, position in workflow, and list_id?</li></ul>|
+| [mailchimp__automations](https://fivetran.github.io/dbt_mailchimp/#!/model/model.mailchimp.mailchimp__automations) | Summarizes automation workflows with timing (created, started), status, trigger settings, list and segment targeting, and aggregate engagement metrics (sends, opens, clicks, unsubscribes) to measure automation effectiveness and ROI. <br></br>**Example Analytics Questions:**<ul><li>Which automations have the highest unique_opens and unique_clicks rates by status?</li><li>How do different trigger_settings affect sends and engagement metrics?</li><li>What is the time between created_timestamp and started_timestamp by automation and list_id?</li></ul>|
+| [mailchimp__campaign_activities](https://fivetran.github.io/dbt_mailchimp/#!/model/model.mailchimp.mailchimp__campaign_activities) | Chronicles individual user activities (opens, clicks, bounces) for campaign emails with send timing, response lag metrics (minutes, hours, days), IP addresses, URLs, and bounce types to analyze campaign engagement timing and patterns. <br></br>**Example Analytics Questions:**<ul><li>What is the average time_since_send_hours for each action_type (open, click) by campaign_id?</li><li>Which campaigns and URLs have the highest click activity within the first 24 hours (time_since_send_days</li></ul>< 1)?<ul><li>How do bounce_type patterns vary by list_id and combination_id?</li></ul>|
+| [mailchimp__campaign_recipients](https://fivetran.github.io/dbt_mailchimp/#!/model/model.mailchimp.mailchimp__campaign_recipients) | Tracks campaign email sends at the recipient level with engagement metrics (opens, clicks), engagement flags (was_opened, was_clicked, was_unsubscribed), and time-to-open calculations to analyze individual recipient behavior and response timing. <br></br>**Example Analytics Questions:**<ul><li>What percentage of recipients have was_opened = true and was_clicked = true by campaign_id and segment_id?</li><li>What is the average time_to_open_hours and time_to_open_days by list_id and combination_id?</li><li>Which campaigns have the highest unique_opens and unique_clicks per recipient (member_id)?</li></ul>|
+| [mailchimp__campaigns](https://fivetran.github.io/dbt_mailchimp/#!/model/model.mailchimp.mailchimp__campaigns) | Consolidates campaign profiles with timing, list/segment targeting, campaign type, content settings, A/B test configurations (test_size, wait_time, winner_criteria), and comprehensive engagement metrics (sends, opens, clicks, unsubscribes) to measure campaign performance and optimize future sends. <br></br>**Example Analytics Questions:**<ul><li>Which campaigns have the highest unique_opens and unique_clicks rates by campaign_type and status?</li><li>How do A/B test settings (test_size, winner_criteria, winning_combination_id) correlate with engagement metrics?</li><li>What is the time between create_timestamp and send_timestamp by campaign_type and list_id?</li></ul>|
+| [mailchimp__lists](https://fivetran.github.io/dbt_mailchimp/#!/model/model.mailchimp.mailchimp__lists) | Provides comprehensive list profiles with contact details, subscription URLs, list rating, member counts, most recent signup timing, and aggregate campaign and automation metrics (sends, opens, clicks, unsubscribes) to evaluate list health and growth. <br></br>**Example Analytics Questions:**<ul><li>Which lists have the highest list_rating and count_members with the most recent signups (most_recent_signup_timestamp)?</li><li>How do campaign_unique_opens and campaign_unique_clicks rates vary by list visibility and email_type_option?</li><li>What is the ratio of automation engagement (automation_opens, automation_clicks) to campaign engagement by list_id?</li></ul>|
+| [mailchimp__members](https://fivetran.github.io/dbt_mailchimp/#!/model/model.mailchimp.mailchimp__members) | Consolidates member profiles with email details, subscription status, signup and opt-in timing, location data (country, timezone, latitude/longitude), member rating, VIP status, and engagement metrics (campaign and automation) to segment audiences and personalize communications. <br></br>**Example Analytics Questions:**<ul><li>Which members have the highest member_rating and campaign_unique_opens by status and list_id?</li><li>How do engagement metrics (campaign_clicks, automation_opens) vary by country_code, timezone, and vip status?</li><li>What is the time between signup_timestamp and opt_in_timestamp by email_type and language?</li></ul>|
+| [mailchimp__segments](https://fivetran.github.io/dbt_mailchimp/#!/model/model.mailchimp.mailchimp__segments) | Tracks segment profiles with list associations, member counts, segment type, creation and update timing, and aggregate campaign and automation metrics (sends, opens, clicks, unsubscribes) to measure segment performance and refine targeting strategies. <br></br>**Example Analytics Questions:**<ul><li>Which segments have the highest member_count and campaign_unique_opens rates by segment_type?</li><li>How do automation engagement metrics compare to campaign metrics by segment_id and list_name?</li><li>What segments were most recently updated (updated_timestamp) and how has their member_count changed over time?</li></ul>|
+
+¹ Each Quickstart transformation job run materializes these models if all components of this data model are enabled. This count includes all staging, intermediate, and final models materialized as `view`, `table`, or `incremental`.
+
+---
+
+## Prerequisites
 To use this dbt package, you must have the following:
 
 - At least one Fivetran Mailchimp connection syncing data into your destination.
 - A **BigQuery**, **Snowflake**, **Redshift**, **PostgreSQL**, or **Databricks** destination.
 
-### Step 2: Install the package
+## How do I use the dbt package?
+You can either add this dbt package in the Fivetran dashboard or import it into your dbt project:
+
+- To add the package in the Fivetran dashboard, follow our [Quickstart guide](https://fivetran.com/docs/transformations/dbt).
+- To add the package to your dbt project, follow the setup instructions in the dbt package's [README file](https://github.com/fivetran/dbt_mailchimp/blob/main/README.md#how-do-i-use-the-dbt-package) to use this package.
+
+<!--section-end-->
+
+### Install the package
 Include the following mailchimp package version in your `packages.yml` file:
 > TIP: Check [dbt Hub](https://hub.getdbt.com/) for the latest installation instructions or [read the dbt docs](https://docs.getdbt.com/docs/package-management) for more information on installing packages.
 ```yaml
 packages:
   - package: fivetran/mailchimp
-    version: [">=1.2.0", "<1.3.0"] # we recommend using ranges to capture non-breaking changes automatically
+    version: [">=1.3.0", "<1.4.0"] # we recommend using ranges to capture non-breaking changes automatically
 ```
 > All required sources and staging models are now bundled into this transformation package. Do not include `fivetran/mailchimp_source` in your `packages.yml` since this package has been deprecated.
 
@@ -64,8 +90,9 @@ If you are using a Databricks destination with this package, you must add the fo
 dispatch:
   - macro_namespace: dbt_utils
     search_order: ['spark_utils', 'dbt_utils']
+```
 
-### Step 3: Define database and schema variables
+### Define database and schema variables
 
 #### Option A: Single connection
 By default, this package runs using your [destination](https://docs.getdbt.com/docs/running-a-dbt-project/using-the-command-line-interface/configure-your-profile) and the `mailchimp` schema. If this is not where your Mailchimp data is (for example, if your Mailchimp schema is named `mailchimp_fivetran`), add the following configuration to your root `dbt_project.yml` file:
@@ -124,7 +151,7 @@ sources:
     tables: # copy and paste from mailchimp/models/staging/src_mailchimp.yml - see https://support.atlassian.com/bitbucket-cloud/docs/yaml-anchors/ for how to use anchors to only do so once
 ```
 
-> **Note**: If there are source tables you do not have (see [Step 4](#step-4-disable-models-for-non-existent-sources)), you may still include them, as long as you have set the right variables to `False`.
+> **Note**: If there are source tables you do not have (see [Disable models for non-existent sources](#disable-models-for-non-existent-sources)), you may still include them, as long as you have set the right variables to `False`.
 
 2. Set the `has_defined_sources` variable (scoped to the `mailchimp` package) to `True`, like such:
 ```yml
@@ -134,7 +161,7 @@ vars:
     has_defined_sources: true
 ```
 
-## Step 4: Disable models for non-existent sources
+### Disable models for non-existent sources
 Your Mailchimp connection might not sync every table that this package expects. If your syncs exclude certain tables, it is because you either don't use that functionality in Mailchimp or have actively excluded some tables from your syncs. To disable the corresponding functionality in the package, you must set the relevant config variables to `false`. By default, all variables are set to `true`. Alter variables for only the tables you want to disable: 
 
 ```yml
@@ -144,7 +171,7 @@ vars:
   mailchimp_using_unsubscribes: false #disable if you do not have the unsubscribe table
 ```
 
-## (Optional) Step 5: Additional configurations
+## (Optional) Additional configurations
 <details open><summary>Expand/collapse configurations</summary>
 
 ### Changing the Build Schema
@@ -169,7 +196,7 @@ vars:
 ```
 </details>
 
-## (Optional) Step 6: Orchestrate your models with Fivetran Transformations for dbt Core™
+## (Optional) Orchestrate your models with Fivetran Transformations for dbt Core™
 <details><summary>Expand for details</summary>
 <br>
 
@@ -189,14 +216,16 @@ packages:
       version: [">=1.0.0", "<2.0.0"]
 ```
 
-# 🙌 How is this package maintained and can I contribute?
-## Package Maintenance
-The Fivetran team maintaining this package _only_ maintains the latest version of the package. We highly recommend you stay consistent with the [latest version](https://hub.getdbt.com/fivetran/mailchimp/latest/) of the package and refer to the [CHANGELOG](https://github.com/fivetran/dbt_mailchimp/blob/main/CHANGELOG.md) and release notes for more information on changes across versions.
+<!--section="mailchimp_maintenance"-->
+## How is this package maintained and can I contribute?
 
-## Contributions
-A small team of analytics engineers at Fivetran develops these dbt packages. However, the packages are made better by community contributions! 
+### Package Maintenance
+The Fivetran team maintaining this package only maintains the [latest version](https://hub.getdbt.com/fivetran/mailchimp/latest/) of the package. We highly recommend you stay consistent with the latest version of the package and refer to the [CHANGELOG](https://github.com/fivetran/dbt_mailchimp/blob/main/CHANGELOG.md) and release notes for more information on changes across versions.
 
-We highly encourage and welcome contributions to this package. Check out [this dbt Discourse article](https://discourse.getdbt.com/t/contributing-to-a-dbt-package/657) on the best workflow for contributing to a package!
+### Contributions
+A small team of analytics engineers at Fivetran develops these dbt packages. However, the packages are made better by community contributions.
+
+We highly encourage and welcome contributions to this package. Learn how to contribute to a package in dbt's [Contributing to an external dbt package article](https://discourse.getdbt.com/t/contributing-to-a-dbt-package/657).
 
 # 🏪 Are there any resources available?
 - If you have questions or want to reach out for help, see the [GitHub Issue](https://github.com/fivetran/dbt_mailchimp/issues/new/choose) section to find the right avenue of support for you.

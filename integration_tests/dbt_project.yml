@@ -6,7 +6,7 @@ profile: 'integration_tests'
 models:
   +persist_docs:
     relation: true
-    columns: true
+    columns: "{{ false if target.type in ('databricks') else true }}"
   +schema: "mailchimp_{{ var('directed_schema','dev') }}"
 
 vars:

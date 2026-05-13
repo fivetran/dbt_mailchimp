@@ -11,7 +11,7 @@ models:
 
 vars:
   mailchimp:
-    mailchimp_schema: mailchimp_integration_tests_2
+    mailchimp_schema: mailchimp_integration_tests
     mailchimp_automation_identifier: "automation"
     mailchimp_automation_email_identifier: "automation_email"
     mailchimp_automation_recipient_identifier: "automation_recipient"
@@ -30,33 +30,44 @@ seeds:
     show: False
   mailchimp_integration_tests:
     +quote_columns: "{{ true if target.type == 'redshift' else false }}"
-    +column_types:
-      _fivetran_synced: timestamp
     automation:
       +column_types:
+        _fivetran_synced: timestamp
         create_time: timestamp
         start_time: timestamp
     automation_email:
       +column_types:
+        _fivetran_synced: timestamp
         create_time: timestamp
         start_time: timestamp
         send_time: timestamp
+    automation_recipient:
+      +column_types:
+        _fivetran_synced: timestamp
     automation_recipient_activity:
       +column_types:
+        _fivetran_synced: timestamp
         timestamp: timestamp
     campaign:
       +column_types:
+        _fivetran_synced: timestamp
         create_time: timestamp
         send_time: timestamp
+    campaign_recipient:
+      +column_types:
+        _fivetran_synced: timestamp
     campaign_recipient_activity:
       +column_types:
+        _fivetran_synced: timestamp
         timestamp: timestamp
     list:
       +column_types:
+        _fivetran_synced: timestamp
         list_rating: float
         date_created: timestamp
     member:
       +column_types:
+        _fivetran_synced: timestamp
         dstoff: float
         gmtoff: float
         last_changed: timestamp
@@ -64,10 +75,15 @@ seeds:
         timestamp_signup: timestamp
     segment:
       +column_types:
+        _fivetran_synced: timestamp
         created_at: timestamp
         updated_at: timestamp
+    segment_member:
+      +column_types:
+        _fivetran_synced: timestamp
     unsubscribe:
       +column_types:
+        _fivetran_synced: timestamp
         timestamp: timestamp
 
 dispatch:

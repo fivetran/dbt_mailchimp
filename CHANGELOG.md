@@ -1,3 +1,10 @@
+# dbt_mailchimp v.NEXT.RELEASE
+
+This PR includes the following updates:
+
+## Documentation
+- Updates README with standardized Fivetran formatting. [PR #60](https://github.com/fivetran/dbt_mailchimp/pull/60) 
+
 # dbt_mailchimp v1.2.0
 
 [PR #58](https://github.com/fivetran/dbt_mailchimp/pull/58) includes the following updates:

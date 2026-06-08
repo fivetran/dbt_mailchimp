@@ -67,7 +67,7 @@ Include the following mailchimp package version in your `packages.yml` file:
 ```yaml
 packages:
   - package: fivetran/mailchimp
-    version: [">=1.2.0", "<1.3.0"] # we recommend using ranges to capture non-breaking changes automatically
+    version: [">=1.3.0", "<1.4.0"] # we recommend using ranges to capture non-breaking changes automatically
 ```
 > All required sources and staging models are now bundled into this transformation package. Do not include `fivetran/mailchimp_source` in your `packages.yml` since this package has been deprecated.
 
@@ -80,14 +80,12 @@ dispatch:
 ```
 
 ### Define database and schema variables
-
 #### Option A: Single connection
-By default, this package runs using your [destination](https://docs.getdbt.com/docs/running-a-dbt-project/using-the-command-line-interface/configure-your-profile) and the `mailchimp` schema. If this is not where your Mailchimp data is (for example, if your Mailchimp schema is named `mailchimp_fivetran`), add the following configuration to your root `dbt_project.yml` file:
+By default, this package runs using your destination and the `mailchimp` schema. If this is not where your Mailchimp data is (for example, if your Mailchimp schema is named `mailchimp_fivetran`), add the following configuration to your root `dbt_project.yml` file:
 
 ```yml
 vars:
-  mailchimp:
-    mailchimp_database: your_database_name
+    mailchimp_database: your_destination_name
     mailchimp_schema: your_schema_name
 ```
 
@@ -111,42 +109,9 @@ vars:
         name: connection_2_source_name
 ```
 
-##### Recommended: Incorporate unioned sources into DAG
-> *If you are running the package through [Fivetran Transformations for dbt Core™](https://fivetran.com/docs/transformations/dbt#transformationsfordbtcore), the below step is necessary in order to synchronize model runs with your Mailchimp connections. Alternatively, you may choose to run the package through Fivetran [Quickstart](https://fivetran.com/docs/transformations/quickstart), which would create separate sets of models for each Mailchimp source rather than one set of unioned models.*
+#### Optional: Incorporate unioned sources into DAG
 
-By default, this package defines one single-connection source, called `mailchimp`, which will be disabled if you are unioning multiple connections. This means that your DAG will not include your Mailchimp sources, though the package will run successfully.
-
-To properly incorporate all of your Mailchimp connections into your project's DAG:
-1. Define each of your sources in a `.yml` file in your project. Utilize the following template for the `source`-level configurations, and, **most importantly**, copy and paste the table and column-level definitions from the package's `src_mailchimp.yml` [file](https://github.com/fivetran/dbt_mailchimp/blob/main/models/staging/src_mailchimp.yml).
-
-```yml
-# a .yml file in your root project
-
-version: 2
-
-sources:
-  - name: <name> # ex: Should match name in mailchimp_sources
-    schema: <schema_name>
-    database: <database_name>
-    loader: fivetran
-    config:
-      loaded_at_field: _fivetran_synced
-      freshness: # feel free to adjust to your liking
-        warn_after: {count: 72, period: hour}
-        error_after: {count: 168, period: hour}
-
-    tables: # copy and paste from mailchimp/models/staging/src_mailchimp.yml - see https://support.atlassian.com/bitbucket-cloud/docs/yaml-anchors/ for how to use anchors to only do so once
-```
-
-> **Note**: If there are source tables you do not have (see [Disable models for non-existent sources](#disable-models-for-non-existent-sources)), you may still include them, as long as you have set the right variables to `False`.
-
-2. Set the `has_defined_sources` variable (scoped to the `mailchimp` package) to `True`, like such:
-```yml
-# dbt_project.yml
-vars:
-  mailchimp:
-    has_defined_sources: true
-```
+If you use [Fivetran Transformations for dbt Core™](https://fivetran.com/docs/transformations/dbt#transformationsfordbtcore) and are unioning multiple Mailchimp connections, you can define your sources in a property `.yml` file, [using this as a template](https://github.com/fivetran/dbt_mailchimp/blob/main/models/staging/src_mailchimp.yml). Set the variable `has_defined_sources: true` under the Mailchimp namespace in your `dbt_project.yml`. Otherwise, your Mailchimp connections won't appear in your DAG. See the `union_connections` macro [documentation](https://github.com/fivetran/dbt_fivetran_utils/tree/releases/v0.4.latest#optional-union-connections-defined-sources-configuration) for full configuration details.
 
 ### Disable models for non-existent sources
 Your Mailchimp connection might not sync every table that this package expects. If your syncs exclude certain tables, it is because you either don't use that functionality in Mailchimp or have actively excluded some tables from your syncs. To disable the corresponding functionality in the package, you must set the relevant config variables to `false`. By default, all variables are set to `true`. Alter variables for only the tables you want to disable: 
@@ -180,6 +145,14 @@ If an individual source table has a different name than the package expects, add
 ```yml
 vars:
     mailchimp_<default_source_table_name>_identifier: your_table_name 
+```
+
+#### Source casing for case-sensitive destinations
+By default, the package applies case-insensitive comparisons when resolving `source_relation` values. If your destination is case-sensitive and you want downstream transformations to respect the exact casing of your source database and schema names, set the following variable:
+
+```yml
+vars:
+    fivetran_using_source_casing: true
 ```
 </details>
 

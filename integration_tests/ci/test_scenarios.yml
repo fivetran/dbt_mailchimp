@@ -23,3 +23,9 @@ test_scenarios:
       mailchimp_using_segments: false
       mailchimp_using_unsubscribes: false
     include_incremental: false
+
+  - name: "MDLS"
+    vars:
+      fivetran_using_source_casing: true
+    include_incremental: false
+    include_dbt_seed: true

@@ -15,7 +15,7 @@ fields as (
                 staging_columns=get_campaign_columns()
             )
         }}
-        {{ mailchimp.apply_source_relation() }}
+        {{ fivetran_utils.apply_source_relation(package_name='mailchimp') }}
 
     from base
 ),

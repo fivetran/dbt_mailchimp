@@ -1,3 +1,11 @@
+# dbt_mailchimp v1.3.0
+
+[PR #64](https://github.com/fivetran/dbt_mailchimp/pull/64) includes the following updates:
+
+## Under the Hood
+- Migrates the `union_connections`, `apply_source_relation`, and `partition_by_source_relation` macros to the `dbt_fivetran_utils` package.
+- Adds the `fivetran_using_source_casing` variable for case-sensitive destination support. When enabled, downstream transformations respect source casing to ensure consistent results. See the [Additional Configurations](https://github.com/fivetran/dbt_mailchimp/#source-casing-for-case-sensitive-destinations) section of the README for details.
+
 # dbt_mailchimp v1.2.0
 
 [PR #58](https://github.com/fivetran/dbt_mailchimp/pull/58) includes the following updates:
@@ -229,4 +237,4 @@ If you are using dbt Core < 1.9.6 and want to continue running Mailchimp freshne
 - Updated variable 'segment' to 'mailchimp_segment' to differentiate between similar variable in dbt-lab's Segment package (refer to [this feature request](https://github.com/fivetran/dbt_mailchimp/issues/20])
 
 ## Under the Hood
-- Added Postgres compatability 
+- Added Postgres compatability

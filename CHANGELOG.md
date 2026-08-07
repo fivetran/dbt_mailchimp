@@ -1,3 +1,11 @@
+# dbt_mailchimp v1.3.1
+
+[PR #66](https://github.com/fivetran/dbt_mailchimp/pull/66) includes the following updates:
+
+## Feature Updates
+- Adds DuckDB as a supported destination.
+
+
 # dbt_mailchimp v1.3.0
 
 [PR #64](https://github.com/fivetran/dbt_mailchimp/pull/64) includes the following updates:

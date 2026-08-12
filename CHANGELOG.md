@@ -1,3 +1,10 @@
+# dbt_mailchimp v1.3.1
+
+[PR #65](https://github.com/fivetran/dbt_mailchimp/pull/65) includes the following updates:
+
+## Bug Fix
+- Casts the `segment_id` join keys in `mailchimp__segments` to string, resolving a BigQuery error when the `segment`, `campaign`, and `automation` sources supply mismatched datatypes.
+
 # dbt_mailchimp v1.3.0
 
 [PR #64](https://github.com/fivetran/dbt_mailchimp/pull/64) includes the following updates:

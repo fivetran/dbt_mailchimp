@@ -1,4 +1,4 @@
-# dbt_mailchimp v1.3.1
+# dbt_mailchimp v1.3.2
 
 [PR #66](https://github.com/fivetran/dbt_mailchimp/pull/66) includes the following updates:
 

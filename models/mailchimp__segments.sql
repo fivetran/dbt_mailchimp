@@ -31,7 +31,8 @@ with segments as (
         {% endif %}
     from segments
     left join campaign_activities
-        on segments.segment_id = campaign_activities.segment_id
+        on cast(segments.segment_id as {{ dbt.type_string() }})
+            = cast(campaign_activities.segment_id as {{ dbt.type_string() }})
         and segments.source_relation = campaign_activities.source_relation
     left join lists
         on segments.list_id = lists.list_id
@@ -59,7 +60,8 @@ with segments as (
         {% endif %}
     from metrics
     left join automation_activities
-        on metrics.segment_id = automation_activities.segment_id
+        on cast(metrics.segment_id as {{ dbt.type_string() }})
+            = cast(automation_activities.segment_id as {{ dbt.type_string() }})
         and metrics.source_relation = automation_activities.source_relation
 
 )

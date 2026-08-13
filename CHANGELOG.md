@@ -5,6 +5,12 @@
 ## Feature Updates
 - Adds DuckDB as a supported destination.
 
+# dbt_mailchimp v1.3.1
+
+[PR #67](https://github.com/fivetran/dbt_mailchimp/pull/67) includes the following updates:
+
+## Bug Fix
+- Resolves a BigQuery error when the `segment`, `campaign`, and `automation` sources supply mismatched datatypes by casting the `segment_id` join keys in `mailchimp__segments` to string.  
 
 # dbt_mailchimp v1.3.0
 

@@ -636,8 +636,8 @@ models:
       - name: list_id
         description: The unique ID for the list.
 
-      - name: reason
+      - name: unsubscribe_reason
         description: Field expressing unsubscribe reason.
 
-      - name: timestamp
+      - name: unsubscribe_timestamp
         description: The time and date the member unsubscribed.

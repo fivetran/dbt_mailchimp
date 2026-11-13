@@ -1,3 +1,4 @@
 version: 1.3.3
+pr_number: 72
 bug_fixes:
   - description: "Updates the `stg_mailchimp__unsubscribes` documentation to list the `unsubscribe_reason` and `unsubscribe_timestamp` columns that the model outputs. The yml previously documented these columns under their pre-aliased names, `reason` and `timestamp`."

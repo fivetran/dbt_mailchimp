@@ -42,6 +42,12 @@ models:
 
   - name: stg_mailchimp__automation_emails
     description: Each record represents an automation email (that make up automations).
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - automation_email_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -183,6 +189,12 @@ models:
 
   - name: stg_mailchimp__automations
     description: Each record represents an automation in Mailchimp.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - automation_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -288,6 +300,12 @@ models:
 
   - name: stg_mailchimp__campaigns
     description: Each record represents a campaign in Mailchimp.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - campaign_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -415,6 +433,12 @@ models:
 
   - name: stg_mailchimp__lists
     description: Each record represents a list in Mailchimp.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - list_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -499,6 +523,13 @@ models:
 
   - name: stg_mailchimp__members
     description: Each record represents a member in Mailchimp.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - member_id
+              - list_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -572,6 +603,13 @@ models:
 
   - name: stg_mailchimp__segment_members
     description: Each record represents a member and their segment data.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - segment_id
+              - member_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -587,6 +625,12 @@ models:
 
   - name: stg_mailchimp__segments
     description: Each record represents a segment in Mailchimp.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - segment_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"

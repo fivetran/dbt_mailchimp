@@ -67,7 +67,7 @@ Include the following mailchimp package version in your `packages.yml` file:
 ```yaml
 packages:
   - package: fivetran/mailchimp
-    version: [">=1.4.0", "<1.5.0"] # we recommend using ranges to capture non-breaking changes automatically
+    version: [">=1.5.0", "<1.6.0"] # we recommend using ranges to capture non-breaking changes automatically
 ```
 > All required sources and staging models are now bundled into this transformation package. Do not include `fivetran/mailchimp_source` in your `packages.yml` since this package has been deprecated.
 

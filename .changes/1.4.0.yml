@@ -2,5 +2,10 @@ version: 1.4.0
 pr_number: 71
 new_features:
 - description: Raises the minimum supported dbt version from v1.3.0 to v1.10.0.
+bug_fixes:
+- description: Updates the `stg_mailchimp__unsubscribes` documentation to list the
+    `unsubscribe_reason` and `unsubscribe_timestamp` columns that the model outputs.
+    The yml previously documented these columns under their pre-aliased names, `reason`
+    and `timestamp`.
 under_the_hood:
 - description: Adds `dbt_utils.unique_combination_of_columns` tests to the staging and end models. The tests use the `arguments` syntax introduced in dbt v1.10.0, the new minimum supported version.

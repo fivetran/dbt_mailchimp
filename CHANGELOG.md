@@ -1,3 +1,10 @@
+# dbt_mailchimp v1.3.3
+
+[PR #72](https://github.com/fivetran/dbt_mailchimp/pull/72) includes the following updates:
+
+## Bug Fix
+- Updates the `stg_mailchimp__unsubscribes` documentation to list the `unsubscribe_reason` and `unsubscribe_timestamp` columns that the model outputs. The yml previously documented these columns under their pre-aliased names, `reason` and `timestamp`.
+
 # dbt_mailchimp v1.3.2
 
 [PR #66](https://github.com/fivetran/dbt_mailchimp/pull/66) includes the following updates:

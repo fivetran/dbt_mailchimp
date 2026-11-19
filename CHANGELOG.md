@@ -6,8 +6,8 @@
 - Raises the minimum dbt version to 1.10.0.
 - Adds `dbt_utils.unique_combination_of_columns` tests to staging and end models. If a test fails, please [open an issue](https://github.com/fivetran/dbt_mailchimp/issues/new/choose).
 
-## Bug Fix
-- Updates the `stg_mailchimp__unsubscribes` documentation to list the `unsubscribe_reason` and `unsubscribe_timestamp` columns that the model outputs. The yml previously documented these columns under their pre-aliased names, `reason` and `timestamp`.
+## Under the Hood
+- Updates yml column documentation to match model output.
 
 # dbt_mailchimp v1.3.2
 

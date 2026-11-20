@@ -4,13 +4,19 @@ models:
 
   - name: mailchimp__lists
     description: Each record represents a list in Mailchimp, enriched with campaign metrics, (optionally) automation metrics and information about members.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - list_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
 
       - name: list_id
         description: The unique ID of a list.
-        tests:
+        data_tests:
           - not_null
 
       - name: date_created
@@ -129,13 +135,20 @@ models:
 
   - name: mailchimp__members
     description: Each record represents a member in Mailchimp, enriched with campaign metrics and (optionally) automation metrics.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - member_id
+              - list_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
 
       - name: member_id
         description: The ID of the member.
-        tests:
+        data_tests:
           - not_null
 
       - name: email_address
@@ -238,13 +251,19 @@ models:
 
   - name: mailchimp__campaigns
     description: Each record represents a campaign in Mailchimp, enriched with click, open and unsubscribe metrics.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - campaign_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
 
       - name: campaign_id
         description: The ID of the campaign in Mailchimp.
-        tests:
+        data_tests:
           - not_null
 
       - name: segment_id
@@ -382,13 +401,19 @@ models:
 
   - name: mailchimp__campaign_recipients
     description: Each record represents the send of a campaign email, enriched with click, open and unsubscribe metrics.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - email_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
 
       - name: email_id
         description: Surrogate key hashed on source_relation, campaign_id and member_id.
-        tests:
+        data_tests:
           - not_null
 
       - name: campaign_id
@@ -444,13 +469,19 @@ models:
 
   - name: mailchimp__campaign_activities
     description: Each record represents an activity taken in relation to a campaign email, enriched with data about when the campaign was sent and the lag between send and the activity.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - activity_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
 
       - name: activity_id
         description: The ID of the activity/event.
-        tests:
+        data_tests:
           - not_null
 
       - name: action_type
@@ -499,13 +530,19 @@ models:
 
   - name: mailchimp__automations
     description: Each record represents an automation in Mailchimp, enriched with click, open and unsubscribe metrics. (Enabled if you are using automations.)
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - automation_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
 
       - name: automation_id
         description: The ID of the automation in Mailchimp.
-        tests:
+        data_tests:
           - not_null
 
       - name: list_id
@@ -554,12 +591,18 @@ models:
 
   - name: mailchimp__automation_emails
     description: Each record represents an automation email (that make up automations), enriched with click, open and unsubscribe metrics. (Enabled if you are using automations.)
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - automation_email_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
 
       - name: automation_email_id
-        tests:
+        data_tests:
           - not_null
         description: The ID for the automation email that relates to the activity.
 
@@ -697,13 +740,19 @@ models:
 
   - name: mailchimp__automation_activities
     description: Each record represents an activity taken in relation to a automation email.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - activity_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
 
       - name: activity_id
         description: The ID of the activity/event.
-        tests:
+        data_tests:
           - not_null
 
       - name: action_type
@@ -740,13 +789,19 @@ models:
         
   - name: mailchimp__segments
     description: Each record represents a segment in Mailchimp, enriched with campaign metrics and (optionally) automation metrics. (Enabled if you are using segments.)
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - segment_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
 
       - name: segment_id
         description: The ID for the Segment from Mailchimp
-        tests:
+        data_tests:
           - not_null
 
       - name: list_id

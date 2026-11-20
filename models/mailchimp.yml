@@ -16,7 +16,7 @@ models:
 
       - name: list_id
         description: The unique ID of a list.
-        tests:
+        data_tests:
           - not_null
 
       - name: date_created
@@ -148,7 +148,7 @@ models:
 
       - name: member_id
         description: The ID of the member.
-        tests:
+        data_tests:
           - not_null
 
       - name: email_address
@@ -263,7 +263,7 @@ models:
 
       - name: campaign_id
         description: The ID of the campaign in Mailchimp.
-        tests:
+        data_tests:
           - not_null
 
       - name: segment_id
@@ -413,7 +413,7 @@ models:
 
       - name: email_id
         description: Surrogate key hashed on source_relation, campaign_id and member_id.
-        tests:
+        data_tests:
           - not_null
 
       - name: campaign_id
@@ -481,7 +481,7 @@ models:
 
       - name: activity_id
         description: The ID of the activity/event.
-        tests:
+        data_tests:
           - not_null
 
       - name: action_type
@@ -542,7 +542,7 @@ models:
 
       - name: automation_id
         description: The ID of the automation in Mailchimp.
-        tests:
+        data_tests:
           - not_null
 
       - name: list_id
@@ -602,7 +602,7 @@ models:
         description: "{{ doc('source_relation') }}"
 
       - name: automation_email_id
-        tests:
+        data_tests:
           - not_null
         description: The ID for the automation email that relates to the activity.
 
@@ -752,7 +752,7 @@ models:
 
       - name: activity_id
         description: The ID of the activity/event.
-        tests:
+        data_tests:
           - not_null
 
       - name: action_type
@@ -801,7 +801,7 @@ models:
 
       - name: segment_id
         description: The ID for the Segment from Mailchimp
-        tests:
+        data_tests:
           - not_null
 
       - name: list_id

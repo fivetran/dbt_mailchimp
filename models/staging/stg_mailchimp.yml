@@ -10,7 +10,7 @@ models:
 
       - name: activity_id
         description: The ID of the activity/event.
-        tests: 
+        data_tests: 
           - not_null
           - unique
 
@@ -54,7 +54,7 @@ models:
 
       - name: automation_email_id
         description: The ID of the automation email. 
-        tests:
+        data_tests:
           - unique
           - not_null
 
@@ -174,7 +174,7 @@ models:
 
       - name: automation_recipient_id
         description: Surrogate key hashed on source_relation, member_id and automation_email_id 
-        tests: 
+        data_tests: 
           - not_null
           - unique
       
@@ -201,7 +201,7 @@ models:
 
       - name: automation_id
         description: The ID of the automation in Mailchimp.
-        tests:
+        data_tests:
           - unique
           - not_null
 
@@ -239,7 +239,7 @@ models:
 
       - name: email_id
         description: Surrogate key hashed on source_relation, campaign_id and member_id. 
-        tests:
+        data_tests:
           - unique
           - not_null
 
@@ -263,7 +263,7 @@ models:
 
       - name: activity_id
         description: The ID of the activity/event.
-        tests:
+        data_tests:
           - unique
           - not_null
 
@@ -312,7 +312,7 @@ models:
 
       - name: campaign_id
         description: The ID of the campaign in Mailchimp.
-        tests:
+        data_tests:
           - unique
           - not_null
 
@@ -445,7 +445,7 @@ models:
 
       - name: list_id
         description: The unique ID of a list.
-        tests:
+        data_tests:
           - unique
           - not_null
 
@@ -536,7 +536,7 @@ models:
 
       - name: member_id
         description: The ID of the member.
-        tests:
+        data_tests:
           - not_null
 
       - name: email_address
@@ -637,7 +637,7 @@ models:
 
       - name: segment_id
         description: The ID for the Segment from Mailchimp
-        tests:
+        data_tests:
           - unique
           - not_null
 
@@ -667,7 +667,7 @@ models:
 
       - name: unsubscribe_id
         description: Surrogate key hashed on source_relation, member_id, list_id, and unsubscribe_timestamp
-        tests: 
+        data_tests: 
           - not_null
           - unique
 

@@ -1,3 +1,14 @@
+# dbt_mailchimp v1.4.0
+
+[PR #71](https://github.com/fivetran/dbt_mailchimp/pull/71) includes the following updates:
+
+## Feature Update
+- **Breaking change**: Raises the minimum dbt version to 1.10.0.
+- Adds `dbt_utils.unique_combination_of_columns` tests to staging and end models. If a test fails, please [open an issue](https://github.com/fivetran/dbt_mailchimp/issues/new/choose).
+
+## Under the Hood
+- Updates yml column documentation to match model output.
+
 # dbt_mailchimp v1.3.2
 
 [PR #66](https://github.com/fivetran/dbt_mailchimp/pull/66) includes the following updates:

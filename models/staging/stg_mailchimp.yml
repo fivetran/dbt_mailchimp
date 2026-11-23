@@ -4,6 +4,12 @@ models:
 
   - name: stg_mailchimp__automation_activities
     description: Each record represents an activity taken in relation to a automation email.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - activity_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -12,7 +18,6 @@ models:
         description: The ID of the activity/event.
         data_tests: 
           - not_null
-          - unique
 
       - name: action_type
         description: >
@@ -167,6 +172,12 @@ models:
 
   - name: stg_mailchimp__automation_recipients
     description: Each record represents info about the recipient of each automation.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - automation_recipient_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -175,7 +186,6 @@ models:
         description: Surrogate key hashed on source_relation, member_id and automation_email_id 
         data_tests: 
           - not_null
-          - unique
       
       - name: member_id
         description: The ID of the member the automation was sent to.
@@ -231,6 +241,12 @@ models:
 
   - name: stg_mailchimp__campaign_recipients
     description: Each record represents the send of a campaign email.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - email_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -238,7 +254,6 @@ models:
       - name: email_id
         description: Surrogate key hashed on source_relation, campaign_id and member_id. 
         data_tests:
-          - unique
           - not_null
 
       - name: campaign_id
@@ -255,6 +270,12 @@ models:
 
   - name: stg_mailchimp__campaign_activities
     description: Each record represents an activity taken in relation to a campaign email.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - activity_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -262,7 +283,6 @@ models:
       - name: activity_id
         description: The ID of the activity/event.
         data_tests:
-          - unique
           - not_null
 
       - name: action_type
@@ -656,6 +676,12 @@ models:
 
   - name: stg_mailchimp__unsubscribes
     description: Each record represents a member who unsubscribed.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - unsubscribe_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -664,7 +690,6 @@ models:
         description: Surrogate key hashed on source_relation, member_id, list_id, and unsubscribe_timestamp
         data_tests: 
           - not_null
-          - unique
 
       - name: campaign_id
         description: The unique id for the campaign.

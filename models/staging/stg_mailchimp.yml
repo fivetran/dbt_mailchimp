@@ -55,7 +55,6 @@ models:
       - name: automation_email_id
         description: The ID of the automation email. 
         data_tests:
-          - unique
           - not_null
 
       - name: automation_id
@@ -202,7 +201,6 @@ models:
       - name: automation_id
         description: The ID of the automation in Mailchimp.
         data_tests:
-          - unique
           - not_null
 
       - name: list_id
@@ -313,7 +311,6 @@ models:
       - name: campaign_id
         description: The ID of the campaign in Mailchimp.
         data_tests:
-          - unique
           - not_null
 
       - name: segment_id
@@ -446,7 +443,6 @@ models:
       - name: list_id
         description: The unique ID of a list.
         data_tests:
-          - unique
           - not_null
 
       - name: date_created
@@ -638,7 +634,6 @@ models:
       - name: segment_id
         description: The ID for the Segment from Mailchimp
         data_tests:
-          - unique
           - not_null
 
       - name: list_id

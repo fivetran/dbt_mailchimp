@@ -23,7 +23,7 @@ with unsubscribes as (
         automations.automation_id
 
     from unsubscribes
-    left join automation_emails
+    inner join automation_emails
         on unsubscribes.campaign_id = automation_emails.automation_email_id
         and unsubscribes.source_relation = automation_emails.source_relation
     left join automations

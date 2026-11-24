@@ -36,8 +36,8 @@ with activities as (
         segment_id,
         sum(case when action_type = 'open' then 1 end) as opens,
         sum(case when action_type = 'click' then 1 end) as clicks,
-        count(distinct case when action_type = 'open' then segment_id end) as unique_opens,
-        count(distinct case when action_type = 'click' then segment_id end) as unique_clicks
+        count(distinct case when action_type = 'open' then member_id end) as unique_opens,
+        count(distinct case when action_type = 'click' then member_id end) as unique_clicks
     from activities
     where segment_id is not null
     group by 1,2
